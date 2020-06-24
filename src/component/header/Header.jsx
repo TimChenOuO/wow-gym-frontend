@@ -16,11 +16,12 @@ import HeaderDropdown from "../header-dropdown/HeaderDropdown";
 
 // redux action-------------------------------
 import { navBarSelect } from "../../redux/nav-bar/navBar-action";
+import { shopShowFilterTag } from "../../redux/shop/shop-action";
 
 const Header = (props) => {
   const [subDiv, setSubDiv] = useState(false);
   //會員登出---------
-  const { mAuth , setMAuth, eAuth, navBarSelect, MLogoutProcess,ELogoutProcess }= props
+  const { mAuth , setMAuth, eAuth, navBarSelect, MLogoutProcess,ELogoutProcess, navBarSelect, shopShowFilterTag }= props
 
   
   const MLogoutSuccessCallback = () => {
@@ -130,7 +131,10 @@ const Header = (props) => {
           <Link
             to="/shopping"
             className="option"
-            onClick={() => setSubDiv(false)}
+            onClick={() => {
+              shopShowFilterTag("選擇篩選");
+              setSubDiv(false);
+            }}
             onMouseEnter={() => {
               navBarSelect("shop");
               if (subDiv) return;
@@ -185,6 +189,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   navBarSelect: (select) => dispatch(navBarSelect(select)),
+  shopShowFilterTag: (tag) => dispatch(shopShowFilterTag(tag)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

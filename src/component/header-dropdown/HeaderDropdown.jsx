@@ -10,8 +10,15 @@ import {
 } from "../../redux/nav-bar/navBar-selector";
 
 import "./HeaderDropdown.scss";
+import { shopShowFilterTag } from "../../redux/shop/shop-action";
 
-const HeaderDropdown = ({ setSubDiv, subDiv, navChoose, navLink }) => {
+const HeaderDropdown = ({
+  setSubDiv,
+  subDiv,
+  navChoose,
+  navLink,
+  dispatch,
+}) => {
   const history = useHistory();
   return (
     <CSSTransition
@@ -27,7 +34,10 @@ const HeaderDropdown = ({ setSubDiv, subDiv, navChoose, navLink }) => {
             <Link
               key={linkInfo.name + "cc"}
               to={`${linkInfo.linkRoute}`}
-              onClick={() => setSubDiv(false)}
+              onClick={() => {
+                dispatch(shopShowFilterTag("選擇篩選"));
+                setSubDiv(false);
+              }}
             >
               {linkInfo.name}
             </Link>
@@ -41,7 +51,10 @@ const HeaderDropdown = ({ setSubDiv, subDiv, navChoose, navLink }) => {
               <Link
                 key={linkInfo.name + "h1"}
                 to={`${linkInfo.linkRoute}`}
-                onClick={() => setSubDiv(false)}
+                onClick={() => {
+                  dispatch(shopShowFilterTag("選擇篩選"));
+                  setSubDiv(false);
+                }}
               >
                 {linkInfo.name}
               </Link>

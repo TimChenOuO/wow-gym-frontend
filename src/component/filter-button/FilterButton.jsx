@@ -28,14 +28,36 @@ const FilterButton = ({
   filterPriceTag,
 }) => {
   const [toggleDrop, setToggleDrop] = useState(false);
-  // const [filter, setFilter] = useState("選擇篩選");
+
+  // conver filter name to chinese
+  const converFilterNameToChinese = (list) => {
+    switch (list) {
+      case "portein":
+        return "高蛋白";
+      case "cookie":
+        return "餅乾";
+      case "clothes":
+        return "上衣";
+      case "shirt":
+        return "上衣";
+      case "pants":
+        return "褲子";
+      default:
+        return list;
+    }
+  };
+
   return (
     <span className="filter-button-container">
       <button
         className="filter-button"
         onClick={() => setToggleDrop(!toggleDrop)}
       >
-        <span>{filterCollection ? filterTag : filterPriceTag}</span>
+        <span>
+          {filterCollection
+            ? converFilterNameToChinese(filterTag)
+            : filterPriceTag}
+        </span>
         <Icon icon={ic_arrow_drop_down} size={16} />
       </button>
       {toggleDrop && (
@@ -74,7 +96,7 @@ const FilterButton = ({
                     shopFetchStart(undefined, list);
                   }}
                 >
-                  {list}
+                  {converFilterNameToChinese(list)}
                 </li>
               ))}
             {filterCollection && (
