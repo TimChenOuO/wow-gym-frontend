@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 function MLogin(props) {
     // console.log('M:', props.mData)
     // console.log(props)
-console.log(props.mAuth)
+// console.log(props.mAuth)
     const MLoginSuccessCallback = () => {
         // alert('登入成功，跳轉頁面')
         const a = props.mAccount
@@ -17,7 +17,9 @@ console.log(props.mAuth)
         props.mData.membersRow.filter(m=>(m.memberAccount === a)).map(m=>(m))
         localStorage.setItem('member', JSON.stringify(whichMember))
         props.setMAuth(true)
-        props.history.push(`/courses/${props.mId}`, { from: '從登入頁來' })
+        // props.history.push(`/courses/${props.mId}`, { from: '從登入頁來' })
+        props.history.push(`/`, { from: '從登入頁來' })
+
     }
 
     const MLogoutSuccessCallback = () => {

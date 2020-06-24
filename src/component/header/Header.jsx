@@ -20,13 +20,26 @@ import { navBarSelect } from "../../redux/nav-bar/navBar-action";
 const Header = (props) => {
   const [subDiv, setSubDiv] = useState(false);
   //會員登出---------
-  const { mAuth , setMAuth, eAuth, navBarSelect, MLogoutProcess }= props
+  const { mAuth , setMAuth, eAuth, navBarSelect, MLogoutProcess,ELogoutProcess }= props
+
+  
   const MLogoutSuccessCallback = () => {
     alert('登出成功，跳回首頁')
-    props.setMAuth(false)
+    props.setEAuth(false)
     localStorage.clear()
-    props.history.push('/')
+    // props.history.push('/MLogin')
   }
+
+  // console.log(mAuth)
+  //教練登出----------
+  const ELogoutSuccessCallback = () => {
+    alert('登出成功，跳回首頁')
+    props.setEAuth(false)
+    localStorage.clear()
+    // props.history.push('/MLogin')
+  }
+
+
   const MLoginButton = (
     <>
      <Link  to="/MLogin"
@@ -58,7 +71,7 @@ const Header = (props) => {
       </Link>
     </>
   )
-  const logoutButton = (
+  const MLogoutButton = (
     <>
       <span style={{ color: '#ffffff' }}> 你好</span>
       <Button
@@ -70,8 +83,20 @@ const Header = (props) => {
     </>
   )
 
-  const displayMButton = mAuth ? logoutButton : MLoginButton
-  const displayEButton = eAuth ? logoutButton : ELoginButton
+  const ELogoutButton = (
+    <>
+      <span style={{ color: '#ffffff' }}> 你好</span>
+      <Button
+        variant="outline-light"
+        onClick={() => { ELogoutProcess(ELogoutSuccessCallback) }}
+      >
+        登出
+      </Button>
+    </>
+  )
+
+  const displayMButton = mAuth ? MLogoutButton : MLoginButton
+  const displayEButton = eAuth ? ELogoutButton : ELoginButton
   //----------------------------------
   return (
     <div className="header">

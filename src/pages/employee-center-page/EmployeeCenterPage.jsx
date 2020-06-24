@@ -1,37 +1,89 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './EmployeeCenterPage.scss'
 import people from './111.jpg'
 import { withRouter } from 'react-router'
+import Moment from 'react-moment'
+import 'moment-timezone'
 
-import P from '../../component/employee-center-p/EmployeeCenterP'
-import CourseButton from "../../component/employee-center-course-button/EmployeeCenterCourseButton"
+// import P from '../../component/employee-center-P/EmployeeCenterP'
+import CourseButton from '../../component/employee-center-course-button/EmployeeCenterCourseButton'
 
 function EmployeeCenter(props) {
+  const [employeedata, setEmployeedata] = useState([])
+  // console.log(props)
 
-  console.log(props)
-
-  const {eid} = props
-
-  async function getEmployeeId(){
-    const request = new Request(`http://localhost:5000/api/employee/${eid}`, {
-      method: 'GET',
-      headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'appliaction/json',
-      }),
-    })
+  async function getEmployeeId() {
+    const x = localStorage
+      .getItem('employee')
+      .split(',', 1)
+      .join('')
+      .match(/\d+/)
+    const request = new Request(
+      `http://localhost:5000/api/employee/${x}`,
+      {
+        method: 'GET',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'appliaction/json',
+        }),
+      }
+    )
 
     const response = await fetch(request)
     const data = await response.json()
-
-    console.log(data)
-
-
+    setEmployeedata(data)
   }
 
-  useEffect(()=>{
+  //載入
+  useEffect(() => {
     getEmployeeId()
-  },[])
+  }, [])
+
+  //改變
+  useEffect(() => {
+    // const a =[]
+    setEmployeedata(employeedata)
+    
+    //   employeedata.find((item) => {
+    //     return a.push(item.Ename, item.Egender, item.Ebirthday,item.EphoneNumber,item.Eemail)
+    //   })
+    // console.log(a)
+  }, [employeedata])
+
+  // const y =[]
+  // const x = employeedata
+  //   .find((item) => {
+  //     return y.push(item.Ename, item.Egender, item.Ebirthday,item.EphoneNumber,item.Eemail)
+  //   })
+
+  //   const employeeCapital = y.map((i)=>{
+  //     return<>
+  //       <p>{y[0]}</p>
+  //     </>
+  //   })
+
+  const employeeCapital = employeedata.map((item) => {
+    return (
+      <>
+        <p key={1}>姓名：{item.Ename}</p>
+        <p key={2}>性別：{item.Egender}</p>
+        <p key={3}>
+          生日：<Moment format="YYYY/MM/DD">{item.Ebirthday}</Moment>
+        </p>
+        <p key={4}>電話：{item.EphoneNumber}</p>
+        <p key={5}>email：{item.Eemail}</p>
+      </>
+    )
+  })
+
+  const employeeRecord = employeedata.map((item) => {
+    return (
+      <>
+        <p key={6}>專長：{item.Elicense}</p>
+        <p key={7}>證照：{item.Eexpertise}</p>
+      </>
+    )
+  })
 
   return (
     <>
@@ -40,38 +92,22 @@ function EmployeeCenter(props) {
           <div className="photo">
             <img className="people" alt="" src={people} />
           </div>
-          <div className="data">
-            <P title={'姓名：小琳'} />
-            <P title={'性別：女'} />
-            <P title={'生日：1111/11/11'} />
-            <P title={'電話：0900000000'} />
-            <P title={'email：aaa@aaa'} />
-          </div>
-          <div className="expertise">
-            <P
-              title={
-                '專長：跆拳道、減重與體態雕朔、個人運動處方規劃、功能性訓練、運動按摩'
-              }
-            />
-            <P
-              title={
-                '證照：健身Ｃ級教練、跆拳道Ｃ級裁判/教練、銀髮族體適能指導員、EMTI緊急救護員(CPR+AED)、中華奧會運動禁藥採樣員'
-              }
-            />
-          </div>
+          <div className="data">{employeeCapital}</div>
+          <div className="expertise">{employeeRecord}</div>
         </div>
         <div className="bottom">
-          <CourseButton/>
-          <CourseButton/>
-          <CourseButton/>
-          <CourseButton/>
-          <CourseButton/>
-          <CourseButton/>
-          <CourseButton/>
-          <CourseButton/>
+          <CourseButton />
+          <CourseButton />
+          <CourseButton />
+          <CourseButton />
+          <CourseButton />
+          <CourseButton />
+          <CourseButton />
+          <CourseButton />
         </div>
       </div>
     </>
   )
 }
+
 export default withRouter(EmployeeCenter)

@@ -21,7 +21,7 @@ function EmployeeLogin(props) {
         )
         setEAuth(true)
         props.history.push(`/employeecenter/${eId}`, { from: '從登入頁來' })
-        // console.log(props)
+        console.log('e:',setEAuth)
     }
 
     return (

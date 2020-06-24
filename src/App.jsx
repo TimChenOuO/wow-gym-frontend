@@ -170,7 +170,16 @@ const App = () => {
 
   return (
     <div>
-      <Header MLogoutProcess={MLogoutProcess}/>
+      <Header 
+      mAuth={mAuth} 
+      setMAuth={setMAuth} 
+      eAuth={eAuth} 
+      setEAuth={setEAuth} 
+      MLoginProcess={MLoginProcess}
+      MLogoutProcess={MLogoutProcess}
+      ELoginProcess={ELoginProcess}
+      ELogoutProcess={ELogoutProcess}
+      />
       <div className="space" />
       <main>
         <Switch>
