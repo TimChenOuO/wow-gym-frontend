@@ -18,7 +18,7 @@ function Courses(props) {
     // 開啟載入指示
     // setDataLoading(true)
     // 注意header資料格式要設定，伺服器才知道是json格式
-    const request = new Request('http://localhost:5000/api/courses', {
+    const request = new Request('http://localhost:5000/api/courses/data', {
       method: 'GET',
       headers: new Headers({
         'Accept': 'application/json',
