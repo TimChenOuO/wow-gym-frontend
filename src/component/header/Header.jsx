@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { Navbar, Nav, Form, Button } from 'react-bootstrap'
+
 
 import "./header.scss";
 
@@ -16,8 +18,87 @@ import HeaderDropdown from "../header-dropdown/HeaderDropdown";
 import { navBarSelect } from "../../redux/nav-bar/navBar-action";
 import { shopShowFilterTag } from "../../redux/shop/shop-action";
 
-const Header = ({ navBarSelect, shopShowFilterTag }) => {
+const Header = (props) => {
   const [subDiv, setSubDiv] = useState(false);
+  //會員登出---------
+  const { mAuth , setMAuth, eAuth, navBarSelect, MLogoutProcess,ELogoutProcess, shopShowFilterTag }= props
+
+  
+  const MLogoutSuccessCallback = () => {
+    alert('登出成功，跳回首頁')
+    props.setEAuth(false)
+    localStorage.clear()
+    // props.history.push('/MLogin')
+  }
+
+  // console.log(mAuth)
+  //教練登出----------
+  const ELogoutSuccessCallback = () => {
+    alert('登出成功，跳回首頁')
+    props.setEAuth(false)
+    localStorage.clear()
+    // props.history.push('/MLogin')
+  }
+
+
+  const MLoginButton = (
+    <>
+     <Link  to="/MLogin"
+    >
+      <Button
+        variant="outline-light"
+        // onClick={() => {
+        //   props.history.push('/MLogin')
+        // }}
+      >
+        會員登入
+      </Button>
+      </Link>
+    </>
+  )
+
+  const ELoginButton = (
+    <>
+    <Link  to="/employeelogin"
+    >
+      <Button
+        variant="outline-light"
+        // onClick={() => {
+        //   props.history.push('/employeelogin')
+        // }}
+      >
+        教練登入
+      </Button>
+      </Link>
+    </>
+  )
+  const MLogoutButton = (
+    <>
+      <span style={{ color: '#ffffff' }}> 你好</span>
+      <Button
+        variant="outline-light"
+        onClick={() => { MLogoutProcess(MLogoutSuccessCallback) }}
+      >
+        登出
+      </Button>
+    </>
+  )
+
+  const ELogoutButton = (
+    <>
+      <span style={{ color: '#ffffff' }}> 你好</span>
+      <Button
+        variant="outline-light"
+        onClick={() => { ELogoutProcess(ELogoutSuccessCallback) }}
+      >
+        登出
+      </Button>
+    </>
+  )
+
+  const displayMButton = mAuth ? MLogoutButton : MLoginButton
+  const displayEButton = eAuth ? ELogoutButton : ELoginButton
+  //----------------------------------
   return (
     <div className="header">
       <div className="header-spacing" />
@@ -90,6 +171,9 @@ const Header = ({ navBarSelect, shopShowFilterTag }) => {
       </div>
 
       <div className="sub sub-cart" onMouseOver={() => setSubDiv(false)}>
+        {/* //--------登入登出紐------ */}
+        <Form inline>{displayMButton}</Form>
+        <Form inline>{displayEButton}</Form>
         <CartIcon />
       </div>
       <HeaderDropdown setSubDiv={setSubDiv} subDiv={subDiv} />
