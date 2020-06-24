@@ -21,7 +21,7 @@ import { shopShowFilterTag } from "../../redux/shop/shop-action";
 const Header = (props) => {
   const [subDiv, setSubDiv] = useState(false);
   //會員登出---------
-  const { mAuth , setMAuth, eAuth, navBarSelect, MLogoutProcess,ELogoutProcess, navBarSelect, shopShowFilterTag }= props
+  const { mAuth , setMAuth, eAuth, navBarSelect, MLogoutProcess,ELogoutProcess, shopShowFilterTag }= props
 
   
   const MLogoutSuccessCallback = () => {
