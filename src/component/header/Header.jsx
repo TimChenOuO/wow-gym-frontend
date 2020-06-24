@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { Navbar, Nav, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 import "./header.scss";
 
@@ -20,7 +20,6 @@ import { shopShowFilterTag } from "../../redux/shop/shop-action";
 const Header = ({
   mAuth,
   setEAuth,
-  setMAuth,
   eAuth,
   navBarSelect,
   MLogoutProcess,
@@ -28,8 +27,6 @@ const Header = ({
   shopShowFilterTag,
 }) => {
   const [subDiv, setSubDiv] = useState(false);
-  //會員登出---------
-  // const { mAuth , setMAuth, eAuth, navBarSelect, MLogoutProcess,ELogoutProcess, shopShowFilterTag }= props
 
   const MLogoutSuccessCallback = () => {
     alert("登出成功，跳回首頁");
