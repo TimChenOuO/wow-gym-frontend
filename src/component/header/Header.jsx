@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { Navbar, Nav, Form, Button } from 'react-bootstrap'
+
 
 import "./header.scss";
 
@@ -15,8 +17,62 @@ import HeaderDropdown from "../header-dropdown/HeaderDropdown";
 // redux action-------------------------------
 import { navBarSelect } from "../../redux/nav-bar/navBar-action";
 
-const Header = ({ navBarSelect }) => {
+const Header = (props) => {
   const [subDiv, setSubDiv] = useState(false);
+  //會員登出---------
+  const { mAuth , setMAuth, eAuth, navBarSelect, MLogoutProcess }= props
+  const MLogoutSuccessCallback = () => {
+    alert('登出成功，跳回首頁')
+    props.setMAuth(false)
+    localStorage.clear()
+    props.history.push('/')
+  }
+  const MLoginButton = (
+    <>
+     <Link  to="/MLogin"
+    >
+      <Button
+        variant="outline-light"
+        // onClick={() => {
+        //   props.history.push('/MLogin')
+        // }}
+      >
+        會員登入
+      </Button>
+      </Link>
+    </>
+  )
+
+  const ELoginButton = (
+    <>
+    <Link  to="/employeelogin"
+    >
+      <Button
+        variant="outline-light"
+        // onClick={() => {
+        //   props.history.push('/employeelogin')
+        // }}
+      >
+        教練登入
+      </Button>
+      </Link>
+    </>
+  )
+  const logoutButton = (
+    <>
+      <span style={{ color: '#ffffff' }}> 你好</span>
+      <Button
+        variant="outline-light"
+        onClick={() => { MLogoutProcess(MLogoutSuccessCallback) }}
+      >
+        登出
+      </Button>
+    </>
+  )
+
+  const displayMButton = mAuth ? logoutButton : MLoginButton
+  const displayEButton = eAuth ? logoutButton : ELoginButton
+  //----------------------------------
   return (
     <div className="header">
       <div className="header-spacing" />
@@ -86,6 +142,9 @@ const Header = ({ navBarSelect }) => {
       </div>
 
       <div className="sub sub-cart" onMouseOver={() => setSubDiv(false)}>
+        {/* //--------登入登出紐------ */}
+        <Form inline>{displayMButton}</Form>
+        <Form inline>{displayEButton}</Form>
         <CartIcon />
       </div>
       <HeaderDropdown setSubDiv={setSubDiv} subDiv={subDiv} />

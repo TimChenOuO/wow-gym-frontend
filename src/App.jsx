@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import {connect} from "react-redux"
 
 
 // Pages----------
@@ -169,7 +170,7 @@ const App = () => {
 
   return (
     <div>
-      <Header />
+      <Header MLogoutProcess={MLogoutProcess}/>
       <div className="space" />
       <main>
         <Switch>
