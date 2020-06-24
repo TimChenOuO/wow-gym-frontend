@@ -6,3 +6,8 @@ export const currentUserSelect = createSelector(
   [userSelect],
   (user) => user.currentUser
 );
+
+export const userListSelect = createSelector(
+  [userSelect],
+  (user) => user.userList
+);

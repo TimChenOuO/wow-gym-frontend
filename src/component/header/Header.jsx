@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { Form, Button } from "react-bootstrap";
 
 import "./header.scss";
 
@@ -10,21 +9,27 @@ import "./header.scss";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import CartIcon from "../cart-icon/Cart-icon";
 import CartDropdown from "../cart-dropdown/Cart-dropdown";
-import { cartHiddenSelect } from "../../redux/cart/cart-selector";
 import HeaderDropdown from "../header-dropdown/HeaderDropdown";
+import CustomButton from "../custom-button/Custom-button";
+
+// Select
+import { cartHiddenSelect } from "../../redux/cart/cart-selector";
+import { navBarSelect } from "../../redux/nav-bar/navBar-action";
+import { currentUserSelect } from "../../redux/user/user-selector";
+import { currentEmployeeSelect } from "../../redux/employee/employee-selector";
 
 // redux action-------------------------------
 import { userLogout } from "../../redux/user/user-action";
-import { navBarSelect } from "../../redux/nav-bar/navBar-action";
+import { employeeLogout } from "../../redux/employee/employee-action";
 import { shopShowFilterTag } from "../../redux/shop/shop-action";
-import { currentUserSelect } from "../../redux/user/user-selector";
-import CustomButton from "../custom-button/Custom-button";
 
 const Header = ({
   navBarSelect,
   shopShowFilterTag,
   currentUser,
   userLogout,
+  currentEmployee,
+  employeeLogout,
 }) => {
   const [subDiv, setSubDiv] = useState(false);
   const history = useHistory();
@@ -95,15 +100,15 @@ const Header = ({
       </div>
 
       <div className="sub sub-cart" onMouseOver={() => setSubDiv(false)}>
-        {currentUser ? (
-          <CustomButton
-            onClick={() => {
-              userLogout();
-              // history.push("/login");
-            }}
-          >
-            登出
+        {currentEmployee ? (
+          <CustomButton onClick={() => employeeLogout()}>教練登出</CustomButton>
+        ) : (
+          <CustomButton onClick={() => history.push("/employeelogin")}>
+            教練登入
           </CustomButton>
+        )}
+        {currentUser ? (
+          <CustomButton onClick={() => userLogout()}>登出</CustomButton>
         ) : (
           <CustomButton onClick={() => history.push("/login")}>
             登入
@@ -121,12 +126,14 @@ const Header = ({
 const mapStateToProps = createStructuredSelector({
   hidden: cartHiddenSelect,
   currentUser: currentUserSelect,
+  currentEmployee: currentEmployeeSelect,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   navBarSelect: (select) => dispatch(navBarSelect(select)),
   shopShowFilterTag: (tag) => dispatch(shopShowFilterTag(tag)),
   userLogout: () => dispatch(userLogout()),
+  employeeLogout: () => dispatch(employeeLogout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

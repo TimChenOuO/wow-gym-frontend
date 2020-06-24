@@ -1,9 +1,9 @@
 import React from "react";
 // import './editingWindow.css';
-import { Button, Modal, Image } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 function JumpWindow(props) {
-  const { onHide, show, state } = props;
+  const { onHide, show } = props;
 
   console.log(props);
   return (
@@ -22,7 +22,7 @@ function JumpWindow(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <img src={props.courseImg} />
+          {/* <img src={props.courseImg} /> */}
           {props.courseIntroduce}
         </Modal.Body>
       </Modal>
