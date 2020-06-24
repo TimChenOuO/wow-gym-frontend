@@ -6,9 +6,9 @@ import {
 } from "./cart-utils";
 
 const INITIAL_STATE = {
-  hidden: true,
+  hidden: false,
   cartItems: [],
-  cartFavoriteItems: null,
+  cartFavoriteItems: {},
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {

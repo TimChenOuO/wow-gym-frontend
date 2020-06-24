@@ -14,26 +14,26 @@ const ShopCountButton = ({ cartItem, addQuantity }) => {
   const [quantity, setQuantity] = useState(1);
 
   return (
-    <>
-      <div className="shop-count-btn-container">
+    <div className="shop-count-btn-container">
+      <div className="count-btn-container">
         <Icon
           onClick={() => (quantity === 1 ? null : setQuantity(quantity - 1))}
           icon={leftBtn}
           size={30}
-          style={{ color: "pink", cursor: "pointer" }}
+          style={{ color: "#1178b8", cursor: "pointer" }}
         />
         <span>{quantity}</span>
         <Icon
           onClick={() => setQuantity(quantity + 1)}
           icon={rightBtn}
           size={30}
-          style={{ color: "pink", cursor: "pointer" }}
+          style={{ color: "#1178b8", cursor: "pointer" }}
         />
-        <CustomButton shopCount onClick={() => addQuantity(cartItem, quantity)}>
-          加入購物車
-        </CustomButton>
       </div>
-    </>
+      <CustomButton shopCount onClick={() => addQuantity(cartItem, quantity)}>
+        加入購物車
+      </CustomButton>
+    </div>
   );
 };
 

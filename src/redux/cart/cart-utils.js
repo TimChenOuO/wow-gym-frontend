@@ -16,7 +16,10 @@ export const removeCartItem = (cartItems, itemId) => {
   return cartItems.filter((item) => item.itemId !== itemId);
 };
 
-export const unlikeCartItem = (cartFavoriteItems, item) =>
-  Object.values(cartFavoriteItems).filter(
-    (cartItem) => cartItem.itemId !== item.itemId
-  );
+export const unlikeCartItem = (cartFavoriteItems, item) => {
+  delete cartFavoriteItems[item.itemId];
+  return { ...cartFavoriteItems };
+};
+// Object.values(cartFavoriteItems).filter(
+//   (cartItem) => cartItem.itemId !== item.itemId
+// );

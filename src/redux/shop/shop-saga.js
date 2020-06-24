@@ -6,15 +6,30 @@ import {
   shopFetchSuccess,
   shopFetchFailure,
   shopItemSuccess,
+  shopPageFailure,
+  shopPageSuccess,
 } from "./shop-action";
 
 // Shop Fetch-----------------
-export function* ShopFetchAsyncSaga({ payload }) {
+export function* ShopFetchAsyncSaga({ payload, typeUrl }) {
   try {
-    const {
-      data: { collection },
-    } = yield axios.get(`http://localhost:5000/api/shop/${payload}`);
-    yield put(shopFetchSuccess(collection));
+    let data;
+    if (!typeUrl && payload) {
+      const {
+        data: { collection },
+      } = yield axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/shop/${payload}`
+      );
+      data = collection;
+    } else {
+      const {
+        data: { collection },
+      } = yield axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/shop/shopitem/${typeUrl}`
+      );
+      data = collection;
+    }
+    yield put(shopFetchSuccess(data));
   } catch (err) {
     yield put(shopFetchFailure(err));
   }
@@ -30,7 +45,9 @@ export function* ShopItemAsyncSaga({ payload }) {
   try {
     const {
       data: { shopItem },
-    } = yield axios.get(`http://localhost:5000/api/shop/detail/${payload}`);
+    } = yield axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/shop/detail/${payload}`
+    );
     yield put(shopItemSuccess(shopItem[0]));
   } catch (err) {
     yield put(shopFetchFailure(err));
@@ -41,7 +58,25 @@ export function* ShopItemFetchStartSaga() {
   yield takeLatest(shopActionTypes.SHOP_ITEM_START, ShopItemAsyncSaga);
 }
 // -------------------
+export function* ShopPageAsyncSaga() {
+  try {
+    const {
+      data: { collection },
+    } = yield axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/shop`);
+    yield put(shopPageSuccess(collection));
+  } catch (err) {
+    yield put(shopPageFailure(err));
+  }
+}
+
+export function* ShopPageFetchStartSaga() {
+  yield takeLatest(shopActionTypes.SHOP_PAGE_START, ShopPageAsyncSaga);
+}
 
 export function* shopSagas() {
-  yield all([call(ShopFetchStartSaga), call(ShopItemFetchStartSaga)]);
+  yield all([
+    call(ShopFetchStartSaga),
+    call(ShopItemFetchStartSaga),
+    call(ShopPageFetchStartSaga),
+  ]);
 }

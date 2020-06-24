@@ -25,10 +25,11 @@ import EmployeeLoginPage from './pages/employee-login-page/EmployeeLoginPage'
 // react lazy
 const ShopPage = lazy(() => import("./pages/shop-page/ShopPage"));
 const ShopCollectionPage = lazy(() =>
-  import("./pages/shop-overview-page/ShopCollectionPage")
+  import("./pages/shop-collection-page/ShopCollectionPage")
 );
 const ShopItemPage = lazy(() => import("./pages/shop-item-page/ShopItemPage"));
 
+const HomePage = () => <div>Hi</div>;
 // APP component
 const App = () => {
 
@@ -167,22 +168,22 @@ const App = () => {
 
 
   return (
-    <>
+    <div>
       <Header />
       <div className="space" />
       <main>
         <Switch>
           <ErrorBoundary>
             <Suspense fallback={<LoadingSpinner />}>
-              <Route exact path="/" component={LoadingSpinner} />
-              <Route exact path="/shop" component={ShopPage} />
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/shopping" component={ShopPage} />
               <Route
                 exact
-                path="/shop/:collection"
+                path="/shop/:collection?/:itemType?"
                 component={ShopCollectionPage}
               />
               <Route
-                path="/shop/:collection/:itemId"
+                path="/shopitem/:collection/:itemId"
                 component={ShopItemPage}
               />
               <Route path="/mLogin">
@@ -247,8 +248,8 @@ const App = () => {
           </ErrorBoundary>
         </Switch>
       </main>
-    </>
+    </div>
   );
 };
 
-export default App;
+export default connect(null)(App);
