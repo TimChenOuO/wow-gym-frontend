@@ -23,6 +23,7 @@ import EmployeeFormPage from "./pages/employee-form-page/EmployeeFormPage";
 import EmployeeCenterPage from "./pages/employee-center-page/EmployeeCenterPage";
 import EmployeeLoginPage from "./pages/employee-login-page/EmployeeLoginPage";
 import axios from "axios";
+import SignInOutPage from "./pages/sign-in-out-page/Sign-in-out-page";
 
 // react lazy
 const ShopPage = lazy(() => import("./pages/shop-page/ShopPage"));
@@ -175,22 +176,7 @@ const App = ({ userListStart }) => {
                 path="/shopitem/:collection/:itemId"
                 component={ShopItemPage}
               />
-              <Route path="/mLogin">
-                <MLogin
-                  mAuth={mAuth}
-                  setMAuth={setMAuth}
-                  mAccount={mAccount}
-                  setMAccount={setMAccount}
-                  mPwd={mPwd}
-                  setMPwd={setMPwd}
-                  MLoginProcess={MLoginProcess}
-                  MLogoutProcess={MLogoutProcess}
-                  mData={mData}
-                  setMData={setMData}
-                  mId={mId}
-                  setMId={setMId}
-                />
-              </Route>
+              <Route path="/login" component={SignInOutPage} />
 
               <Route path="/employeeform">
                 <EmployeeFormPage eId={eId} setEId={setEId} />
