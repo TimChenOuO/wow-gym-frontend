@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Courses.scss';
-import CourseInformation from '../../component/course-information/CourseInformation'
+// import CourseInformation from '../../component/course-information/CourseInformation'
 import Selector from '../../component/course-selector/CourseSelector'
 import CourseCalender from '../../component/course-calender/CourseCalender'
 
@@ -125,12 +125,12 @@ function Courses(props) {
         <h1>課程資訊 Class information</h1>
       </div>
       <div className="container">
-        <CourseInformation
+        {/* <CourseInformation
           // introduce={introduce} 
           // setIntroduce={setIntroduce}
           setChoose={setChoose}
           allCourses={allCourses}
-        />
+        /> */}
         <Selector
           // selector={information} 
           choose={choose}
