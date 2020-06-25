@@ -1,107 +1,132 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
+import { createStructuredSelector } from "reselect";
+import { currentUserSelect } from "../../redux/user/user-selector"
 import "./CourseBox.scss";
+
 import CJumpWindow from "../c-jump-window/CJumpWindow";
 import SJumpWindow from "../s-jump-window/SJumpWindow";
-// import ControllerButton from '../controller-button/controllerButton'
+import CourseBookingButton from "../course-booking-button/CourseBookingButton";
 
 function CourseBox(props) {
-  let t = ([] = props.course.courseTime);
-  // console.log('t', t)
-  // console.log(t.split(/[- T .]/))
-  let newT = t.split(/[' ']/)[3];
-  // console.log(newT)
-  const [cModalShow, setCModalShow] = useState(false);
-  const [sModalShow, setSModalShow] = useState(false);
 
-    let t = [] = props.course.courseTime
-    console.log('t:', t)
-    // // console.log(t.split(/[- T .]/))
-    let newT = t.split(/[' ']/)[3]
-    // console.log(newT)
+    const { currentUserData } = props
+    //該使用者的id
+    const currentUserId = currentUserData ? currentUserData.memberId : ''
+    // console.log(currentUserId)
+
     const [cModalShow, setCModalShow] = useState(false);
     const [sModalShow, setSModalShow] = useState(false);
+    //原本資料庫的bookingData
+    const [bookingData, setBookingData] = useState('');
+    //預約後存值
+    const [newBookingData, setNewBookingData] = useState('')
 
-    // console.log('ee:',props)
 
-    async function bookingCourse() {
-       
-        //b = localStorage裡的資料
-        const b = JSON.parse(localStorage.getItem('member'))
+    let t = [] = props.course.courseTime
+    // console.log('t:', t)
+    let newT = t.split(/[' ']/)[3]
 
-        //c = 點擊預約後抓該課程資料
-        // const c = [{
-        //     'courseId': props.course.courseId,
-        //     'staffId': props.course.staffId,
-        //     'courseName': props.course.courseName,
-        //     'courseCategoryName': props.course.courseCategoryName,
-        //     'courseTime': props.course.courseTime,
-        //     'courseHour': props.course.courseHour,
-        //     'numberOfCourse': props.course.numberOfCourse,
-        //     'courseQuoda': props.course.courseQuoda
-        // }]
-        // console.log('b:', b)
-        // console.log('c:', c)
-        //將b跟c陣列中的物件合併
-        // const d = Object.assign(b[0], c[0])
-        
-        //將資料轉成json字串格式
-        // await localStorage.setItem('member', JSON.stringify(d))
-        // console.log(d)
+    //Fetch 預約資料
+    async function getBookingData() {
+        const request = new Request("http://localhost:5000/api/courses/bookingData", {
+            method: 'GET',
+            body: JSON.stringify(),
+            headers: new Headers({
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            }),
+        })
+        const response = await fetch(request)
+        const data = await response.json()
+        setBookingData(data)
+        // console.log(A)
+    }
 
-        // const request = new Request('http://localhost:5000/api/insertCourse', {
-        //     method: 'POST',
-        //     body: JSON.stringify(d),
-        //     headers: new Headers({
-        //         Accept: 'application/json',
-        //         'Content-Type': 'application/json',
-        //     }),
-        // })
+    //
+    async function addBooking() {
+        if (currentUserId !== '') {
+            // 點擊預約後抓該id
+            const getThisCourseId = props.course.courseId
+            // console.log('c:', getThisCourseId)
 
-    // const response = await fetch(request)
-    // const data = await response.json()
-  }
+            //post新增預約到資料庫
+            const bookingPost = {
+                memberId: currentUserId,
+                courseId: getThisCourseId
+            }
+            const request = new Request("http://localhost:5000/api/courses/bookingData", {
+                method: 'POST',
+                body: JSON.stringify(bookingPost),
+                headers: new Headers({
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                }),
+            })
+            const response = await fetch(request)
+            const data = await response.json()
+            setNewBookingData(data)
+            // setChangeBtn(props.course.courseId)
+        } else {
+            alert('請先登入會員')
+        }
+    }
 
-  return (
-    <>
-      <div className="courseBox">
-        <div onClick={() => setCModalShow(true)}>{props.course.courseName}</div>
+    //初始render抓booking資料
+    useEffect(() => {
+        getBookingData()
+    }, [])
+    // 如果有新預定就重抓booking資料
+    useEffect(() => {
+        getBookingData()
+        // console.log(nowBooking)
+    }, [newBookingData])
 
-        <div className="courseTime">{newT}</div>
-        {/* <div className="courseTime">{props.course.staffId}</div> */}
-        <div onClick={() => setSModalShow(true)} className="coachName">
-          {props.course.Ename}
-        </div>
-        {/* <a onClick={} className="booking btn">已報名</a> */}
-        {/* <a className="bookingFull btn">已額滿</a> */}
-        <a onClick={() => bookingCourse()} className="accessBooking btn">
-          預約
-        </a>
-      </div>
-      <div className="jumpWindow">
-        {cModalShow && (
-          <CJumpWindow
-            show={cModalShow}
-            onHide={() => setCModalShow(false)}
-            courseName={props.course.courseName}
-            courseIntroduce={props.course.courseIntroduce}
-            courseImg={props.course.courseImg}
-          />
-        )}
-        {sModalShow && (
-          <SJumpWindow
-            show={sModalShow}
-            onHide={() => setSModalShow(false)}
-            coachName={props.course.Ename}
-            //專長
-            coachExpertise={props.course.Eexpertise}
-            //證照
-            coachLicense={props.course.Elicense}
-            coachImg={props.course.Eimg}
-          />
-        )}
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div className="courseBox">
+                <div onClick={() => setCModalShow(true)}>{props.course.courseName}</div>
+                <div className="courseTime">{newT}</div>
+                <div onClick={() => setSModalShow(true)} className="coachName">
+                    {props.course.Ename}
+                </div>
+                <CourseBookingButton
+                    value={props.course.courseId}
+                    bookingData={bookingData}
+                    currentUserId={currentUserId}
+                    addBooking={addBooking}
+                />
+            </div>
+            <div className="jumpWindow">
+                <CJumpWindow
+                    show={cModalShow}
+                    onHide={() => setCModalShow(false)}
+                    courseName={props.course.courseName}
+                    courseIntroduce={props.course.courseIntroduce}
+                    courseImg={props.course.courseImg}
+                />
+                {sModalShow && (
+                    <SJumpWindow
+                        show={sModalShow}
+                        onHide={() => setSModalShow(false)}
+                        coachName={props.course.Ename}
+                        //專長
+                        coachExpertise={props.course.Eexpertise}
+                        //證照
+                        coachLicense={props.course.Elicense}
+                        coachImg={props.course.Eimg}
+                    />
+                )}
+            </div>
+        </>
+    );
 }
 
-export default CourseBox;
+
+const mapStateToProps = createStructuredSelector({
+    currentUserData: currentUserSelect,
+});
+
+export default withRouter(connect(mapStateToProps)(CourseBox));

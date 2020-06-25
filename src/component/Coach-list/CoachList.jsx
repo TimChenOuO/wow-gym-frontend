@@ -1,6 +1,6 @@
 import React from 'react'
 import './CoachList.scss'
-import CoachBox from '../Course-box/CourseBox'
+import CoachBox from '../Coach-box/CoachBox'
 
 
 function CoachList (props){

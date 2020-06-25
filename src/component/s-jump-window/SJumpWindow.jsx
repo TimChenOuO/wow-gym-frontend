@@ -22,7 +22,7 @@ function JumpWindow(props) {
     );
   });
 
-  console.log(props.coachExpertise);
+  // console.log(props.coachExpertise);
   return (
     <Modal.Dialog>
       <Modal
@@ -39,7 +39,10 @@ function JumpWindow(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* <img src={props.coachImg} /> */}
+          <img
+          src={props.coachImg} 
+          alt="coachImg"
+          />
           <div className="coachExpertise">
             <h5>專長：</h5>
             <br />

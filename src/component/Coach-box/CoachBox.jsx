@@ -6,7 +6,10 @@ function CoachBox(props) {
     return (
         <>
             <div className="coachBox">
-            <img src={props.employee.Eimg} />
+            <img 
+            src={props.employee.Eimg}
+            alt="coachPhoto"
+            />
                 <div className="nameShadow">
                     {props.employee.Ename}
                 </div>
