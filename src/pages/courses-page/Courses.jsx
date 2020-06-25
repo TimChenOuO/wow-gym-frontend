@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Courses.scss";
 // import CourseInformation from '../../component/course-information/CourseInformation'
-import Selector from "../../component/course-selector/CourseSelector";
+import CourseInformation from "../../component/course-information/CourseInformation"
+import CourseSelector from "../../component/course-selector/CourseSelector";
 import CourseCalender from "../../component/course-calender/CourseCalender";
+import DateBar from "../../component/date-bar/date-bar"
 
 
 function Courses(props) {
@@ -10,10 +12,12 @@ function Courses(props) {
   const [allCourses, setAllCourses] = useState([])
   const [choose, setChoose] = useState([])
   const [newCourses, setNewCourses] = useState([])
+  const [newCategory, setNewCategory] = useState([])
   const [coaches, setCoaches] = useState([])
+  const [week, setWeek] = useState('')
   // console.log('app.js',newCourses)
 
-  async function getData() {
+  async function getCoursesData() {
     // 開啟載入指
     // 注意header資料格式要設定，伺服器才知道是json格式
     const request = new Request('http://localhost:5000/api/courses/data', {
@@ -28,7 +32,8 @@ function Courses(props) {
     const data = await response.json()
 
     setAllCourses(data)
-    setChoose(data)
+    setWeek(data)
+    // setChoose(data)
     // console.log(data)
   }
   async function getCoachesData() {
@@ -42,14 +47,11 @@ function Courses(props) {
 
     const response = await fetch(request)
     const data = await response.json()
-
+    
     // console.log(data)
     // 設定資料
     setCoaches(data)
   }
-  // const introduce = allCourses.map(introduce =>(
-  //   introduce.categoryIntroduce
-  // ))
 
   // console.log('introduce:'+introduce)
   async function getCategoryData() {
@@ -72,7 +74,7 @@ function Courses(props) {
   }
 
   useEffect(() => {
-    getData()
+    getCoursesData()
     getCoachesData()
     getCategoryData()
   }, [])
@@ -82,13 +84,12 @@ function Courses(props) {
   }, [choose])
 
   const handleChange = (e) => {
-  
+
     const oop = e.target.value
     const renewCourses = allCourses.coursesRow && allCourses.coursesRow.filter(course => (course.courseCategoryName === oop))
 
-    // console.log("renewCourses",renewCourses)
-
     setNewCourses(renewCourses)
+    setNewCategory(oop)
 
     // console.log('aa',{ ...choose })
     if (!allCourses.coursesRow) {
@@ -104,21 +105,21 @@ function Courses(props) {
         <h1>課程資訊 Class information</h1>
       </div>
       <div className="container">
-        {/* <CourseInformation
-          // introduce={introduce} 
-          // setIntroduce={setIntroduce}
-          setChoose={setChoose}
-          allCourses={allCourses}
-        /> */}
-        <Selector
-          // selector={information} 
+        <CourseInformation
+          choose={choose}
+          newCourses={newCourses}
+          newCategory={newCategory}
+        />
+        <CourseSelector
           choose={choose}
           setChoose={setChoose}
           allCourses={allCourses}
           setAllCourses={setAllCourses}
           handleChange={handleChange}
-        // newCourses={newCourses}
-        // setNewCourses={setNewCourses}
+        />
+        <DateBar 
+          allCourses={allCourses}
+          week={setWeek}
         />
         <CourseCalender
           choose={choose}

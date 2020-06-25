@@ -2,9 +2,9 @@ import React from "react";
 import "./CourseSelector.scss";
 import CourseSelectorOption from "../course-selector-option/CourseSelectorOption";
 
-function Selector(props) {
+function CourseSelector(props) {
   const { choose } = props;
-
+  // console.log(choose)
   // console.log('s:', choose)
 
   return (
@@ -26,4 +26,4 @@ function Selector(props) {
     </>
   );
 }
-export default Selector;
+export default CourseSelector;

@@ -1,19 +1,28 @@
 import React from 'react'
 import './CourseInformation.scss'
 
-function Information(props){
-// console.log('info:'+props)
+function CourseInformation(props){
+
+const {choose, newCategory}= props
+
+// console.log(choose.coursesCategory)
+// console.log(newCategory)
+
+const newTitle = choose.coursesCategory && choose.coursesCategory.filter(category=>(category.courseCategoryName === newCategory)).map(item=>(item.courseCategoryName))
+
+const newIntroduce = choose.coursesCategory && choose.coursesCategory.filter(category=>(category.courseCategoryName === newCategory)).map(item=>(item.categoryIntroduce))
+
     return(
         <>
         <div className="information">
-            {/* <p className="title">{props.introduce[0].courseCategory}</p> */}
+            <p className="title">{newTitle}</p>
             <hr />
             <p className="introduce">
-              {/* {props.introduce[0].introduce} */}
+              {newIntroduce}
             </p>
           </div>
         </>
     )
 }
 
-export default Information 
+export default CourseInformation 

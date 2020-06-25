@@ -16,6 +16,7 @@ function CourseBox(props) {
     //該使用者的id
     const currentUserId = currentUserData ? currentUserData.memberId : ''
     // console.log(currentUserId)
+    // console.log(currentUserData)
 
     const [cModalShow, setCModalShow] = useState(false);
     const [sModalShow, setSModalShow] = useState(false);
@@ -45,7 +46,7 @@ function CourseBox(props) {
         // console.log(A)
     }
 
-    //
+    
     async function addBooking() {
         if (currentUserId !== '') {
             // 點擊預約後抓該id
@@ -73,6 +74,39 @@ function CourseBox(props) {
             alert('請先登入會員')
         }
     }
+    async function cancelBooking() {
+        if (currentUserId !== '') {
+            // 點擊預約後抓該id
+            const getThisCourseId = props.course.courseId
+            // console.log('c:', getThisCourseId)
+            //該會員已預約過的預約Id
+            const A = bookingData && bookingData.filter(m => m.memberId === currentUserId).map(bookedCourse => (bookedCourse))
+            // console.log(A)
+            const B = A && A.filter(item => item.courseId === getThisCourseId)
+            
+            const cancelId = B[0].courseBookingId
+
+           
+          
+            const request = new Request(`http://localhost:5000/api/courses/bookingData/${cancelId}`, {
+                method: 'DELETE',
+                body: 'ok',
+                headers: new Headers({
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                }),
+            })
+            const response = await fetch(request)
+            const data = await response.json()
+            setNewBookingData(data)
+            console.log('okk')
+            // setChangeBtn(props.course.courseId)
+        } 
+        // else {
+        //     alert('請先登入會員')
+        // }
+    }
+
 
     //初始render抓booking資料
     useEffect(() => {
@@ -97,6 +131,7 @@ function CourseBox(props) {
                     bookingData={bookingData}
                     currentUserId={currentUserId}
                     addBooking={addBooking}
+                    cancelBooking={cancelBooking}
                 />
             </div>
             <div className="jumpWindow">
