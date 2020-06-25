@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { Form, Button } from "react-bootstrap";
 
 import "./header.scss";
 
@@ -10,100 +9,31 @@ import "./header.scss";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import CartIcon from "../cart-icon/Cart-icon";
 import CartDropdown from "../cart-dropdown/Cart-dropdown";
-import { cartHiddenSelect } from "../../redux/cart/cart-selector";
 import HeaderDropdown from "../header-dropdown/HeaderDropdown";
+import CustomButton from "../custom-button/Custom-button";
+
+// Select
+import { cartHiddenSelect } from "../../redux/cart/cart-selector";
+import { navBarSelect } from "../../redux/nav-bar/navBar-action";
+import { currentUserSelect } from "../../redux/user/user-selector";
+import { currentEmployeeSelect } from "../../redux/employee/employee-selector";
 
 // redux action-------------------------------
-import { navBarSelect } from "../../redux/nav-bar/navBar-action";
+import { userLogout } from "../../redux/user/user-action";
+import { employeeLogout } from "../../redux/employee/employee-action";
 import { shopShowFilterTag } from "../../redux/shop/shop-action";
 
 const Header = ({
-  mAuth,
-  setEAuth,
-  eAuth,
   navBarSelect,
-  MLogoutProcess,
-  ELogoutProcess,
   shopShowFilterTag,
+  currentUser,
+  userLogout,
+  currentEmployee,
+  employeeLogout,
 }) => {
   const [subDiv, setSubDiv] = useState(false);
+  const history = useHistory();
 
-  const MLogoutSuccessCallback = () => {
-    alert("登出成功，跳回首頁");
-    setEAuth(false);
-    localStorage.clear();
-    // history.push('/MLogin')
-  };
-
-  // console.log(mAuth)
-  //教練登出----------
-  const ELogoutSuccessCallback = () => {
-    alert("登出成功，跳回首頁");
-    setEAuth(false);
-    localStorage.clear();
-    // history.push('/MLogin')
-  };
-
-  const MLoginButton = (
-    <>
-      <Link to="/MLogin">
-        <Button
-          variant="outline-light"
-          // onClick={() => {
-          //   history.push('/MLogin')
-          // }}
-        >
-          會員登入
-        </Button>
-      </Link>
-    </>
-  );
-
-  const ELoginButton = (
-    <>
-      <Link to="/employeelogin">
-        <Button
-          variant="outline-light"
-          // onClick={() => {
-          //   props.history.push('/employeelogin')
-          // }}
-        >
-          教練登入
-        </Button>
-      </Link>
-    </>
-  );
-  const MLogoutButton = (
-    <>
-      <span style={{ color: "#ffffff" }}> 你好</span>
-      <Button
-        variant="outline-light"
-        onClick={() => {
-          MLogoutProcess(MLogoutSuccessCallback);
-        }}
-      >
-        登出
-      </Button>
-    </>
-  );
-
-  const ELogoutButton = (
-    <>
-      <span style={{ color: "#ffffff" }}> 你好</span>
-      <Button
-        variant="outline-light"
-        onClick={() => {
-          ELogoutProcess(ELogoutSuccessCallback);
-        }}
-      >
-        登出
-      </Button>
-    </>
-  );
-
-  const displayMButton = mAuth ? MLogoutButton : MLoginButton;
-  const displayEButton = eAuth ? ELogoutButton : ELoginButton;
-  //----------------------------------
   return (
     <div className="header">
       <div className="header-spacing" />
@@ -124,15 +54,9 @@ const Header = ({
         <div
           className="options"
           onMouseOver={() => {
-            // navBarSelect("shop");
             if (subDiv) return;
-            // setSubDiv(true);
           }}
         >
-          {/* <Link to="/" className="option">
-            about
-          </Link> */}
-
           <Link
             to="/shopping"
             className="option"
@@ -176,9 +100,20 @@ const Header = ({
       </div>
 
       <div className="sub sub-cart" onMouseOver={() => setSubDiv(false)}>
-        {/* //--------登入登出紐------ */}
-        <Form inline>{displayMButton}</Form>
-        <Form inline>{displayEButton}</Form>
+        {currentEmployee ? (
+          <CustomButton onClick={() => employeeLogout()}>教練登出</CustomButton>
+        ) : (
+          <CustomButton onClick={() => history.push("/employeelogin")}>
+            教練登入
+          </CustomButton>
+        )}
+        {currentUser ? (
+          <CustomButton onClick={() => userLogout()}>登出</CustomButton>
+        ) : (
+          <CustomButton onClick={() => history.push("/login")}>
+            登入
+          </CustomButton>
+        )}
         <CartIcon />
       </div>
       <HeaderDropdown setSubDiv={setSubDiv} subDiv={subDiv} />
@@ -190,11 +125,15 @@ const Header = ({
 // redux mapState & mapDispatch
 const mapStateToProps = createStructuredSelector({
   hidden: cartHiddenSelect,
+  currentUser: currentUserSelect,
+  currentEmployee: currentEmployeeSelect,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   navBarSelect: (select) => dispatch(navBarSelect(select)),
   shopShowFilterTag: (tag) => dispatch(shopShowFilterTag(tag)),
+  userLogout: () => dispatch(userLogout()),
+  employeeLogout: () => dispatch(employeeLogout()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

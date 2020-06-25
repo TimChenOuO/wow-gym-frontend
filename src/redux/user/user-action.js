@@ -13,3 +13,12 @@ export const userListFailure = (err) => ({
   type: userActionType.USER_LIST_FAILURE,
   payload: err,
 });
+
+export const userLogin = (user) => ({
+  type: userActionType.USER_LOG_IN,
+  payload: user,
+});
+
+export const userLogout = () => ({
+  type: userActionType.USER_LOG_OUT,
+});

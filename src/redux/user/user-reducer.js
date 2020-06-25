@@ -12,6 +12,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         userList: action.payload,
       };
+    case userActionType.USER_LOG_IN:
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
+    case userActionType.USER_LOG_OUT:
+      return {
+        ...state,
+        currentUser: null,
+      };
     default:
       return state;
   }
