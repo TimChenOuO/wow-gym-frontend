@@ -14,8 +14,11 @@ const ErrorModel = ({ unValid, handleIsValid, children }) => {
       unmountOnExit
     >
       <div className="error-model-container">
+        <div className="gradient-bar" />
         <h3>{children}</h3>
-        <CustomButton onClick={handleIsValid}>確定</CustomButton>
+        <CustomButton errorModel onClick={handleIsValid}>
+          確定
+        </CustomButton>
       </div>
     </CSSTransition>
   );

@@ -21,6 +21,7 @@
 .error-model-container {
     background-color: white;
     // border: 1px black solid;
+    border-radius: 3px;
     box-shadow: 1px 1px 2px black;
     position: fixed;
     top: 35vh;
@@ -32,12 +33,24 @@
     align-items: center;
     justify-content: center;
     z-index: 3;
+    overflow: hidden;
+
+    .gradient-bar {
+        width: 100%;
+        height: 7px;
+        background-image: linear-gradient(to right, #1178b8, #7143e9);
+        justify-self: start;
+        position: absolute;
+        top: 0;
+    }
 
     h3 {
         font-size: 1rem;
-        margin-bottom: 1rem;
+        padding-bottom: 2rem;
     }
     button {
-        width: 100px;
+        position: absolute;
+        bottom: 10px;
+        left: calc(50% - 35px);
     }
 }
