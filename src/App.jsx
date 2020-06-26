@@ -19,7 +19,7 @@ import EmployeeSignInOutPage from "./pages/employee-sign-in-out-page/employee-si
 // import CartList from "./component/Order-CartList/CartList";
 // import CheckOutPage from "./component/Order-CheckOutPage/CheckOutPage";
 // import OrderCompleted from "./component/OrderCompleted/OrderCompleted";
-import HomePage from './pages/HomePage/Home'
+import HomePage from "./pages/HomePage/Home";
 // Component------
 import LoadingSpinner from "./component/loading-spinner/LoadingSpinner";
 import ErrorBoundary from "./component/error-boundary/ErrorBoundary";
@@ -47,13 +47,12 @@ const App = ({ userListStart, employeeListStart }) => {
 
   return (
     <div>
-      {/* <HomePage /> */}
       <Header />
-
       <main>
         <Switch>
           <ErrorBoundary>
             <Suspense fallback={<LoadingSpinner />}>
+              <Route exact path="/" component={HomePage} />
               <Route exact path="/shopping" component={ShopPage} />
               <Route
                 exact
@@ -84,8 +83,6 @@ const App = ({ userListStart, employeeListStart }) => {
               <Route path="/OrderListDetail" component={OrderListDetail} />
               <Route path="/CheckOutPage" component={CheckOutPage} />
               <Route path="/OrderCompleted" component={OrderCompleted} /> */}
-
-
             </Suspense>
           </ErrorBoundary>
         </Switch>
