@@ -29,7 +29,7 @@ import { userListStart } from "./redux/user/user-action";
 import { employeeListStart } from "./redux/employee/employee-action";
 
 import "./App.scss";
-// 
+
 // react lazy
 const ShopPage = lazy(() => import("./pages/shop-page/ShopPage"));
 const ShopCollectionPage = lazy(() =>
@@ -37,8 +37,6 @@ const ShopCollectionPage = lazy(() =>
 );
 const ShopItemPage = lazy(() => import("./pages/shop-item-page/ShopItemPage"));
 // -----------
-
-// const HomePage = () => <div>Hi</div>;
 
 // APP component
 const App = ({ userListStart, employeeListStart }) => {
@@ -79,7 +77,6 @@ const App = ({ userListStart, employeeListStart }) => {
               {/* 玉玲 */}
               <Route path="/courses" component={Courses} />
               <Route path="/coaches" component={Coaches} />
-
 
               {/* Darren測試用 */}
               {/* <Route path="/OrderList" component={OrderList} />
