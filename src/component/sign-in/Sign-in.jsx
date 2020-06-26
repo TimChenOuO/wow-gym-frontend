@@ -9,14 +9,16 @@ import CustomButton from "../custom-button/Custom-button";
 import { userLogin } from "../../redux/user/user-action";
 import { createStructuredSelector } from "reselect";
 import { userListSelect } from "../../redux/user/user-selector";
+import ErrorModel from "../error-model/ErrorModel";
 
 class SignIn extends React.Component {
   state = {
     email: "",
     password: "",
+    unValid: false,
   };
 
-  handleSubmit = async (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
     const { userList, userLogin, history } = this.props;
@@ -28,7 +30,8 @@ class SignIn extends React.Component {
       userLogin(currentUser);
       history.push("/");
     } else {
-      alert("Wrong email or password!");
+      console.log(this.state.unValid);
+      this.setState({ unValid: true });
     }
   };
 
@@ -37,17 +40,22 @@ class SignIn extends React.Component {
     this.setState({ [name]: value });
   };
 
+  handleIsValid = () => {
+    this.setState({ unValid: false });
+  };
+
   render() {
     return (
       <div className="sign-in">
-        <h2 className="title">I already have an account</h2>
-        <span>Sign in with your email & password</span>
-        <form onSubmit={this.handleSubmit}>
+        <h2 className="title">會員登入</h2>
+        <span>輸入帳號 & 密碼登入</span>
+        <form>
           <FormInput
             name="email"
             value={this.state.email}
             onChange={this.handleChange}
             label="Email"
+            type="email"
             required
           />
 
@@ -56,12 +64,24 @@ class SignIn extends React.Component {
             value={this.state.password}
             onChange={this.handleChange}
             label="Password"
+            type="password"
             required
           />
           <div className="buttons">
-            <CustomButton type="submit">Sign In</CustomButton>
+            <CustomButton type="submit" onClick={this.handleSubmit}>
+              登入
+            </CustomButton>
           </div>
         </form>
+        {this.state.unValid && (
+          <div className="unValid-backdrop" onClick={this.handleIsValid} />
+        )}
+        <ErrorModel
+          unValid={this.state.unValid}
+          handleIsValid={this.handleIsValid}
+        >
+          帳號或密碼錯誤
+        </ErrorModel>
       </div>
     );
   }
