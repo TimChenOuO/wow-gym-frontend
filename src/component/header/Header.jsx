@@ -110,7 +110,7 @@ const Header = ({
         {currentUser ? (
           <CustomButton onClick={() => userLogout()}>登出</CustomButton>
         ) : (
-          <CustomButton onClick={() => history.push("/login")}>
+          <CustomButton signin onClick={() => history.push("/login")}>
             登入
           </CustomButton>
         )}
