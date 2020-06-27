@@ -1,0 +1,15 @@
+.modal-box {
+  width: 1000px;
+  height: 600px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  z-index: 100;
+
+  .modal-body {
+    display: grid;
+    text-align: left;
+  }
+}

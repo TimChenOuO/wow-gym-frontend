@@ -1,9 +1,17 @@
-.textarea {
+.label {
+  display: block;
+  margin: 50px 100px;
+
+  .textarea {
     width: 80%;
     height: 20vh;
+    vertical-align: middle;
+    // outline-style: none;
+    // border: none;
+    // border-bottom: 1px solid black;
   }
-  
-  .label {
-    display: block;
-    margin: 50px 100px;
-  }
+}
+
+.textarea-label {
+  vertical-align: middle;
+}
