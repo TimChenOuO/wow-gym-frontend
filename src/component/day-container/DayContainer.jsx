@@ -8,14 +8,15 @@ function DayContainer(props) {
     // console.log(props)
 
 
+    const filterCourses = props.newCourses && props.newCourses
+    .filter(course => course.courseTime.split(' ')[0] === props.title)
+    .map(course => (<CourseBox key={course.courseId} course={course} />))
+
     return (
         <>
             <div className="dayContainer">
                 <div className="day">{props.title}</div>
-                {props.newCourses && props.newCourses
-                    .filter(course => course.courseTime.split(' ')[0] === props.title)
-                    .map(course => (<CourseBox key={course.courseId} course={course} />))
-                }
+                {filterCourses}
             </div>
         </>
     )

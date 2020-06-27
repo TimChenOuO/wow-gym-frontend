@@ -4,7 +4,7 @@ import "./Courses.scss";
 import CourseInformation from "../../component/course-information/CourseInformation"
 import CourseSelector from "../../component/course-selector/CourseSelector";
 import CourseCalender from "../../component/course-calender/CourseCalender";
-import DateBar from "../../component/date-bar/date-bar"
+import WeekBar from "../../component/week-bar/WeekBar"
 
 
 function Courses(props) {
@@ -35,6 +35,7 @@ function Courses(props) {
     setWeek(data)
     // setChoose(data)
     // console.log(data)
+    // localStorage.setItem('courses', JSON.stringify(data))
   }
   async function getCoachesData() {
     const request = new Request('http://localhost:5000/api/employee', {
@@ -77,10 +78,12 @@ function Courses(props) {
     getCoursesData()
     getCoachesData()
     getCategoryData()
+    
   }, [])
 
   useEffect(() => {
     handleChange({ target: { value: '有氧教室' } })
+    
   }, [choose])
 
   const handleChange = (e) => {
@@ -96,6 +99,26 @@ function Courses(props) {
       const aa = { ...choose }
       setChoose(aa)
     }
+  }
+
+
+
+  const changeWeek = (e) => {
+    const whichWeek = e.target.value
+    // console.log(whichWeek)
+    const Week = whichWeek.split("-")
+    const aWeek = parseInt(Week[0].split("/")[1])
+    const zWeek = parseInt(Week[1].split("/")[1])
+    console.log(aWeek, zWeek)
+    // console.log(allCourses)
+    //所有課程的日期
+    
+    const c = allCourses && allCourses.coursesRow.map(item=>parseInt(item.courseTime.split(" ")[2]))
+    console.log(c)
+    
+    const d = c && c.filter(item=> aWeek<=item)
+    const f = c && c.filter(item => item<=zWeek) 
+   
   }
 
   return (
@@ -117,9 +140,10 @@ function Courses(props) {
           setAllCourses={setAllCourses}
           handleChange={handleChange}
         />
-        <DateBar 
+        <WeekBar 
           allCourses={allCourses}
           week={setWeek}
+          changeWeek={changeWeek}
         />
         <CourseCalender
           choose={choose}

@@ -2,17 +2,20 @@ import React from 'react'
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 
 
-function DateBar(props) {
+function WeekBar(props) {
 // console.log(props)
     return (
         <>
             <div className="chooseWeek">
                 <a><IoMdArrowDropleft /></a>
-      <a id="week">7/13~7/19</a>
+      <select onChange={props.changeWeek}>
+      <option value="07/06-07/12">07/01-07/07</option>
+      <option value="07/13-07/19">07/13-07/19</option>
+      </select>
       <a><IoMdArrowDropright /></a>
             </div>
         </>
     )
 }
 
-export default DateBar;
+export default WeekBar;
