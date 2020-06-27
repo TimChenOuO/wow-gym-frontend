@@ -28,8 +28,8 @@ function CourseBox(props) {
     const [bookingData, setBookingData] = useState('');
     //預約後存值
     const [newBookingData, setNewBookingData] = useState('')
-    const [numOfCourse, setNumOfCourse] = useState(0)
-    // const [newNumOfCourse, setNewNumOfCourse] = useState('')
+    const [numOfCourse, setNumOfCourse] = useState('')
+    const [newNumOfCourse, setNewNumOfCourse] = useState('')
 
 
     let t = [] = props.course.courseTime
@@ -152,18 +152,31 @@ function CourseBox(props) {
             console.log('okk')
             // setChangeBtn(props.course.courseId)
         }
-
+        // else {
+        //     alert('請先登入會員')
+        // }
     }
 
+    // const aa = JSON.parse(localStorage.getItem('courses'))
+    // console.log(aa)
+    async function reRenderLocalValue() {
+        if (localStorage.getItem('courses')) {
+        
+        const checkLocal = await localStorage.getItem('courses') ? JSON.parse(localStorage.getItem('courses')) : {
+            courses: []
+        }
+        const checkLocalFilter = await checkLocal ? checkLocal.filter(item => item.courseId === props.course.courseId).map(i => i) : '223'
+        console.log(checkLocalFilter)
+    }
+    if(localStorage.getItem('newC')){
+        console.log('new')
+    }
+    }
     //初始render抓booking資料
     useEffect(() => {
         getBookingData()
         // if(localStorage.getItem('courses') || localStorage.getItem('newC')){
         // reRenderLocalValue()
-        // if(localStorage.getItem('courses')){
-        // setNumOfCourse(localStorage.getItem('courses').coursesRow&&localStorage.getItem('courses').coursesRow.filter((item)=> item.courseId === props.course.courseId).map((i)=> i.numberOfCourse))
-        // }else if(localStorage.getItem('newC')){
-        //     setNumOfCourse(localStorage.getItem('newC') &&localStorage.getItem('newC').filter((item)=> item.courseId === props.course.courseId).map((i)=> i.numberOfCourse))   
         // }
     }, [])
     // 如果有新預定就重抓booking資料
