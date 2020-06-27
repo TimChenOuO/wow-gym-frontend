@@ -60,69 +60,72 @@ function CourseBox(props) {
             // console.log('c:', getThisCourseId)
             const coursesInLocal = JSON.parse(localStorage.getItem('courses'))
             //post新增預約到資料庫
-            // const bookingPost = {
-            //     memberId: currentUserId,
-            //     courseId: getThisCourseId
-            // }
-            // const request = new Request("http://localhost:5000/api/courses/bookingData", {
-            //     method: 'POST',
-            //     body: JSON.stringify(bookingPost),
-            //     headers: new Headers({
-            //         Accept: 'application/json',
-            //         'Content-Type': 'application/json',
-            //     }),
-            // })
-            // const response = await fetch(request)
-            // const data = await response.json()
-            // setNewBookingData(data)
+            const bookingPost = {
+                memberId: currentUserId,
+                courseId: getThisCourseId
+            }
+            const request = new Request("http://localhost:5000/api/courses/bookingData", {
+                method: 'POST',
+                body: JSON.stringify(bookingPost),
+                headers: new Headers({
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                }),
+            })
+            const response = await fetch(request)
+            const data = await response.json()
+            setNewBookingData(data)
             // setChangeBtn(props.course.courseId)
 
-            if (!coursesInLocal) {
+            // if (!coursesInLocal) {
 
-                // console.log('2')
-                const newLocal = await localStorage.getItem('newC') ? JSON.parse(localStorage.getItem('newC')) : {
-                    courses: []
-                }
-                const newLocalFind = await newLocal && newLocal.filter(item => item.courseId === getThisCourseId).map(i => i)
-                // console.log(newFind)
-                //將課程人數+1
-                newLocalFind[0].numberOfCourse += 1
-                const newLocalNonFind = await newLocal && newLocal.filter(item => item.courseId !== getThisCourseId)
-                // console.log(newLocalNonFind)
-                newLocalNonFind.push(newLocalFind)
-                await localStorage.removeItem('newC')
-                //將新陣列存進localStorage
-                await localStorage.setItem('newC', JSON.stringify(newLocalNonFind))
-                // console.log('newLocalFind',newLocalFind[0].numberOfCourse)
-                setNumOfCourse(newLocalFind[0].numberOfCourse)
+            //     // console.log('2')
+            //     const newLocal = await localStorage.getItem('newC') ? JSON.parse(localStorage.getItem('newC')) : {
+            //         courses: []
+            //     }
+            //     const newLocalFind = await newLocal && newLocal.filter(item => item.courseId === getThisCourseId).map(i => i)
+            //     // console.log(newFind)
+            //     //將課程人數+1
+            //     newLocalFind[0].numberOfCourse += 1
+            //     const newLocalNonFind = await newLocal && newLocal.filter(item => item.courseId !== getThisCourseId)
+            //     // console.log(newLocalNonFind)
+            //     newLocalNonFind.push(newLocalFind)
+            //     await localStorage.removeItem('newC')
+            //     //將新陣列存進localStorage
+            //     await localStorage.setItem('newC', JSON.stringify(newLocalNonFind))
+            //     // console.log('newLocalFind',newLocalFind[0].numberOfCourse)
+            //     setNumOfCourse(newLocalFind[0].numberOfCourse)
 
-            } else {
-                // console.log('1')
+            // } else {
+            // console.log('1')
 
-                //用課程id抓localStorage特定課程
-                const newFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
-                // console.log(newFind)
-                //將課程人數+1
-                newFind[0].numberOfCourse += 1
-                // console.log(newFind)
+            //用課程id抓localStorage特定課程
+            const newFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
+            // console.log(newFind)
+            //將課程人數+1
+            newFind[0].numberOfCourse += 1
+            // console.log(newFind)
 
-                //將其他未被選到的課程轉到新陣列
-                const nonFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId !== getThisCourseId)
-                // console.log(nonFind)
+            //將其他未被選到的課程轉到新陣列
+            const nonFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId !== getThisCourseId)
+            // console.log(nonFind)
 
-                //將預定人數增加的資料推進新陣列
-                nonFind.push(newFind)
+            //將預定人數增加的資料推進新陣列
+            await nonFind.push(newFind[0])
+            // console.log(nonFind)
 
-                // //刪除原本localStorage課程的data
-                await localStorage.removeItem('courses')
-                // //將新陣列存進localStorage
-                await localStorage.setItem('newC', JSON.stringify(nonFind))
-                // console.log('newFind',newFind[0].numberOfCourse)
-                setNumOfCourse(newFind[0].numberOfCourse)
-            }
-        } else {
-            alert('請先登入會員')
+         
+
+            // //刪除原本localStorage課程的data
+            localStorage.setItem("courses",JSON.stringify({"coursesRow":nonFind}))
+            // //將新陣列存進localStorage
+            // await localStorage.setItem('newC', JSON.stringify(nonFind))
+            // console.log('newFind',newFind[0].numberOfCourse)
+            // setNumOfCourse(newFind[0].numberOfCourse)
         }
+        // } else {
+        //     alert('請先登入會員')
+        // }
     }
 
     async function cancelBooking() {
@@ -138,9 +141,15 @@ function CourseBox(props) {
 
             const cancelId = B[0].courseBookingId
 
+            const bookingDel = {
+                courseBookingId: cancelId,
+                memberId: currentUserId,
+                courseId: getThisCourseId
+            }
+
             const request = new Request(`http://localhost:5000/api/courses/bookingData/${cancelId}`, {
                 method: 'DELETE',
-                // body: 'ok',
+                body: JSON.stringify(bookingDel),
                 headers: new Headers({
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
@@ -155,24 +164,12 @@ function CourseBox(props) {
 
     }
 
+
     //初始render抓booking資料
     useEffect(() => {
         getBookingData()
-        // if(localStorage.getItem('courses') || localStorage.getItem('newC')){
-        // reRenderLocalValue()
-        // if(localStorage.getItem('courses')){
-        // setNumOfCourse(localStorage.getItem('courses').coursesRow&&localStorage.getItem('courses').coursesRow.filter((item)=> item.courseId === props.course.courseId).map((i)=> i.numberOfCourse))
-        // }else if(localStorage.getItem('newC')){
-        //     setNumOfCourse(localStorage.getItem('newC') &&localStorage.getItem('newC').filter((item)=> item.courseId === props.course.courseId).map((i)=> i.numberOfCourse))   
-        // }
-    }, [])
-    // 如果有新預定就重抓booking資料
-    // useEffect(() => {
-    //     getBookingData()
-    //     // console.log(nowBooking)
-    // }, [newNumOfCourse])
 
-
+    }, [newBookingData])
 
     return (
         <>

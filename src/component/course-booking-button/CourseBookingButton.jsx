@@ -4,7 +4,7 @@ import './CourseBookingButton.scss'
 
 function CourseBookingButton(props) {
 
-    // console.log(props)
+      
 
     //找到該會員已預約的課程id
     const A = props.bookingData && props.bookingData.filter(m => m.memberId === props.currentUserId).map(bookedCourse => (bookedCourse.courseId))
@@ -27,6 +27,7 @@ function CourseBookingButton(props) {
 
         </>
     )
+
 
     return (
         <>
