@@ -1,58 +1,69 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
+
+import { createStructuredSelector } from "reselect";
+import { userListSelect } from "../../redux/user/user-selector";
+import FormInput from "../form-input/Form-input";
+import CustomButton from "../custom-button/Custom-button";
+import ErrorModel from "../error-model/ErrorModel";
+
+import { userListStart, userLogin } from "../../redux/user/user-action";
 
 import "./Sign-up.scss";
 
-import FormInput from "../form-input/Form-input";
-import CustomButton from "../custom-button/Custom-button";
-import { userLogin } from "../../redux/user/user-action";
-import { createStructuredSelector } from "reselect";
-import { userListSelect } from "../../redux/user/user-selector";
-import axios from 'axios'
 class SingUP extends React.Component {
   state = {
     email: "",
     password: "",
     name: "",
-    mobile: ""
+    mobile: "",
+    unValid: false,
   };
 
   handleSubmit = async (e) => {
+    const { history, userLogin } = this.props;
     e.preventDefault();
-    console.log('123')
-    axios.post(`http://localhost:5000/api/user/insertUser`, {
-      method: "POST",
-      credentials: "include", // 需傳送 Cookie 必須開啟
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      }),
-      data: {
+    const { data } = await axios.post(
+      `http://localhost:5000/api/user/InsertUser`,
+      {
         memberAccount: this.state.email,
         memberPwd: this.state.password,
         memberName: this.state.name,
         memberPhoneNum: this.state.mobile,
       }
-    });
+    );
+    if (data.success) {
+      // userListStart();
+      userLogin(data.currentUser);
+      history.push("/");
+    } else {
+      this.setState({ unValid: true });
+    }
   };
 
   handleChange = (e) => {
-    const { name, value, } = e.target;
+    const { name, value } = e.target;
     this.setState({ [name]: value });
+  };
+
+  handleIsValid = () => {
+    this.setState({ unValid: false });
   };
 
   render() {
     return (
       <div className="sign-in">
-        <h2 className="title">I don't have account</h2>
-        <span>Sign Up with your email & password</span>
+        <h2 className="sign-up-title">會員註冊</h2>
+        <span>輸入帳號&密碼&基本訊息註冊</span>
         <form onSubmit={this.handleSubmit}>
           <FormInput
             name="email"
             value={this.state.email}
             onChange={this.handleChange}
             label="Email"
+            type="email"
           />
 
           <FormInput
@@ -60,13 +71,13 @@ class SingUP extends React.Component {
             value={this.state.password}
             onChange={this.handleChange}
             label="Password"
+            type="password"
           />
           <FormInput
             name="name"
             value={this.state.name}
             onChange={this.handleChange}
             label="name"
-
           />
           <FormInput
             name="mobile"
@@ -78,6 +89,15 @@ class SingUP extends React.Component {
             <CustomButton type="submit">SIGN UP</CustomButton>
           </div>
         </form>
+        {this.state.unValid && (
+          <div className="unValid-backdrop" onClick={this.handleIsValid} />
+        )}
+        <ErrorModel
+          unValid={this.state.unValid}
+          handleIsValid={this.handleIsValid}
+        >
+          註冊資訊有誤，請重新輸入
+        </ErrorModel>
       </div>
     );
   }
@@ -88,7 +108,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  userListStart: () => dispatch(userListStart()),
   userLogin: (user) => dispatch(userLogin(user)),
 });
-
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingUP));

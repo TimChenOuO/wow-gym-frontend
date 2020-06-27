@@ -34,9 +34,8 @@ function CourseBox(props) {
       },
     ];
     console.log("b:", b);
-    console.log("c:", c);
     //將b跟c陣列中的物件合併
-    
+
     // const d = Object.assign(b[0], c[0]);
 
     //將資料轉成json字串格式
@@ -71,7 +70,6 @@ function CourseBox(props) {
         <Link to={() => bookingCourse()} className="accessBooking btn">
           預約
         </Link>
-
       </div>
       <div className="jumpWindow">
         {cModalShow && (

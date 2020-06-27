@@ -13,12 +13,13 @@ import EmployeeFormPage from "./pages/employee-form-page/EmployeeFormPage";
 import EmployeeCenterPage from "./pages/employee-center-page/EmployeeCenterPage";
 import EmployeeSignInOutPage from "./pages/employee-sign-in-out-page/employee-sign-in-out-page";
 
-//訂單----------
-// import OrderList from "./pages/orders-list-page/OrderList";
-// import OrderListDetail from "./component/OrderList/OrderListDetail";
-// import CartList from "./component/Order-CartList/CartList";
-// import CheckOutPage from "./component/Order-CheckOutPage/CheckOutPage";
-// import OrderCompleted from "./component/OrderCompleted/OrderCompleted";
+// 訂單----------
+import OrderList from "./pages/orders-list-page/OrderList";
+import OrderListDetail from "./component/OrderList/OrderListDetail";
+import CartList from "./component/Order-CartList/CartList";
+import CheckOutPage from "./component/Order-CheckOutPage/CheckOutPage";
+import OrderCompleted from "./component/OrderCompleted/OrderCompleted";
+
 import HomePage from "./pages/HomePage/Home";
 // Component------
 import LoadingSpinner from "./component/loading-spinner/LoadingSpinner";
@@ -48,6 +49,7 @@ const App = ({ userListStart, employeeListStart }) => {
   return (
     <div>
       <Header />
+      <div className="space" />
       <main>
         <Switch>
           <ErrorBoundary>
@@ -78,11 +80,11 @@ const App = ({ userListStart, employeeListStart }) => {
               <Route path="/coaches" component={Coaches} />
 
               {/* Darren測試用 */}
-              {/* <Route path="/OrderList" component={OrderList} />
+              <Route path="/OrderList" component={OrderList} />
               <Route path="/CartList" component={CartList} />
               <Route path="/OrderListDetail" component={OrderListDetail} />
               <Route path="/CheckOutPage" component={CheckOutPage} />
-              <Route path="/OrderCompleted" component={OrderCompleted} /> */}
+              <Route path="/OrderCompleted" component={OrderCompleted} />
             </Suspense>
           </ErrorBoundary>
         </Switch>
