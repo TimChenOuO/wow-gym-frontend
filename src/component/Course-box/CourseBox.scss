@@ -1,11 +1,32 @@
 .courseBox {
-  grid-template-columns: 14%;
-  width: 100%;
+  // grid-template-columns: 14%;
+  width: 95%;
   // font-size: 1rem;
   line-height: 2.5rem;
   border: 1px solid #1178B8;
   margin: 5px;
 
-  // position: fixed;
-  // z-index: 1;
+  .courseName , .coachName{
+    color: #1178B8;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 10px;
+  }
+
+  .courseName:hover , .coachName:hover{
+    background: #1178B8;
+    padding:0 10px;
+    border-radius: 10px;
+    color:white;
+    // font-size: 1.3rem;
+  }
+  .fullBooking{
+    border: transparent;
+    border-radius: 10px;
+    background: #D0104C;
+    color: white !important;
+    width:100px;
+    display: inline-block;
+    padding: 5px 0;
+  }
 }

@@ -4,9 +4,11 @@
     margin:auto auto 2rem auto;
   }
   .schedule{
-   display: grid;
-   grid-auto-flow: column;
-   grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
-   grid-gap:5px;
+  //  display: grid;
+  //  grid-auto-flow: column;
+  //  grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+  //  grid-gap:5px;
+  width:100%;
+  display:flex;
   }
   

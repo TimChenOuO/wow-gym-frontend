@@ -3,7 +3,7 @@ import "./Courses.scss";
 import CourseInformation from "../../component/course-information/CourseInformation"
 import CourseSelector from "../../component/course-selector/CourseSelector";
 import CourseCalender from "../../component/course-calender/CourseCalender";
-import WeekBar from "../../component/week-bar/WeekBar"
+// import WeekBar from "../../component/week-bar/WeekBar"
 
 
 function Courses() {
@@ -34,7 +34,7 @@ function Courses() {
     // setWeek(data)
     // setChoose(data)
     // console.log(data)
-    
+
   }
   async function getCoachesData() {
     const request = new Request('http://localhost:5000/api/employee', {
@@ -47,7 +47,7 @@ function Courses() {
 
     const response = await fetch(request)
     const data = await response.json()
-    
+
     // console.log(data)
     // 設定資料
     setCoaches(data);
@@ -92,11 +92,11 @@ function Courses() {
     getCoachesData()
     getCategoryData()
 
-    if(!localStorage.getItem("courses"))localStorage.setItem('courses', JSON.stringify(allCourses))
+    if (!localStorage.getItem("courses")) localStorage.setItem('courses', JSON.stringify(allCourses))
   }, [])
 
   useEffect(() => {
-    handleChange({ target: { value: '有氧教室' } }) 
+    handleChange({ target: { value: '有氧教室' } })
   }, [choose])
 
   // const changeWeek = (e) => {
@@ -108,50 +108,54 @@ function Courses() {
   //   console.log(aWeek, zWeek)
   //   // console.log(allCourses)
   //   //所有課程的日期
-    
+
   //   const c = allCourses && allCourses.coursesRow.map(item=>parseInt(item.courseTime.split(" ")[2]))
   //   console.log(c)
-    
+
   //   const d = c && c.filter(item=> aWeek<=item)
   //   const f = c && c.filter(item => item<=zWeek) 
-   
+
   // }
 
   return (
     <>
-      <div className="courseBanner">
-        <img  alt="banner" src={`https://i.ibb.co/sPcg1dc/banner.jpg`} />
-      </div>
-      <div className="courseBannerCover">
-      <h1>課程資訊 Class information</h1>
-      </div>
-      <div className="container">
-        <CourseInformation
-          choose={choose}
-          newCourses={newCourses}
-          newCategory={newCategory}
-        />
-        <CourseSelector
-          choose={choose}
-          setChoose={setChoose}
-          allCourses={allCourses}
-          setAllCourses={setAllCourses}
-          handleChange={handleChange}
-        />
-        <WeekBar 
+      <div>
+        <div className="courseBanner">
+          <img alt="banner" src={`https://i.ibb.co/sPcg1dc/banner.jpg`} />
+        </div>
+        <div className="courseBannerCover">
+          <h1>課程資訊 Class information</h1>
+        </div>
+        <div className="container">
+          <CourseInformation
+            choose={choose}
+            newCourses={newCourses}
+            newCategory={newCategory}
+          />
+          <CourseSelector
+            choose={choose}
+            setChoose={setChoose}
+            allCourses={allCourses}
+            setAllCourses={setAllCourses}
+            handleChange={handleChange}
+          />
+          {/* <WeekBar 
           allCourses={allCourses}
           // week={setWeek}
           // changeWeek={changeWeek}
-        />
-        <CourseCalender
-          choose={choose}
-          setChoose={setChoose}
-          allCourses={allCourses}
-          setAllCourses={setAllCourses}
-          newCourses={newCourses}
-          coaches={coaches}
-          setCoaches={setCoaches}
-        />
+        /> */}
+        <div>
+          <CourseCalender
+            choose={choose}
+            setChoose={setChoose}
+            allCourses={allCourses}
+            setAllCourses={setAllCourses}
+            newCourses={newCourses}
+            coaches={coaches}
+            setCoaches={setCoaches}
+          />
+          </div>
+        </div>
       </div>
     </>
   );

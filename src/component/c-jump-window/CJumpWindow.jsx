@@ -1,12 +1,13 @@
 import React from "react";
 // import './editingWindow.css';
-import { Modal } from "react-bootstrap";
+// import { Modal } from "react-bootstrap";
 
 function CJumpWindow(props) {
   const { onHide, show } = props;
 
-  // console.log(props);
+  console.log(props);
   return (
+    <>
     <div className="courseModal">
       <div
         {...{ onHide, show }}
@@ -27,6 +28,7 @@ function CJumpWindow(props) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

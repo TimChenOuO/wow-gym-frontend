@@ -9,8 +9,16 @@ function DayContainer(props) {
 
 
     const filterCourses = props.newCourses && props.newCourses
-    .filter(course => course.courseTime.split(' ')[0] === props.title)
-    .map(course => (<CourseBox key={course.courseId} course={course} />))
+        .filter(course => course.courseTime.split(' ')[0] === props.title)
+        .map(course => (
+            <CourseBox
+                key={course.courseId}
+                course={course}
+                cModalShow={props.cModalShow}
+                setCModalShow={props.setCModalShow}
+                sModalShow={props.sModalShow}
+                setSModalShow={props.setSModalShow}
+            />))
 
     return (
         <>
