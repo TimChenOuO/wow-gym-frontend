@@ -14,7 +14,7 @@ const CustomButton = ({
     ${shopCount ? "shop-count-btn" : ""} 
     ${signin ? "sign-in-btn" : ""} 
     ${errorModel ? "error-model-btn" : ""} 
-    custom-button`}
+    custom-button draw-border`}
     {...otherProps}
   >
     {children}
