@@ -4,19 +4,7 @@ import "./Coaches.scss";
 import CoachList from "../../component/Coach-list/CoachList";
 
 function Coaches(props) {
-  //   console.log(props)
-
-  // const [place, setPlace] = useState([
-  //     {
-  //         placeId: 1,
-  //         place: '民生館'
-  //     },
-  //     {
-  //         placeId: 2,
-  //         place: '巨蛋館'
-  //     }
-  // ])
-  // const [choose, setChoose] = useState('')
+  
   const [employee, setEmployee] = useState([]);
 
   async function getEmployeesData() {
@@ -46,22 +34,14 @@ function Coaches(props) {
   return (
     <>
       <div className="wrapper">
-        <header className="navbar">
-          <div className="logo">
-            <img src="./img/logo2.jpg" alt="logo" />
-          </div>
-        </header>
-        <div className="banner">
-          <h1>教練資訊 Coach information</h1>
+        <div className="coachBanner">
+        <img alt="coachBanner" src={`https://i.ibb.co/CMMr6zY/banner2.jpg`} />
+        <div className="coachBannerCover">
+        <h1>教練資訊 Coach information</h1>
         </div>
+        </div>
+       
         <div className="container">
-          {/* <Selector
-                    selector = {place}
-                    setPlace = {setPlace}
-                    choose = {choose}
-                    setChoose = {setChoose}
-                /> */}
-
           <CoachList employee={employee} setEmployee={setEmployee} />
         </div>
       </div>

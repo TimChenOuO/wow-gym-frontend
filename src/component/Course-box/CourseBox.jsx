@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
+import "./CourseBox.scss";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 //---------------
 import { createStructuredSelector } from "reselect";
 import { currentUserSelect } from "../../redux/user/user-selector"
 //---------------
-
-import "./CourseBox.scss";
 
 import CJumpWindow from "../c-jump-window/CJumpWindow";
 import SJumpWindow from "../s-jump-window/SJumpWindow";
@@ -29,8 +28,6 @@ function CourseBox(props) {
     //預約後存值
     const [newBookingData, setNewBookingData] = useState('')
     const [numOfCourse, setNumOfCourse] = useState(0)
-    // const [newNumOfCourse, setNewNumOfCourse] = useState('')
-
 
     let t = [] = props.course.courseTime
     // console.log('t:', t)
@@ -60,72 +57,46 @@ function CourseBox(props) {
             // console.log('c:', getThisCourseId)
             const coursesInLocal = JSON.parse(localStorage.getItem('courses'))
             //post新增預約到資料庫
-            const bookingPost = {
-                memberId: currentUserId,
-                courseId: getThisCourseId
-            }
-            const request = new Request("http://localhost:5000/api/courses/bookingData", {
-                method: 'POST',
-                body: JSON.stringify(bookingPost),
-                headers: new Headers({
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                }),
-            })
-            const response = await fetch(request)
-            const data = await response.json()
-            setNewBookingData(data)
-            // setChangeBtn(props.course.courseId)
-
-            // if (!coursesInLocal) {
-
-            //     // console.log('2')
-            //     const newLocal = await localStorage.getItem('newC') ? JSON.parse(localStorage.getItem('newC')) : {
-            //         courses: []
-            //     }
-            //     const newLocalFind = await newLocal && newLocal.filter(item => item.courseId === getThisCourseId).map(i => i)
-            //     // console.log(newFind)
-            //     //將課程人數+1
-            //     newLocalFind[0].numberOfCourse += 1
-            //     const newLocalNonFind = await newLocal && newLocal.filter(item => item.courseId !== getThisCourseId)
-            //     // console.log(newLocalNonFind)
-            //     newLocalNonFind.push(newLocalFind)
-            //     await localStorage.removeItem('newC')
-            //     //將新陣列存進localStorage
-            //     await localStorage.setItem('newC', JSON.stringify(newLocalNonFind))
-            //     // console.log('newLocalFind',newLocalFind[0].numberOfCourse)
-            //     setNumOfCourse(newLocalFind[0].numberOfCourse)
-
-            // } else {
-            // console.log('1')
+            // const bookingPost = {
+            //     memberId: currentUserId,
+            //     courseId: getThisCourseId
+            // }
+            // const request = new Request("http://localhost:5000/api/courses/bookingData", {
+            //     method: 'POST',
+            //     body: JSON.stringify(bookingPost),
+            //     headers: new Headers({
+            //         Accept: 'application/json',
+            //         'Content-Type': 'application/json',
+            //     }),
+            // })
+            // const response = await fetch(request)
+            // const data = await response.json()
+            // setNewBookingData(data)
 
             //用課程id抓localStorage特定課程
-            const newFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
+            const getCourseInLocal = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
             // console.log(newFind)
             //將課程人數+1
-            newFind[0].numberOfCourse += 1
+            getCourseInLocal[0].numberOfCourse += 1
             // console.log(newFind)
 
             //將其他未被選到的課程轉到新陣列
             const nonFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId !== getThisCourseId)
-            // console.log(nonFind)
 
             //將預定人數增加的資料推進新陣列
-            await nonFind.push(newFind[0])
+            await nonFind.push(getCourseInLocal[0])
             // console.log(nonFind)
-
-         
 
             // //刪除原本localStorage課程的data
             localStorage.setItem("courses",JSON.stringify({"coursesRow":nonFind}))
-            // //將新陣列存進localStorage
-            // await localStorage.setItem('newC', JSON.stringify(nonFind))
-            // console.log('newFind',newFind[0].numberOfCourse)
-            // setNumOfCourse(newFind[0].numberOfCourse)
+
+            const renewLocal = JSON.parse(localStorage.getItem("courses"))
+            const newNum = await renewLocal.coursesRow && 
+            renewLocal.coursesRow.filter(c => c.courseId === getThisCourseId )
+            .map(i => i.numberOfCourse)
+
+            setNumOfCourse(newNum)
         }
-        // } else {
-        //     alert('請先登入會員')
-        // }
     }
 
     async function cancelBooking() {
@@ -159,27 +130,33 @@ function CourseBox(props) {
             const data = await response.json()
             setNewBookingData(data)
             console.log('okk')
-            // setChangeBtn(props.course.courseId)
         }
-
     }
-
 
     //初始render抓booking資料
     useEffect(() => {
         getBookingData()
+        
+        return () =>{
+        const aa = JSON.parse(localStorage.getItem("courses")).coursesRow
+        const bb = aa && aa
+        .filter((q => q.courseId === props.course.courseId))
+        .map(i => i.numberOfCourse)
 
+        setNumOfCourse(bb)
+        }
     }, [newBookingData])
 
     return (
         <>
             <div className="courseBox">
-                <div onClick={() => setCModalShow(true)}>{props.course.courseName}</div>
+                <div className="courseName" onClick={() => setCModalShow(true)}>{props.course.courseName}</div>
                 <div className="courseTime">{newT}</div>
                 <div onClick={() => setSModalShow(true)} className="coachName">
                     {props.course.Ename}
                 </div>
                 <div>{numOfCourse}/{props.course.courseQuoda}</div>
+                <div>
                 <CourseBookingButton
                     value={props.course.courseId}
                     bookingData={bookingData}
@@ -187,15 +164,19 @@ function CourseBox(props) {
                     addBooking={addBooking}
                     cancelBooking={cancelBooking}
                 />
+                </div>
             </div>
             <div className="jumpWindow">
-                <CJumpWindow
+                {cModalShow && (
+                    <CJumpWindow
                     show={cModalShow}
                     onHide={() => setCModalShow(false)}
+                    setCModalShow={setCModalShow}
                     courseName={props.course.courseName}
                     courseIntroduce={props.course.courseIntroduce}
                     courseImg={props.course.courseImg}
                 />
+                )}
                 {sModalShow && (
                     <SJumpWindow
                         show={sModalShow}

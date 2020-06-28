@@ -7,29 +7,26 @@ function CJumpWindow(props) {
 
   // console.log(props);
   return (
-    <Modal.Dialog>
-      <Modal
-        size="sm"
-        // dialogClassName="modal-50w"
-        // aria-labelledby="contained-modal-title-vcenter"
-        // centered
+    <div className="courseModal">
+      <div
         {...{ onHide, show }}
         className="modalBox"
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {props.courseName}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        <div className="closeBtn">
+          <button onClick={()=>{props.setCModalShow(false)}}>close</button>
+            <p className="courseModalName">{props.courseName}</p>
+        </div>
+        <div className="courseModalImg">
           <img 
           src={props.courseImg}
           alt="courseImg"
           />
+          <div>
           {props.courseIntroduce}
-        </Modal.Body>
-      </Modal>
-    </Modal.Dialog>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

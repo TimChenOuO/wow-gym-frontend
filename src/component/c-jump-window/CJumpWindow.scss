@@ -1,9 +1,18 @@
-// .courseImg{
-//     position: 'absolute',
-//     left: 0,
-//     right: 0,
-//     top: 0,
-//     bottom: 0,
-//     height: 0,
-//     width: null,
-// }
+.courseModal{
+    width: 1000px;
+    height: 600px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    z-index: 100;
+    .courseModalName{
+        margin:1rem 0 0 0;
+        font-size:20px !important;
+    }
+    .courseModalImg{
+        width: 100%;
+
+    }
+}

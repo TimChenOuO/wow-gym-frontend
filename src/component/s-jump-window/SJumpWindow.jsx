@@ -2,10 +2,10 @@ import React from "react";
 import "./SJumpWindow.scss";
 import { Modal } from "react-bootstrap";
 
-function JumpWindow(props) {
+function SJumpWindow(props) {
   const { onHide, show } = props;
 
-  const L = props.coachExpertise.split("、").map((item, i) => {
+  const coachE = props.coachExpertise.split("、").map((item, i) => {
     return (
       <React.Fragment key={i}>
         {item}
@@ -13,7 +13,7 @@ function JumpWindow(props) {
       </React.Fragment>
     );
   });
-  const S = props.coachLicense.split("、").map((item, i) => {
+  const coachL = props.coachLicense.split("、").map((item, i) => {
     return (
       <React.Fragment key={i}>
         {item}
@@ -24,40 +24,43 @@ function JumpWindow(props) {
 
   // console.log(props.coachExpertise);
   return (
-    <Modal.Dialog>
-      <Modal
+    <div className="coachModalBox">
+      <div
         size="sm"
+        className=""
         // dialogClassName="modal-50w"
         // aria-labelledby="contained-modal-title-vcenter"
         // centered
         {...{ onHide, show }}
-        className="modalBox"
       >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {props.coachName}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <img
-          src={props.coachImg} 
-          alt="coachImg"
-          />
-          <div className="coachExpertise">
-            <h5>專長：</h5>
-            <br />
-            {L}
+
+        <button
+          onClick={() => { props.setSModalShow(false) }}
+          className="coachModalCloseBtn">close</button>
+        <div className="coachModalContainer">
+          <div className="fCoachImg">
+            <img
+              src={props.coachImg}
+              alt="coachImg"
+            />
+            <div className="coachModalNameCover"></div>
+            <h4 className="coachModalName">{props.coachName}</h4>
           </div>
-          <hr />
-          <div className="coachLicense">
-            <h5>證照：</h5>
-            <br />
-            {S}
+          <div className="coachModalInformation">
+            <div className="coachExpertise">
+              <h5 className="expertiseTitle">專長：</h5>
+              <div className="coachE">{coachE}</div>
+            </div>
+            <hr />
+            <div className="coachLicense">
+              <h5 className="licenseTitle">證照：</h5>
+              <div className="coachL">{coachL}</div>
+            </div>
           </div>
-        </Modal.Body>
-      </Modal>
-    </Modal.Dialog>
+        </div>
+      </div>
+    </div>
   );
 }
 
-export default JumpWindow;
+export default SJumpWindow;

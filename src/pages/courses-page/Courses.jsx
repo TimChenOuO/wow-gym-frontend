@@ -34,7 +34,7 @@ function Courses() {
     // setWeek(data)
     // setChoose(data)
     // console.log(data)
-    localStorage.setItem('courses', JSON.stringify(data))
+    
   }
   async function getCoachesData() {
     const request = new Request('http://localhost:5000/api/employee', {
@@ -85,28 +85,19 @@ function Courses() {
       const aa = { ...choose }
       setChoose(aa)
     }
-  
-  useEffect(() => {
-    getData();
-    getCoachesData();
-    getCategoryData();
-    handleChange({ target: { value: "有氧教室" } });
-    console.log("fire");
-  }, []);
-
+  }
 
   useEffect(() => {
     getCoursesData()
     getCoachesData()
     getCategoryData()
+
+    if(!localStorage.getItem("courses"))localStorage.setItem('courses', JSON.stringify(allCourses))
   }, [])
 
   useEffect(() => {
     handleChange({ target: { value: '有氧教室' } }) 
   }, [choose])
-
-  
-
 
   // const changeWeek = (e) => {
   //   const whichWeek = e.target.value
@@ -128,9 +119,11 @@ function Courses() {
 
   return (
     <>
-      <div className="banner">
-        {/* <img  alt="logo" src={logo} /> */}
-        <h1>課程資訊 Class information</h1>
+      <div className="courseBanner">
+        <img  alt="banner" src={`https://i.ibb.co/sPcg1dc/banner.jpg`} />
+      </div>
+      <div className="courseBannerCover">
+      <h1>課程資訊 Class information</h1>
       </div>
       <div className="container">
         <CourseInformation

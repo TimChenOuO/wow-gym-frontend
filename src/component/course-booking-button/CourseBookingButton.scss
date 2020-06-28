@@ -1,14 +1,27 @@
 .courseBtn{
-    width:60px;
-    height: 35px;
+    width:70px;
     display: inline-block;
+    transition: .5;
 }
 .accessBooking{
-    // border: 2px solid green;
-    background: wheat;
-    color:white !important;
+    border: 5px solid #90B44B;
+    border-radius: 10px;
+    background: white;
+    color: #90B44B !important;
+}
+.accessBooking:hover{
+    background: #90B44B;
+    color: black !important; 
+    font-size: 1.3rem;
+   ;
 }
 .alreadyBooked{
-    background: lightskyblue;
-    color:white !important;
+    border: 5px solid #FBE251;
+    border-radius: 10px;
+    background: white;
+    color:#F7D94C !important;
+}
+.alreadyBooked:hover{
+    background: #F7D94C;
+    color: black !important; 
 }

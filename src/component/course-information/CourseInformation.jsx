@@ -15,7 +15,7 @@ const newIntroduce = choose.coursesCategory && choose.coursesCategory.filter(cat
     return(
         <>
         <div className="information">
-            <p className="title">{newTitle}</p>
+            <p className="courseCategoryTitle">{newTitle}</p>
             <hr />
             <p className="introduce">
               {newIntroduce}
