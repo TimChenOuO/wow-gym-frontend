@@ -36,14 +36,15 @@ const Header = ({
 
   return (
     <div className="header">
-      <div className="header-spacing" />
-      <div
-        className={`hamburger-btn ${subDiv ? "hamburger-clicked" : ""}`}
-        onClick={() => setSubDiv(!subDiv)}
-      >
-        <div className="" />
-        <div className="" />
-        <div className="" />
+      <div className="header-spacing">
+        <div
+          className={`hamburger-btn ${subDiv ? "hamburger-clicked" : ""}`}
+          onClick={() => setSubDiv(!subDiv)}
+        >
+          <div className="" />
+          <div className="" />
+          <div className="" />
+        </div>
       </div>
 
       <div className="main">
@@ -73,45 +74,20 @@ const Header = ({
           >
             精選商城
           </Link>
-          <Link
-            to="/courses"
-            className="option"
-            onClick={() => setSubDiv(false)}
-            onMouseEnter={() => {
-              navBarSelect("coach");
-              if (subDiv) return;
-              setSubDiv(true);
-            }}
-          >
-            教練課程
-          </Link>
-          <Link
-            to="/articles"
-            className="option"
-            onClick={() => setSubDiv(false)}
-            onMouseEnter={() => {
-              navBarSelect("article");
-              if (subDiv) return;
-              setSubDiv(true);
-            }}
-          >
-            心得討論
-          </Link>
         </div>
       </div>
 
       <div className="sub sub-cart" onMouseOver={() => setSubDiv(false)}>
-        {currentEmployee ? (
-          <CustomButton onClick={() => employeeLogout()}>教練登出</CustomButton>
-        ) : (
-          <CustomButton onClick={() => history.push("/employeelogin")}>
-            教練登入
-          </CustomButton>
-        )}
         {currentUser ? (
-          <CustomButton onClick={() => userLogout()}>登出</CustomButton>
+          <CustomButton signin unMobileMode onClick={() => userLogout()}>
+            登出
+          </CustomButton>
         ) : (
-          <CustomButton signin onClick={() => history.push("/login")}>
+          <CustomButton
+            signin
+            unMobileMode
+            onClick={() => history.push("/login")}
+          >
             登入
           </CustomButton>
         )}

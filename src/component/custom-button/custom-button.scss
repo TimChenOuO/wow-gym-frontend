@@ -3,7 +3,7 @@
   //   width: auto;
   border: none;
   width: 60%;
-  height: 40px;
+  min-height: 40px;
   letter-spacing: 0.5px;
   //   line-height: 45px;
   font-size: 16px;
@@ -35,20 +35,35 @@
     width: 70px;
     color: white;
     font-weight: bolder;
+    margin-right: 20px;
+    height: 35px;
+  }
+  &.mobile-mode {
+    display: none;
+    color: black;
+    position: absolute;
+    bottom: 10%;
+    left: calc(50% - 35px);
   }
   &.error-model-btn {
     width: 70px;
     height: 30px;
-    color: white;
+    color: black;
     border-radius: 5px;
-    background-color: #3da2e0;
-    border: none;
-    &:hover {
-      background-color: #1178b8;
-    }
+    // border: none;
   }
 }
 
+@media screen and (max-width: 576px) {
+  .custom-button {
+    &.unmobile-mode {
+      display: none;
+    }
+    &.mobile-mode {
+      display: block;
+    }
+  }
+}
 //=== Drawing effect
 @mixin btn-border-drawing(
   $color: #ccc,

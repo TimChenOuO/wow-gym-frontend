@@ -26,7 +26,7 @@ class SingUP extends React.Component {
     const { history, userLogin } = this.props;
     e.preventDefault();
     const { data } = await axios.post(
-      `http://localhost:5000/api/user/InsertUser`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/user/InsertUser`,
       {
         memberAccount: this.state.email,
         memberPwd: this.state.password,
@@ -54,7 +54,7 @@ class SingUP extends React.Component {
 
   render() {
     return (
-      <div className="sign-in">
+      <div className="sign-up">
         <h2 className="sign-up-title">會員註冊</h2>
         <span>輸入帳號&密碼&基本訊息註冊</span>
         <form onSubmit={this.handleSubmit}>

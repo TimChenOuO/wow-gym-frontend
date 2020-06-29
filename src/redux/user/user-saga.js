@@ -6,7 +6,9 @@ import { userListSuccess, userListFailure } from "./user-action";
 
 export function* userListAsyncSaga() {
   try {
-    const { data } = yield axios.get("http://localhost:5000/api/user");
+    const { data } = yield axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/user`
+    );
     yield put(userListSuccess(data));
   } catch (err) {
     yield put(userListFailure(err));

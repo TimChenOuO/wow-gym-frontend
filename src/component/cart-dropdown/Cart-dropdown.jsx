@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { CSSTransition } from "react-transition-group";
+import { Icon } from "react-icons-kit";
+import { ic_last_page } from "react-icons-kit/md/ic_last_page";
 // import { withRouter } from "react-router-dom";
 
 import CartItem from "../cart-item/Cart-item";
@@ -18,7 +20,7 @@ import { taggleCartDropdown } from "../../redux/cart/cart-action";
 import LikeIcon from "../like-icon/LikeIcon";
 import CartIcon from "../cart-icon/Cart-icon";
 import CustomButton from "../custom-button/Custom-button";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 const CartDropdown = ({
   cartItems,
@@ -26,7 +28,7 @@ const CartDropdown = ({
   hidden,
   taggleCartDropdown,
 }) => {
-  const history = useHistory();
+  // const history = useHistory();
   const content = (
     <CSSTransition
       in={hidden}
@@ -37,6 +39,12 @@ const CartDropdown = ({
     >
       <div className="cart-dropdown" onMouseLeave={() => taggleCartDropdown()}>
         <div className="cart-icon-fav-container">
+          <div
+            className="cart-dropdown-close"
+            onClick={() => taggleCartDropdown()}
+          >
+            <Icon icon={ic_last_page} size={36} />
+          </div>
           <LikeIcon />
           <div style={{ width: "15px" }} />
           <CartIcon />
@@ -73,9 +81,8 @@ const CartDropdown = ({
             <span className="empty-message">快來收藏我喔～</span>
           )}
         </div>
-        <CustomButton onClick={() => history.push("/CartList")}>
-          結帳
-        </CustomButton>
+        {/* onClick={() => history.push("/CartList")} */}
+        <CustomButton>結帳</CustomButton>
       </div>
     </CSSTransition>
   );

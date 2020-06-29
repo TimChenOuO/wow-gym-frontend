@@ -7,6 +7,8 @@ const CustomButton = ({
   shopCount,
   signin,
   errorModel,
+  mobileMode,
+  unMobileMode,
   ...otherProps
 }) => (
   <button
@@ -14,6 +16,8 @@ const CustomButton = ({
     ${shopCount ? "shop-count-btn" : ""} 
     ${signin ? "sign-in-btn" : ""} 
     ${errorModel ? "error-model-btn" : ""} 
+    ${unMobileMode ? "unmobile-mode" : ""} 
+    ${mobileMode ? "mobile-mode" : ""} 
     custom-button draw-border`}
     {...otherProps}
   >
