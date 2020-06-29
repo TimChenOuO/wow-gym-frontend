@@ -133,5 +133,9 @@
 @media screen and (max-width: 576px) {
   .sub-div {
     width: 100vw;
+
+    .side-sub-div {
+      padding-top: 0;
+    }
   }
 }
