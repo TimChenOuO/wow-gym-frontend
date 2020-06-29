@@ -95,4 +95,4 @@ const mapStateToProps = createStructuredSelector({
   currentEmployee: currentEmployeeSelect,
 });
 
-export default withRouter(connect(mapStateToProps)(CourseButton));
+export default withRouter(connect(mapStateToProps)(CourseButton)); 
