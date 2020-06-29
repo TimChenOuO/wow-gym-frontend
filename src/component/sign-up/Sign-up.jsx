@@ -86,7 +86,7 @@ class SingUP extends React.Component {
             label="mobile"
           />
           <div className="buttons">
-            <CustomButton type="submit">SIGN UP</CustomButton>
+            <CustomButton type="submit">註冊</CustomButton>
           </div>
         </form>
         {this.state.unValid && (
