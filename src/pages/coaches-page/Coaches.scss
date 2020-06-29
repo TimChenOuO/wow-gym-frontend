@@ -13,26 +13,21 @@
 .coachBanner {
     width: 100%;
     height: 350px;
-    background: lightsteelblue;
     position: relative;
-
-    img{
-        width:100%;
-        height:350px;
-        opacity:.5
-    }
-
+    background:url(https://i.ibb.co/CMMr6zY/banner2.jpg) center center;
+    opacity: .5;
+    object-fit: contain;
+}
+.coachBannerCover{
+    position: absolute;
+    top:16%;
+    // transform: translateY(-50%);
     h1 {
         width: 1260px;
         margin: 0 auto;
         line-height: 350px;
         font-size: 2.2rem
     }
-}
-.coachBannerCover{
-    position: absolute;
-    top:1%;
-    left:7%;
 }
 
 .container {

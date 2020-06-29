@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 //---------------
 import { createStructuredSelector } from "reselect";
-import { currentUserSelect } from "../../redux/user/user-selector"
+import { currentUserSelect } from "../../redux/user/user-selector";
 //---------------
-import CJumpWindow from "../c-jump-window/CJumpWindow";
-import SJumpWindow from "../s-jump-window/SJumpWindow";
 import CourseBookingButton from "../course-booking-button/CourseBookingButton";
+import Swal from "sweetalert2";
 
 function CourseBox(props) {
     //---------------
@@ -19,9 +18,28 @@ function CourseBox(props) {
 
     // console.log(props.course)
     // console.log(currentUserData)
-   
-    const [cModalShow, setCModalShow] = useState(false);
-    const [sModalShow, setSModalShow] = useState(false);
+
+    //將現在時間的星期轉換成數字
+    const nowDay = new Date().getDay()
+    const nowHour = new Date().getHours()
+    // console.log(nowHour)
+    //    let nowTime = <Moment thisTime={thisTime}/>
+    //   console.log(thisTime)
+
+    //   let checkWeek = thisTime.split(/[" "]/)[0]
+    //   let checkTime = thisTime.split(/[" "]/)[4]
+    // console.log(props.course.currentDay) 
+
+    //抓資料裡的currentDay，用數字比對星期
+    const getDayInData = props.course.currentDay === 0 ? props.course.currentDay = 7 : props.course.currentDay
+    const getHourInData = JSON.stringify(props.course.courseTime).split(" ")[3]
+    const getNewHour = getHourInData.split(":")[0]
+    // console.log(getNewHour)
+
+    // console.log(getDayInData)
+
+    //   console.log(thisTime)
+
     //原本資料庫的bookingData
     const [bookingData, setBookingData] = useState('');
     //預約後存值
@@ -57,28 +75,28 @@ function CourseBox(props) {
 
     async function addBooking() {
         if (props.currentUserId !== '') {
-             //用課程id抓localStorage特定課程
-             const getCourseInLocal = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
-             // console.log(newFind)
-             //將課程人數+1
-             getCourseInLocal[0].numberOfCourse += 1
-             // console.log(newFind)
- 
-             //將其他未被選到的課程轉到新陣列
-             const nonFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId !== getThisCourseId)
- 
-             //將預定人數增加的資料推進新陣列
-             await nonFind.push(getCourseInLocal[0])
-             // console.log(nonFind)
- 
-             // //刪除原本localStorage課程的data
-             localStorage.setItem("courses", JSON.stringify({ "coursesRow": nonFind }))
- 
-             const renewLocal = await JSON.parse(localStorage.getItem("courses"))
-             const newNum = await renewLocal.coursesRow &&
-                 renewLocal.coursesRow.filter(c => c.courseId === getThisCourseId)
-                     .map(i => i.numberOfCourse)
- 
+            //用課程id抓localStorage特定課程
+            const getCourseInLocal = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
+            // console.log(newFind)
+            //將課程人數+1
+            getCourseInLocal[0].numberOfCourse += 1
+            // console.log(newFind)
+
+            //將其他未被選到的課程轉到新陣列
+            const nonFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId !== getThisCourseId)
+
+            //將預定人數增加的資料推進新陣列
+            await nonFind.push(getCourseInLocal[0])
+            // console.log(nonFind)
+
+            // //刪除原本localStorage課程的data
+            localStorage.setItem("courses", JSON.stringify({ "coursesRow": nonFind }))
+
+            const renewLocal = await JSON.parse(localStorage.getItem("courses"))
+            const newNum = await renewLocal.coursesRow &&
+                renewLocal.coursesRow.filter(c => c.courseId === getThisCourseId)
+                    .map(i => i.numberOfCourse)
+
             //post新增預約到資料庫
             const bookingPost = {
                 memberId: currentUserId,
@@ -154,39 +172,81 @@ function CourseBox(props) {
         }
     }
 
-
-    function myConfirmAddBooking(addBooking){
+    function myConfirmAddBooking(addBooking) {
         let a = window.confirm("確定要預約此課程嗎?")
-        if(a === true){
+        if (a === true) {
             addBooking()
             // window.location.reload()
-        }else{
+        } else {
             console.log('nooo')
         }
     }
-    function myConfirmCancelBooking(cancelBooking){
+    function myConfirmCancelBooking(cancelBooking) {
         let c = window.confirm("確定要取消此課程嗎?")
-        if(c === true){
+        if (c === true) {
             cancelBooking()
             // window.location.reload()
-        }else{
+        } else {
             console.log('nooo')
         }
     }
-    const displayFullBtn = (
-        <>
-            <button value={props.value} className="fullBooking">已額滿</button>
-
-        </>
-    )
+         //已額滿按鈕
+         const displayFullBtn = (
+            <>
+                <button value={props.value} className="fullBooking">已額滿</button>
+            </>
+        )
+  
+    //   //整理教練證照格式
+    // const coachL = props.course.Elicense.split(/["、"]/).map((item, i) => {
+    //     return (
+    //       <React.Fragment key={i}>
+    //         {item}
+    //         <br />
+    //       </React.Fragment>
+    //     );
+    //   });
+    // console.log(coachL)
+    //   //整理教練專長格式
+    //   const coachE = props.course.Eexpertise.split(/["、"]/).map((item, i) => {
+    //     return (
+    //       <React.Fragment key={i}>
+    //         {item}
+    //         <br />
+    //       </React.Fragment>
+    //     );
+    //   });
+    //課程彈跳視窗
+    function showCJumpWindow() {
+        Swal.fire({
+            width: 700,
+            title: props.course.courseName,
+            imageUrl: props.course.courseImg,
+            imageWidth: 400,
+            imageHeight: 300,
+            text: props.course.courseIntroduce,
+        })
+    }
+    //教練彈跳視窗
+    function showEJumpWindow() {
+        Swal.fire({
+            width: 700,
+            title: props.course.Ename,
+            imageUrl: props.course.Eimg,
+            imageWidth: 400,
+            html: `<h4>證照：</h4></br>${props.course.Elicense}<br/><br/><h4>專長：</h4></br>${props.course.Eexpertise}`,
+            // imageHeight: 300,
+            // background: '#fff url(props.course.courseImg)',
+        })
+    }
 
     //初始render抓booking資料
-    useEffect(()=>{
-        getBookingData()   
-    },[])
+    useEffect(() => {
+        getBookingData()
+    }, [])
 
     useEffect(() => {
-           
+
         const dataInLocal = JSON.parse(localStorage.getItem("courses")).coursesRow
         const numInLocal = dataInLocal && dataInLocal
             .filter((q => q.courseId === props.course.courseId))
@@ -194,59 +254,38 @@ function CourseBox(props) {
         setNumOfCourse(numInLocal)
     }, [newBookingData])
 
-    useEffect(()=>{
-        getBookingData()   
-    },[numOfCourse])
+    useEffect(() => {
+        getBookingData()
+    }, [numOfCourse])
 
     return (
         <>
             <div className="courseBox">
-                <div className="courseName" onClick={() => setCModalShow(true)}>{props.course.courseName}</div>
+            {getDayInData <= nowDay & getNewHour<= nowHour? <div className="courseBoxCover"></div>:''}
+                <div className="courseName" onClick={() => showCJumpWindow()}>{props.course.courseName}</div>
                 <div className="courseTime">{newT}</div>
-                <div onClick={() => setSModalShow(true)} className="coachName">
+                <div onClick={() => showEJumpWindow()} className="coachName">
                     {props.course.Ename}
                 </div>
-                
+
                 <div>{numOfCourse}/{props.course.courseQuoda}</div>
-                <div> 
-                {+numOfCourse === +props.course.courseQuoda ?displayFullBtn:
-                    <CourseBookingButton
-                        value={props.course.courseId}
-                        bookingData={bookingData}
-                        currentUserId={currentUserId}
-                        numOfCourse={numOfCourse}
-                        setNumOfCourse={setNumOfCourse}
-                        addBooking={addBooking}
-                        cancelBooking={cancelBooking}
-                        myConfirmAddBooking={myConfirmAddBooking}
-                        myConfirmCancelBooking={myConfirmCancelBooking}
-                    />
-                }
+                <div>
+                    {+numOfCourse === +props.course.courseQuoda ?displayFullBtn :
+                        <CourseBookingButton
+                            value={props.course.courseId}
+                            bookingData={bookingData}
+                            currentUserId={currentUserId}
+                            numOfCourse={numOfCourse}
+                            setNumOfCourse={setNumOfCourse}
+                            courseQuoda={props.course.courseQuoda}
+                            addBooking={addBooking}
+                            cancelBooking={cancelBooking}
+                            myConfirmAddBooking={myConfirmAddBooking}
+                            myConfirmCancelBooking={myConfirmCancelBooking}
+                        />
+                    }
+                </div>
             </div>
-            </div>
-            {cModalShow && (
-                <CJumpWindow
-                    show={cModalShow}
-                    onHide={() => setCModalShow(false)}
-                    setCModalShow={setCModalShow}
-                    courseName={props.course.courseName}
-                    courseIntroduce={props.course.courseIntroduce}
-                    courseImg={props.course.courseImg}
-                />
-            )}
-            {sModalShow && (
-                <SJumpWindow
-                    show={sModalShow}
-                    onHide={() => setSModalShow(false)}
-                    setSModalShow={setSModalShow}
-                    coachName={props.course.Ename}
-                    //專長
-                    coachExpertise={props.course.Eexpertise}
-                    //證照
-                    coachLicense={props.course.Elicense}
-                    coachImg={props.course.Eimg}
-                />
-            )}
         </>
     );
 }

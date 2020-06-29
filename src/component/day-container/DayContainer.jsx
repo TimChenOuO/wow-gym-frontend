@@ -1,11 +1,13 @@
-import React from 'react'
-import './DayContainer.scss'
-import CourseBox from '../Course-box/CourseBox'
-
+import React from "react"
+import "./DayContainer.scss"
+import CourseBox from "../Course-box/CourseBox"
+import Moment from "react-moment"
+import "moment-timezone"
 
 function DayContainer(props) {
     // console.log('d:',props.newCourses)
     // console.log(props)
+
 
 
     const filterCourses = props.newCourses && props.newCourses

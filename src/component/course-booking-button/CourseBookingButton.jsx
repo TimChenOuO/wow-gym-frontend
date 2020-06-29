@@ -28,9 +28,13 @@ function CourseBookingButton(props) {
 
         </>
     )
+   
+
+
     return (
         <>
-            {checkBooking !== -1 ? displayBookedBtn : displayBookingBtn}
+            {checkBooking !== -1  ? displayBookedBtn : displayBookingBtn}
+        
         </>
     )
 }

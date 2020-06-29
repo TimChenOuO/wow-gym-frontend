@@ -34,12 +34,11 @@ function Coaches(props) {
   return (
     <>
       <div className="wrapper">
-        <div className="coachBanner">
-        <img alt="coachBanner" src={`https://i.ibb.co/CMMr6zY/banner2.jpg`} />
+        <div className="coachBanner"></div>
         <div className="coachBannerCover">
         <h1>教練資訊 Coach information</h1>
         </div>
-        </div>
+        
        
         <div className="container">
           <CoachList employee={employee} setEmployee={setEmployee} />

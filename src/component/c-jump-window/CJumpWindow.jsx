@@ -3,14 +3,13 @@ import React from "react";
 // import { Modal } from "react-bootstrap";
 
 function CJumpWindow(props) {
-  const { onHide, show } = props;
 
-  console.log(props);
+
+  // console.log(props);
   return (
     <>
     <div className="courseModal">
       <div
-        {...{ onHide, show }}
         className="modalBox"
       >
         <div className="closeBtn">

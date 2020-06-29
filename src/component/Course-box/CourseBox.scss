@@ -1,10 +1,16 @@
+.courseBoxCover{
+position: absolute;
+background:white;
+opacity:.5;
+width:95%;
+height:100%;
+}
 .courseBox {
-  // grid-template-columns: 14%;
+  position: relative;
   width: 95%;
-  // font-size: 1rem;
   line-height: 2.5rem;
   border: 1px solid #1178B8;
-  margin: 5px;
+  margin: 5px 2.5px;
 
   .courseName , .coachName{
     color: #1178B8;

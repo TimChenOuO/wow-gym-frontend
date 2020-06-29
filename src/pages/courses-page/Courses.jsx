@@ -16,6 +16,7 @@ function Courses() {
   // const [week, setWeek] = useState('')
   // console.log('app.js',newCourses)
 
+  
   async function getCoursesData() {
     // 開啟載入指
     // 注意header資料格式要設定，伺服器才知道是json格式
@@ -91,7 +92,8 @@ function Courses() {
     getCoursesData()
     getCoachesData()
     getCategoryData()
-
+    
+    handleChange({ target: { value: '有氧教室' } })
     if (!localStorage.getItem("courses")) localStorage.setItem('courses', JSON.stringify(allCourses))
   }, [])
 
@@ -120,9 +122,7 @@ function Courses() {
   return (
     <>
       <div>
-        <div className="courseBanner">
-          <img alt="banner" src={`https://i.ibb.co/sPcg1dc/banner.jpg`} />
-        </div>
+        <div className="courseBanner"></div>
         <div className="courseBannerCover">
           <h1>課程資訊 Class information</h1>
         </div>
