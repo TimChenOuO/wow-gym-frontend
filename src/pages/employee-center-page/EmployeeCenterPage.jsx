@@ -10,7 +10,6 @@ import { createStructuredSelector } from "reselect";
 import { currentEmployeeSelect } from "../../redux/employee/employee-selector";
 
 function EmployeeCenter({ currentEmployee }) {
- 
   const [employeedata, setEmployeedata] = useState([]);
   const [coursedata, setCoursedata] = useState([]);
 
@@ -110,7 +109,7 @@ function EmployeeCenter({ currentEmployee }) {
           <div className="course-container-img">
             <img className="course-img" alt="" src={item.courseImg} />
           </div>
-          <CourseButton itemID={item.courseId}/>
+          <CourseButton itemID={item.courseId} />
         </div>
       </>
     );
@@ -118,15 +117,28 @@ function EmployeeCenter({ currentEmployee }) {
 
   return (
     <>
+      <div className="top">
+        <figcaption className="people-box-top">
+          <img className="people-top" alt="" src={currentEmployee.Eimg} />
+          <figure className="people-content-top">
+            {currentEmployee.Ename}
+          </figure>
+        </figcaption>
+      </div>
       <div className="box">
-        <div className="top">
-          <div className="photo">
-            <img className="people" alt="" src={currentEmployee.Eimg} />
+        <div className="left">{course}</div>
+        <div className="right">
+          <figcaption className="people-box-right">
+            <img className="people-right" alt="" src={currentEmployee.Eimg} />
+            <figure className="people-content-right">
+              {currentEmployee.Ename} 教練
+            </figure>
+          </figcaption>
+          <div className="data-box">
+            <div className="data">{employeeCapital}</div>
+            <div className="expertise">{employeeRecord}</div>
           </div>
-          <div className="data">{employeeCapital}</div>
-          <div className="expertise">{employeeRecord}</div>
         </div>
-        <div className="bottom">{course}</div>
       </div>
     </>
   );

@@ -4,17 +4,13 @@ import { withRouter } from "react-router";
 import { createStructuredSelector } from "reselect";
 import { currentEmployeeSelect } from "../../redux/employee/employee-selector";
 
-import EmployeeCentetModal from "../employee-center-modal/employeeCentetModal";
+import EmployeeCentetModal from "../employee-center-modal/EmployeeCentetModal";
 
 function CourseButton({ currentEmployee, itemID }) {
   const [modashow, setModashow] = useState(false);
-  const [courseid, setCourseid] = useState([]);
-  const [courseName, setCourseName] = useState("");
-  const [courseTime, setCourseTime] = useState("");
-  const [courseHour, setCourseHour] = useState("");
-  const [courseQuoda, setCourseQuoda] = useState("");
-  const [categoryName, setCategoryName] = useState("");
+  const [courseid, setCourseid] = useState("");
 
+  //取得
   async function getCourseID() {
     const request = new Request(
       `http://localhost:5000/api/employeecenter/${currentEmployee.Eid}`,
@@ -30,10 +26,10 @@ function CourseButton({ currentEmployee, itemID }) {
     const response = await fetch(request);
     const data = await response.json();
     setCourseid(data);
-    // console.log(courseid)
   }
 
 
+  //刪除
   async function handleDelete() {
     const request = new Request(`http://localhost:5000/api/courses/${itemID}`, {
       method: "DELETE",
@@ -58,8 +54,6 @@ function CourseButton({ currentEmployee, itemID }) {
   //改變
   useEffect(() => {
     setCourseid(courseid);
-    // console.log(courseid)
-    
   }, [courseid]);
 
   
@@ -91,16 +85,6 @@ function CourseButton({ currentEmployee, itemID }) {
           itemID={itemID}
           courseid={courseid}
           setCourseid={setCourseid}
-          courseName={courseName}
-          setCourseName={setCourseName}
-          courseTime={courseTime}
-          setCourseTime={setCourseTime}
-          courseHour={courseHour}
-          setCourseHour={setCourseHour}
-          courseQuoda={courseQuoda}
-          setCourseQuoda={setCourseQuoda}
-          categoryName={categoryName}
-          setCategoryName={setCategoryName}
         />
       )}
     </>

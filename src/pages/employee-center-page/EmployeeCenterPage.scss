@@ -1,66 +1,114 @@
+.top {
+  width: 1260px;
+  height: 30vh;
+  // background: #cccccc;
+  display: flex;
+  align-items: center;
+
+  .people-box-top {
+    display: flex;
+    align-items: center;
+    margin-left: 200px;
+
+    .people-content-top {
+      font-size: 22px;
+      margin-left: 20px;
+    }
+  }
+
+  .people-top {
+    width: 7vw;
+    height: 7vw;
+    border-radius: 50%;
+  }
+}
+
 .box {
   width: 1260px;
-  //   height: 100vh;
-  background: #cccccc;
+  // background: #cccccc;
   margin: 0 auto;
+  display: flex;
 
-  .top {
-    width: 1260px;
-    // border: 1px solid red;
-    display: flex;
-    flex-wrap: wrap;
+  .right {
+    width: 30%;
+    background: #cccccc;
+    position: relative;
 
-    .people {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
+    .people-box-right {
+      display: flex;
+      justify-content: center;
+
+      .people-right {
+        width: 12vw;
+        height: 12vw;
+        border-radius: 50%;
+        position: absolute;
+        top: -10%;
+      }
+
+      .people-content-right {
+        font-size: 22px;
+        margin: 70px 0 10px 0;
+      }
     }
 
     .data {
-      margin: 20px 0px 20px 40px;
+      padding: 10px;
     }
 
     .expertise {
-      width: 100%;
-      height: 100%;
+      padding: 0 10px 10px 20px;
 
       .license {
-        margin: 0px 0px 30px 300px;
+        margin-bottom: 50px;
       }
     }
   }
 
-  .bottom {
-    width: 1260px;
-    // border: 1px solid rgb(47, 0, 255);
+  .left {
+    width: 70%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    // &::after {
+    //   content: "";
+    //   width: 13vw;
+    //   border: 1px solid transparent;
+    //   flex: auto;
+    // }
 
     .course {
-      width: 300px;
-      height: 400px;
+      width: 13vw;
+      height: 15vw;
       border: 1px solid black;
-      margin: 3px 5px;
       text-align: center;
       position: relative;
+      margin-bottom: 50px;
 
-      .course-img {
+      .course-container-img {
         width: 100%;
+        height: 10vw;
+
+        .course-img {
+          width: 100%;
+          height: 100%;
+        }
       }
 
       .edit {
-        width: 100px;
+        width: 5vw;
         position: absolute;
         bottom: 5%;
-        left: 15%;
+        left: 5%;
       }
 
       .delete {
-        width: 100px;
+        width: 5vw;
         position: absolute;
         bottom: 5%;
-        left: 55%;
+        right: 5%;
       }
     }
   }
