@@ -7,7 +7,9 @@ function UserMyCoursesList(props) {
     .map(userCourse=>(
     <UserMyCourses 
         key={userCourse.courseId}
+        userCourseId={userCourse.courseId}
         userCourse={userCourse}
+        currentUserId={props.currentUserId}
         userBooking={props.userBooking}
         allCoursesOfThisUser={props.allCoursesOfThisUser}
         setAllCoursesOfThisUser={props.setAllCoursesOfThisUser}

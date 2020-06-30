@@ -66,7 +66,7 @@ function UserMyCourses(props) {
 
     return (
         <>
-            <div className="userContainer">
+            <div className="userCourseContainer">
                 <div className="userMyCoursesContainer">
                     <ul className="userCoursesTitle">
                         <li>課程時間</li>

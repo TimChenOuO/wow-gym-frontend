@@ -1,4 +1,4 @@
-.userContainer{
+.userCourseContainer{
     width: 1260px;
 }
 .userMyCoursesContainer{
@@ -9,20 +9,12 @@
         display:flex;
         list-style: none;
         margin:10px 0;
+        justify-content: space-around;
         li{
             font-size: 1.1rem;
             width:17%;
             text-align: center;
-        }
-    }
-    .userCoursesInfo{
-        display: flex;
-        list-style: none;
-        margin:10px 0;
-        li{
-            font-size: 1.1rem;
-            width:17%;
-            text-align: center;
+            padding:0.5rem;
         }
     }
 }

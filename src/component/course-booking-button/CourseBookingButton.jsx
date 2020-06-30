@@ -14,7 +14,7 @@ function CourseBookingButton(props) {
     //確認該課程預約狀況
     const checkBookingState = props.bookingData && props.bookingData.filter(m => m.courseId === props.value && m.memberId === props.currentUserId).map(bookedCourse => (bookedCourse.bookingState))
 
-    console.log(checkBookingState)
+    // console.log(checkBookingState)
     // console.log(props.bookingData)
     //可預約button
     const displayBookingBtn = (

@@ -203,7 +203,7 @@ function CourseBox(props) {
     //課程彈跳視窗
     function showCJumpWindow() {
         Swal.fire({
-            width: 700,
+            width: 900,
             title: props.course.courseName,
             imageUrl: props.course.courseImg,
             imageWidth: 400,
@@ -214,7 +214,7 @@ function CourseBox(props) {
     //教練彈跳視窗
     function showEJumpWindow() {
         Swal.fire({
-            width: 700,
+            width: 900,
             title: props.course.Ename,
             imageUrl: props.course.Eimg,
             imageWidth: 400,
