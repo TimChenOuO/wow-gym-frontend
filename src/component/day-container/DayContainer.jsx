@@ -18,6 +18,9 @@ function DayContainer(props) {
                 setCModalShow={props.setCModalShow}
                 sModalShow={props.sModalShow}
                 setSModalShow={props.setSModalShow}
+                bookingData={props.bookingData}
+                setBookingData={props.setBookingData}
+                getBookingData={props.getBookingData}
             />))
 
     return (

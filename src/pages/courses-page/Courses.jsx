@@ -13,10 +13,12 @@ function Courses() {
   const [newCourses, setNewCourses] = useState([])
   const [newCategory, setNewCategory] = useState([])
   const [coaches, setCoaches] = useState([])
+  //原本資料庫的bookingData
+  const [bookingData, setBookingData] = useState('');
   // const [week, setWeek] = useState('')
   // console.log('app.js',newCourses)
 
-  
+
   async function getCoursesData() {
     // 開啟載入指
     // 注意header資料格式要設定，伺服器才知道是json格式
@@ -32,10 +34,6 @@ function Courses() {
     const data = await response.json();
 
     setAllCourses(data)
-    // setWeek(data)
-    // setChoose(data)
-    // console.log(data)
-
   }
   async function getCoachesData() {
     const request = new Request('http://localhost:5000/api/employee', {
@@ -49,10 +47,9 @@ function Courses() {
     const response = await fetch(request)
     const data = await response.json()
 
-    // console.log(data)
-    // 設定資料
     setCoaches(data);
   }
+
 
   async function getCategoryData() {
     // 開啟載入指示
@@ -72,7 +69,22 @@ function Courses() {
     // 設定資料
     setChoose(data);
   }
+  //Fetch 預約資料
 
+  async function getBookingData() {
+    const request = new Request("http://localhost:5000/api/courses/bookingData", {
+      method: 'GET',
+      body: JSON.stringify(),
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
+    const response = await fetch(request)
+    const data = await response.json()
+    setBookingData(data)
+
+  }
   const handleChange = (e) => {
 
     const oop = e.target.value
@@ -92,7 +104,8 @@ function Courses() {
     getCoursesData()
     getCoachesData()
     getCategoryData()
-    
+    getBookingData()
+
     handleChange({ target: { value: '有氧教室' } })
     if (!localStorage.getItem("courses")) localStorage.setItem('courses', JSON.stringify(allCourses))
   }, [])
@@ -144,16 +157,19 @@ function Courses() {
           // week={setWeek}
           // changeWeek={changeWeek}
         /> */}
-        <div>
-          <CourseCalender
-            choose={choose}
-            setChoose={setChoose}
-            allCourses={allCourses}
-            setAllCourses={setAllCourses}
-            newCourses={newCourses}
-            coaches={coaches}
-            setCoaches={setCoaches}
-          />
+          <div>
+            <CourseCalender
+              choose={choose}
+              setChoose={setChoose}
+              allCourses={allCourses}
+              setAllCourses={setAllCourses}
+              newCourses={newCourses}
+              coaches={coaches}
+              setCoaches={setCoaches}
+              bookingData={bookingData}
+              setBookingData={setBookingData}
+              getBookingData={getBookingData}
+            />
           </div>
         </div>
       </div>

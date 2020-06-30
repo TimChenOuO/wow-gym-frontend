@@ -24,8 +24,7 @@ function CourseBox(props) {
     const getTimeInData = props.course.courseTime2
 
 
-    //原本資料庫的bookingData
-    const [bookingData, setBookingData] = useState('');
+  
     //預約後存值
     const [newBookingData, setNewBookingData] = useState('')
     const [numOfCourse, setNumOfCourse] = useState('')
@@ -35,21 +34,7 @@ function CourseBox(props) {
     let newT = t.split(/[' ']/)[3]
     // console.log(props.course.courseId)
 
-    //Fetch 預約資料
-    async function getBookingData() {
-        const request = new Request("http://localhost:5000/api/courses/bookingData", {
-            method: 'GET',
-            body: JSON.stringify(),
-            headers: new Headers({
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            }),
-        })
-        const response = await fetch(request)
-        const data = await response.json()
-        setBookingData(data)
-      
-    }
+   
 
     // 點擊預約後抓該id
     const getThisCourseId = props.course.courseId
@@ -127,7 +112,7 @@ function CourseBox(props) {
 
             // console.log('c:', getThisCourseId)
             //該會員已預約過的預約Id
-            const bookedId = bookingData && bookingData.filter(m => m.memberId === currentUserId).map(bookedCourse => (bookedCourse))
+            const bookedId = props.bookingData && props.bookingData.filter(m => m.memberId === currentUserId).map(bookedCourse => (bookedCourse))
             // console.log(A)
             //該會員預約的課程id
             const B = bookedId && bookedId.filter(item => item.courseId === getThisCourseId)
@@ -151,7 +136,7 @@ function CourseBox(props) {
             })
             const response = await fetch(request)
             const data = await response.json()
-            setNewBookingData(data)
+            setNewBookingData('')
             console.log('okk')
         }
     }
@@ -165,6 +150,9 @@ function CourseBox(props) {
             console.log('nooo')
         }
     }
+
+    
+
     function myConfirmUpdateBooking(updateBooking) {
         let c = window.confirm("確定要取消此課程嗎?")
         if (c === true) {
@@ -203,7 +191,7 @@ function CourseBox(props) {
     //課程彈跳視窗
     function showCJumpWindow() {
         Swal.fire({
-            width: 900,
+            width: 800,
             title: props.course.courseName,
             imageUrl: props.course.courseImg,
             imageWidth: 400,
@@ -214,18 +202,13 @@ function CourseBox(props) {
     //教練彈跳視窗
     function showEJumpWindow() {
         Swal.fire({
-            width: 900,
+            width: 800,
             title: props.course.Ename,
             imageUrl: props.course.Eimg,
             imageWidth: 400,
             html: `<h4>證照：</h4></br>${props.course.Elicense}<br/><br/><h4>專長：</h4></br>${props.course.Eexpertise}`,
         })
     }
-
-    //初始render抓booking資料
-    useEffect(() => {
-        getBookingData()
-    }, [])
 
     useEffect(() => {
 
@@ -237,7 +220,7 @@ function CourseBox(props) {
     }, [newBookingData])
 
     useEffect(() => {
-        getBookingData()
+        props.getBookingData()
     }, [numOfCourse])
 
     return (
@@ -255,7 +238,7 @@ function CourseBox(props) {
                     {+numOfCourse === +props.course.courseQuoda ?displayFullBtn :
                         <CourseBookingButton
                             value={props.course.courseId}
-                            bookingData={bookingData}
+                            bookingData={props.bookingData}
                             currentUserId={currentUserId}
                             numOfCourse={numOfCourse}
                             setNumOfCourse={setNumOfCourse}

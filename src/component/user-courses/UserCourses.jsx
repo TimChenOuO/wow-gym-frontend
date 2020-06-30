@@ -81,6 +81,7 @@ function UserMyCourses(props) {
                     setAllCoursesOfThisUser={setAllCoursesOfThisUser}
                     currentUserId={currentUserId}
                     getCoursesDataInAllUser={getCoursesDataInAllUser}
+                    getUserBooking={getUserBooking}
                     />
                 </div>
             </div>

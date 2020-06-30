@@ -72,7 +72,7 @@ function UserMyCourses(props) {
     // console.log(getThisBookingState)
 
     function userConfirmUpdateBooking(userCancelBooking) {
-        let c = window.confirm("確定要取消此課程嗎?")
+        let c = window.confirm("取消後無法再次預約該課程，確定要取消嗎?")
         if (c === true) {
             userCancelBooking()
             // window.location.reload()
@@ -84,7 +84,7 @@ function UserMyCourses(props) {
     //課程彈跳視窗
     function showCJumpWindow() {
         Swal.fire({
-            width: 900,
+            width: 800,
             title: props.userCourse.courseName,
             imageUrl: props.userCourse.courseImg,
             imageWidth: 400,
@@ -96,7 +96,7 @@ function UserMyCourses(props) {
     //教練彈跳視窗
     function showEJumpWindow() {
         Swal.fire({
-            width: 900,
+            width: 800,
             title: props.userCourse.Ename,
             imageUrl: props.userCourse.Eimg,
             imageWidth: 400,
@@ -106,6 +106,7 @@ function UserMyCourses(props) {
 
     useEffect(() => {
         props.getCoursesDataInAllUser()
+        props.getUserBooking()
     }, [userBooking])
 
     return (

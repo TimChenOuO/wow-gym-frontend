@@ -21,7 +21,7 @@ function EmployeeCenter({ currentEmployee }) {
     //   .split(',', 1)
     //   .join('')
     //   .match(/\d+/)
-    console.log(currentEmployee.Eid);
+    // console.log(currentEmployee.Eid);
     const request = new Request(
       `http://localhost:5000/api/employee/${currentEmployee.Eid}`,
       {
