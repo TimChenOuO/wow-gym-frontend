@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './CoachBox.scss'
-// import SJumpWindow from "../s-jump-window/SJumpWindow";
 import Swal from "sweetalert2";
 
 

@@ -19,7 +19,7 @@ const HomePage = () => {
     if (windowH + scrollH >= 1000) {
       const VideoScroll = document.getElementById("VideoScroll");
 
-      VideoScroll.style.bottom = "200px";
+      // VideoScroll.style.bottom = "200px";
       VideoScroll.style.left = "20%";
     }
   };

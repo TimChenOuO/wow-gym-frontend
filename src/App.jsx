@@ -8,6 +8,7 @@ import SignInOutPage from "./pages/sign-in-out-page/Sign-in-out-page";
 //課程----------
 import Courses from "./pages/courses-page/Courses";
 import Coaches from "./pages/coaches-page/Coaches";
+import UserMyCourses from "./pages/user-page/UserPage";
 //教練中心-----------
 import EmployeeFormPage from "./pages/employee-form-page/EmployeeFormPage";
 import EmployeeCenterPage from "./pages/employee-center-page/EmployeeCenterPage";
@@ -78,6 +79,7 @@ const App = ({ userListStart, employeeListStart }) => {
               {/* 玉玲 */}
               <Route path="/courses" component={Courses} />
               <Route path="/coaches" component={Coaches} />
+              <Route path="/user" component={UserMyCourses} />
 
               {/* Darren測試用 */}
               <Route path="/OrderList" component={OrderList} />

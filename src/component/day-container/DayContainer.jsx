@@ -1,8 +1,6 @@
 import React from "react"
 import "./DayContainer.scss"
-import CourseBox from "../Course-box/CourseBox"
-import Moment from "react-moment"
-import "moment-timezone"
+import CourseBox from "../course-box/CourseBox"
 
 function DayContainer(props) {
     // console.log('d:',props.newCourses)

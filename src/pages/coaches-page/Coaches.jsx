@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Coaches.scss";
-// import Selector from '../../component/course-selector/CourseSelector'
-import CoachList from "../../component/Coach-list/CoachList";
+import CoachList from "../../component/coach-list/CoachList";
 
 function Coaches(props) {
   

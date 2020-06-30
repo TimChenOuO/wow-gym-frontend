@@ -1,0 +1,28 @@
+.userContainer{
+    width: 1260px;
+}
+.userMyCoursesContainer{
+    width: 70%;
+    height: 700px;
+    border: 1px solid black;
+    .userCoursesTitle{
+        display:flex;
+        list-style: none;
+        margin:10px 0;
+        li{
+            font-size: 1.1rem;
+            width:17%;
+            text-align: center;
+        }
+    }
+    .userCoursesInfo{
+        display: flex;
+        list-style: none;
+        margin:10px 0;
+        li{
+            font-size: 1.1rem;
+            width:17%;
+            text-align: center;
+        }
+    }
+}

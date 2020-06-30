@@ -16,29 +16,13 @@ function CourseBox(props) {
     const currentUserId = currentUserData ? currentUserData.memberId : ''
     //---------------
 
-    // console.log(props.course)
-    // console.log(currentUserData)
+    //將現在時間的星期轉換成毫秒
+    const nowTime = Date.now()
+    // console.log('nowTime', +nowTime)
 
-    //將現在時間的星期轉換成數字
-    const nowDay = new Date().getDay()
-    const nowHour = new Date().getHours()
-    // console.log(nowHour)
-    //    let nowTime = <Moment thisTime={thisTime}/>
-    //   console.log(thisTime)
+    //抓資料裡的課程時間(毫秒)
+    const getTimeInData = props.course.courseTime2
 
-    //   let checkWeek = thisTime.split(/[" "]/)[0]
-    //   let checkTime = thisTime.split(/[" "]/)[4]
-    // console.log(props.course.currentDay) 
-
-    //抓資料裡的currentDay，用數字比對星期
-    const getDayInData = props.course.currentDay === 0 ? props.course.currentDay = 7 : props.course.currentDay
-    const getHourInData = JSON.stringify(props.course.courseTime).split(" ")[3]
-    const getNewHour = getHourInData.split(":")[0]
-    // console.log(getNewHour)
-
-    // console.log(getDayInData)
-
-    //   console.log(thisTime)
 
     //原本資料庫的bookingData
     const [bookingData, setBookingData] = useState('');
@@ -64,8 +48,7 @@ function CourseBox(props) {
         const response = await fetch(request)
         const data = await response.json()
         setBookingData(data)
-        // setNumOfCourse(props.course.numberOfCourse)
-        // console.log(A)
+      
     }
 
     // 點擊預約後抓該id
@@ -117,7 +100,7 @@ function CourseBox(props) {
         }
     }
 
-    async function cancelBooking() {
+    async function updateBooking() {
         if (currentUserId !== '') {
             //用課程id抓localStorage特定課程
             const getCourseInLocal = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
@@ -149,16 +132,17 @@ function CourseBox(props) {
             //該會員預約的課程id
             const B = bookedId && bookedId.filter(item => item.courseId === getThisCourseId)
 
-            const cancelId = B[0].courseBookingId
+            const updateId = B[0].courseBookingId
 
             const bookingDel = {
-                courseBookingId: cancelId,
-                memberId: currentUserId,
-                courseId: getThisCourseId
+                // courseBookingId: updateId,
+                // memberId: currentUserId,
+                // courseId: getThisCourseId,
+                bookingState: 0
             }
 
-            const request = new Request(`http://localhost:5000/api/courses/bookingData/${cancelId}`, {
-                method: 'DELETE',
+            const request = new Request(`http://localhost:5000/api/courses/bookingData/${updateId}`, {
+                method: 'POST',
                 body: JSON.stringify(bookingDel),
                 headers: new Headers({
                     'Accept': 'application/json',
@@ -181,10 +165,10 @@ function CourseBox(props) {
             console.log('nooo')
         }
     }
-    function myConfirmCancelBooking(cancelBooking) {
+    function myConfirmUpdateBooking(updateBooking) {
         let c = window.confirm("確定要取消此課程嗎?")
         if (c === true) {
-            cancelBooking()
+            updateBooking()
             // window.location.reload()
         } else {
             console.log('nooo')
@@ -235,8 +219,6 @@ function CourseBox(props) {
             imageUrl: props.course.Eimg,
             imageWidth: 400,
             html: `<h4>證照：</h4></br>${props.course.Elicense}<br/><br/><h4>專長：</h4></br>${props.course.Eexpertise}`,
-            // imageHeight: 300,
-            // background: '#fff url(props.course.courseImg)',
         })
     }
 
@@ -261,7 +243,7 @@ function CourseBox(props) {
     return (
         <>
             <div className="courseBox">
-            {getDayInData <= nowDay & getNewHour<= nowHour? <div className="courseBoxCover"></div>:''}
+            {getTimeInData <= nowTime ?<div className="courseBoxCover"></div>:''}
                 <div className="courseName" onClick={() => showCJumpWindow()}>{props.course.courseName}</div>
                 <div className="courseTime">{newT}</div>
                 <div onClick={() => showEJumpWindow()} className="coachName">
@@ -279,9 +261,9 @@ function CourseBox(props) {
                             setNumOfCourse={setNumOfCourse}
                             courseQuoda={props.course.courseQuoda}
                             addBooking={addBooking}
-                            cancelBooking={cancelBooking}
+                            updateBooking={updateBooking}
                             myConfirmAddBooking={myConfirmAddBooking}
-                            myConfirmCancelBooking={myConfirmCancelBooking}
+                            myConfirmUpdateBooking={myConfirmUpdateBooking}
                         />
                     }
                 </div>
