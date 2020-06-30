@@ -24,6 +24,7 @@ const ShopCollectionPage = lazy(() =>
   import("./pages/shop-collection-page/ShopCollectionPage")
 );
 const ShopItemPage = lazy(() => import("./pages/shop-item-page/ShopItemPage"));
+const CheckOutPage = lazy(() => import("./pages/checkout-page/Checkout-page"));
 // -----------
 
 // APP component
@@ -52,6 +53,7 @@ const App = ({ userListStart, employeeListStart }) => {
                 path="/shopitem/:collection/:itemId"
                 component={ShopItemPage}
               />
+              <Route exact path="/checkout" component={CheckOutPage} />
               <Route path="/login" component={SignInOutPage} />
             </Suspense>
           </ErrorBoundary>
