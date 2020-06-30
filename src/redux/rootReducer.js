@@ -15,6 +15,12 @@ const persistConfig = {
   blacklist: ["shop"],
 };
 
+// const userPersistConfig = {
+//   key: "user",
+//   storage,
+//   blacklist: ["userSignUpUnVaild"],
+// };
+
 const rootReducer = combineReducers({
   cart: cartReducer,
   shop: shopReducer,

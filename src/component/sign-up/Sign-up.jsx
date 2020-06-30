@@ -1,15 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 
 import { createStructuredSelector } from "reselect";
-import { userListSelect } from "../../redux/user/user-selector";
+import {
+  userListSelect,
+  currentUserSelect,
+  userSignUpUnVaildSelect,
+} from "../../redux/user/user-selector";
 import FormInput from "../form-input/Form-input";
 import CustomButton from "../custom-button/Custom-button";
 import ErrorModel from "../error-model/ErrorModel";
 
-import { userListStart, userLogin } from "../../redux/user/user-action";
+import {
+  userListStart,
+  // userLogin,
+  userSignUpStart,
+  userSignUpRestart,
+} from "../../redux/user/user-action";
 
 import "./Sign-up.scss";
 
@@ -19,28 +28,18 @@ class SingUP extends React.Component {
     password: "",
     name: "",
     mobile: "",
-    unValid: false,
   };
 
-  handleSubmit = async (e) => {
-    const { history, userLogin } = this.props;
+  handleSubmit = (e) => {
     e.preventDefault();
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}/api/user/InsertUser`,
-      {
-        memberAccount: this.state.email,
-        memberPwd: this.state.password,
-        memberName: this.state.name,
-        memberPhoneNum: this.state.mobile,
-      }
-    );
-    if (data.success) {
-      // userListStart();
-      userLogin(data.currentUser);
-      history.push("/");
-    } else {
-      this.setState({ unValid: true });
-    }
+    const { userSignUpStart } = this.props;
+    const user = {
+      memberAccount: this.state.email,
+      memberPwd: this.state.password,
+      memberName: this.state.name,
+      memberPhoneNum: this.state.mobile,
+    };
+    userSignUpStart(user);
   };
 
   handleChange = (e) => {
@@ -53,6 +52,7 @@ class SingUP extends React.Component {
   };
 
   render() {
+    const { history, userSignUpUnVaild, userSignUpRestart } = this.props;
     return (
       <div className="sign-up">
         <h2 className="sign-up-title">會員註冊</h2>
@@ -89,14 +89,21 @@ class SingUP extends React.Component {
             <CustomButton type="submit">註冊</CustomButton>
           </div>
         </form>
-        {this.state.unValid && (
-          <div className="unValid-backdrop" onClick={this.handleIsValid} />
+        {userSignUpUnVaild !== null && (
+          <div className="unValid-backdrop" onClick={userSignUpRestart} />
         )}
         <ErrorModel
-          unValid={this.state.unValid}
-          handleIsValid={this.handleIsValid}
+          unValid={userSignUpUnVaild !== null && userSignUpUnVaild}
+          handleIsValid={false}
         >
           註冊資訊有誤，請重新輸入
+        </ErrorModel>
+
+        <ErrorModel
+          unValid={userSignUpUnVaild !== null && !userSignUpUnVaild}
+          handleIsValid={() => history.push("/")}
+        >
+          註冊成功 !
         </ErrorModel>
       </div>
     );
@@ -105,10 +112,14 @@ class SingUP extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   userList: userListSelect,
+  currentUser: currentUserSelect,
+  userSignUpUnVaild: userSignUpUnVaildSelect,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   userListStart: () => dispatch(userListStart()),
-  userLogin: (user) => dispatch(userLogin(user)),
+  userSignUpRestart: () => dispatch(userSignUpRestart()),
+  // userLogin: (user) => dispatch(userLogin(user)),
+  userSignUpStart: (user) => dispatch(userSignUpStart(user)),
 });
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SingUP));

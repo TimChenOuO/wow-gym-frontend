@@ -30,7 +30,7 @@ const ShopItemPage = lazy(() => import("./pages/shop-item-page/ShopItemPage"));
 const App = ({ userListStart, employeeListStart }) => {
   useEffect(() => {
     userListStart();
-    employeeListStart();
+    // employeeListStart();
   }, [userListStart, employeeListStart]);
 
   return (

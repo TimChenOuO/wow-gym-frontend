@@ -7,6 +7,11 @@ export const currentUserSelect = createSelector(
   (user) => user.currentUser
 );
 
+export const userSignUpUnVaildSelect = createSelector(
+  [userSelect],
+  (user) => user.userSignUpUnVaild
+);
+
 export const userListSelect = createSelector(
   [userSelect],
   (user) => user.userList
