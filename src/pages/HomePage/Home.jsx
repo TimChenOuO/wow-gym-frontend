@@ -20,7 +20,7 @@ const HomePage = () => {
       const VideoScroll = document.getElementById("VideoScroll");
 
       // VideoScroll.style.bottom = "200px";
-      VideoScroll.style.left = "20%";
+      // VideoScroll.style.left = "20%";s
     }
   };
 

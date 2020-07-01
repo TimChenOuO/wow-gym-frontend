@@ -24,7 +24,7 @@ function CourseBox(props) {
     const getTimeInData = props.course.courseTime2
 
 
-  
+//   console.log(currentUserId)
     //預約後存值
     const [newBookingData, setNewBookingData] = useState('')
     const [numOfCourse, setNumOfCourse] = useState('')
@@ -42,7 +42,9 @@ function CourseBox(props) {
     const coursesInLocal = JSON.parse(localStorage.getItem('courses'))
 
     async function addBooking() {
-        if (props.currentUserId !== '') {
+        if (currentUserId === "") {
+            alert("請先登入會員")
+        }else{
             //用課程id抓localStorage特定課程
             const getCourseInLocal = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
             // console.log(newFind)
@@ -86,61 +88,61 @@ function CourseBox(props) {
         }
     }
 
-    async function updateBooking() {
-        if (currentUserId !== '') {
-            //用課程id抓localStorage特定課程
-            const getCourseInLocal = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
-            // console.log(getCourseInLocal)
-            //將課程人數-1
-            getCourseInLocal[0].numberOfCourse -= 1
+    // async function updateBooking() {
+    //     if (currentUserData !== null) {
+    //         //用課程id抓localStorage特定課程
+    //         const getCourseInLocal = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === getThisCourseId).map(i => i)
+    //         // console.log(getCourseInLocal)
+    //         //將課程人數-1
+    //         getCourseInLocal[0].numberOfCourse -= 1
 
-            // //將其他未被選到的課程轉到新陣列
-            const nonFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId !== getThisCourseId)
+    //         // //將其他未被選到的課程轉到新陣列
+    //         const nonFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId !== getThisCourseId)
 
-            // //將預定人數增加的資料推進新陣列
-            await nonFind.push(getCourseInLocal[0])
-            // // console.log(nonFind)
+    //         // //將預定人數增加的資料推進新陣列
+    //         await nonFind.push(getCourseInLocal[0])
+    //         // // console.log(nonFind)
 
-            // // //刪除原本localStorage課程的data
-            localStorage.setItem("courses", JSON.stringify({ "coursesRow": nonFind }))
+    //         // // //刪除原本localStorage課程的data
+    //         localStorage.setItem("courses", JSON.stringify({ "coursesRow": nonFind }))
 
-            const renewLocal = await JSON.parse(localStorage.getItem("courses"))
-            const newNum = await renewLocal.coursesRow &&
-                renewLocal.coursesRow.filter(c => c.courseId === getThisCourseId)
-                    .map(i => i.numberOfCourse)
+    //         const renewLocal = await JSON.parse(localStorage.getItem("courses"))
+    //         const newNum = await renewLocal.coursesRow &&
+    //             renewLocal.coursesRow.filter(c => c.courseId === getThisCourseId)
+    //                 .map(i => i.numberOfCourse)
 
-            setNumOfCourse(newNum)
+    //         setNumOfCourse(newNum)
 
-            // console.log('c:', getThisCourseId)
-            //該會員已預約過的預約Id
-            const bookedId = props.bookingData && props.bookingData.filter(m => m.memberId === currentUserId).map(bookedCourse => (bookedCourse))
-            // console.log(A)
-            //該會員預約的課程id
-            const B = bookedId && bookedId.filter(item => item.courseId === getThisCourseId)
+    //         // console.log('c:', getThisCourseId)
+    //         //該會員已預約過的預約Id
+    //         const bookedId = props.bookingData && props.bookingData.filter(m => m.memberId === currentUserId).map(bookedCourse => (bookedCourse))
+    //         // console.log(A)
+    //         //該會員預約的課程id
+    //         const B = bookedId && bookedId.filter(item => item.courseId === getThisCourseId)
 
-            const updateId = B[0].courseBookingId
+    //         const updateId = B[0].courseBookingId
 
-            const bookingDel = {
-                // courseBookingId: updateId,
-                // memberId: currentUserId,
-                // courseId: getThisCourseId,
-                bookingState: 0
-            }
+    //         const bookingDel = {
+    //             // courseBookingId: updateId,
+    //             // memberId: currentUserId,
+    //             // courseId: getThisCourseId,
+    //             bookingState: 0
+    //         }
 
-            const request = new Request(`http://localhost:5000/api/courses/bookingData/${updateId}`, {
-                method: 'POST',
-                body: JSON.stringify(bookingDel),
-                headers: new Headers({
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }),
-            })
-            const response = await fetch(request)
-            const data = await response.json()
-            setNewBookingData('')
-            console.log('okk')
-        }
-    }
+    //         const request = new Request(`http://localhost:5000/api/courses/bookingData/${updateId}`, {
+    //             method: 'POST',
+    //             body: JSON.stringify(bookingDel),
+    //             headers: new Headers({
+    //                 'Accept': 'application/json',
+    //                 'Content-Type': 'application/json',
+    //             }),
+    //         })
+    //         const response = await fetch(request)
+    //         const data = await response.json()
+    //         setNewBookingData('')
+    //         console.log('okk')
+    //     }
+    // }
 
     function myConfirmAddBooking(addBooking) {
         let a = window.confirm("確定要預約此課程嗎?")
@@ -154,15 +156,15 @@ function CourseBox(props) {
 
     
 
-    function myConfirmUpdateBooking(updateBooking) {
-        let c = window.confirm("確定要取消此課程嗎?")
-        if (c === true) {
-            updateBooking()
-            // window.location.reload()
-        } else {
-            console.log('nooo')
-        }
-    }
+    // function myConfirmUpdateBooking(updateBooking) {
+    //     let c = window.confirm("確定要取消此課程嗎?")
+    //     if (c === true) {
+    //         updateBooking()
+    //         // window.location.reload()
+    //     } else {
+    //         console.log('nooo')
+    //     }
+    // }
          //已額滿按鈕
          const displayFullBtn = (
             <>
@@ -221,7 +223,7 @@ function CourseBox(props) {
     }, [newBookingData])
 
     useEffect(() => {
-        // props.getBookingData()
+        props.getBookingData()
     }, [numOfCourse])
 
     return (
@@ -245,9 +247,9 @@ function CourseBox(props) {
                             setNumOfCourse={setNumOfCourse}
                             courseQuoda={props.course.courseQuoda}
                             addBooking={addBooking}
-                            updateBooking={updateBooking}
+                            // updateBooking={updateBooking}
                             myConfirmAddBooking={myConfirmAddBooking}
-                            myConfirmUpdateBooking={myConfirmUpdateBooking}
+                            // myConfirmUpdateBooking={myConfirmUpdateBooking}
                         />
                     }
                 </div>

@@ -5,11 +5,11 @@ import './CourseBookingButton.scss'
 function CourseBookingButton(props) {
 
     //找到該會員已預約的課程id
-    const A = props.bookingData && props.bookingData.filter(m => m.memberId === props.currentUserId).map(bookedCourse => (bookedCourse.courseId))
+    const thisUserBookingId = props.bookingData && props.bookingData.filter(m => m.memberId === props.currentUserId).map(bookedCourse => (bookedCourse.courseId))
     // console.log(A)
 
     //確認此課程是否已被該會員預約
-    const checkBooking = A.indexOf(props.value)
+    const checkBooking = thisUserBookingId.indexOf(props.value)
 
     //確認該課程預約狀況
     const checkBookingState = props.bookingData && props.bookingData.filter(m => m.courseId === props.value && m.memberId === props.currentUserId).map(bookedCourse => (bookedCourse.bookingState))
