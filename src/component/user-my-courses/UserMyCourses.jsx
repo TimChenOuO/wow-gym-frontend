@@ -9,22 +9,20 @@ function UserMyCourses(props) {
     const [userBooking, setUserBooking] = useState([])
 
     const T = props.userCourse.courseTime
-    const newT = T.split("T")[0]
+    const newD = T.split("T")[0]
+    const newT = props.userCourse.courseTime3.split(" ")[3]
 
     //轉換時間格式比較先後
     const newTime = new Date(T).getTime()
     const nowTime = Date.now()
-    // console.log(newTime)
-
-    // const dd = new Date(T).getTime();
-    // const weekdays = "星期日,星期一,星期二,星期三,星期四,星期五,星期六".split(",");
-    // const newDd = weekdays[dd.getDay()];
-    // console.log(weekdays)
+    // console.log(T)
 
     //會員的預約編號
     const userBookingId = props.userCourse.courseBookingId
+    //該課程id
+    const thisCourseId = props.userCourse.courseId
 
-    console.log(props.userCourse)
+    // console.log(props.userCourse)
 
     async function userCancelBooking() {
 
@@ -42,27 +40,22 @@ function UserMyCourses(props) {
         const response = await fetch(request)
         const data = await response.json()
         setUserBooking('')
-        // console.log(userBookingId)
 
-        //抓localStorage的courses資料
-        const coursesInLocal = JSON.parse(localStorage.getItem('courses'))
-        if (props.currentUserId !== '') {
-            //用課程id抓localStorage特定課程
-            const getCourseInLocal = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId === props.userCourse.courseId).map(i => i)
-            // console.log(getCourseInLocal)
-            //將課程人數-1
-            getCourseInLocal[0].numberOfCourse -= 1
-
-            // //將其他未被選到的課程轉到新陣列
-            const nonFind = await coursesInLocal.coursesRow && coursesInLocal.coursesRow.filter(item => item.courseId !== props.userCourse.courseId)
-
-            // //將預定人數增加的資料推進新陣列
-            await nonFind.push(getCourseInLocal[0])
-            // // console.log(nonFind)
-
-            // // //刪除原本localStorage課程的data
-            localStorage.setItem("courses", JSON.stringify({ "coursesRow": nonFind }))
+        //取消預約後減少預約人數
+        const reduceNumJson = {
+            courseId: thisCourseId,
         }
+        const req = new Request(`http://localhost:5000/api/courses/data`, {
+            method: 'POST',
+            body: JSON.stringify(reduceNumJson),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }),
+        })
+        const res = await fetch(req)
+        const newData = await res.json()
+  
     }
 
     // console.log(props.userCourseId)
@@ -113,6 +106,7 @@ function UserMyCourses(props) {
         <>
         <ul className="userCoursesInfo">
         {nowTime > newTime ?<div className="userCoursesInfoCover"></div> :""}
+                <li className="courseDayUser">{newD}</li>
                 <li className="courseTimeUser">{newT}</li>
                 <li className="courseNameInUser" onClick={() => showCJumpWindow()}>{props.userCourse.courseName}</li>
                 <li className="courseCategoryInUser">{props.userCourse.categoryName}</li>

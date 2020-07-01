@@ -1,8 +1,7 @@
 .coachBoxFront {
     // grid-column: 1;
-    widows: 20%;
+    width: 100%;
     height: 190px;
-    // border: 1px solid red;
     transform: skewX(-10deg);
     position: relative;
     z-index: 2;
@@ -31,6 +30,15 @@
     }
 }
 
-.coachJumpWindow {
-    width: 1000px;
+@media (max-width: 375px) {
+    .coachBoxFront {
+        width:80%;
+        height:100px;
+        margin: 0 auto;
+        .nameShadow{
+            height:25px;
+            line-height: 25px;
+            font-size: 1rem;
+        }
+    }
 }

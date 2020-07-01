@@ -32,17 +32,17 @@ function Coaches(props) {
 
   return (
     <>
-      <div className="wrapper">
-        <div className="coachBanner"></div>
+    <div className="coachWrapper">
+        <div className="coachBanner">
         <div className="coachBannerCover">
         <h1>教練資訊 Coach information</h1>
-        </div>
+        </div></div>
         
        
-        <div className="container">
+        <div className="coachContainer">
           <CoachList employee={employee} setEmployee={setEmployee} />
         </div>
-      </div>
+        </div>
     </>
   );
 }

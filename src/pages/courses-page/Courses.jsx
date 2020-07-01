@@ -5,19 +5,29 @@ import CourseSelector from "../../component/course-selector/CourseSelector";
 import CourseCalender from "../../component/course-calender/CourseCalender";
 // import WeekBar from "../../component/week-bar/WeekBar"
 
+//---------------
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
+import { currentUserSelect } from "../../redux/user/user-selector";
+//---------------
 
-function Courses() {
+
+function Courses(props) {
 
   const [allCourses, setAllCourses] = useState([])
   const [choose, setChoose] = useState([])
   const [newCourses, setNewCourses] = useState([])
   const [newCategory, setNewCategory] = useState([])
-  const [coaches, setCoaches] = useState([])
   //原本資料庫的bookingData
   const [bookingData, setBookingData] = useState('');
-  // const [week, setWeek] = useState('')
-  // console.log('app.js',newCourses)
 
+      //---------------
+      const { currentUserData } = props
+      //該使用者的id
+      const currentUserId = currentUserData ? currentUserData.memberId : ''
+      //---------------
+  
 
   async function getCoursesData() {
     // 開啟載入指
@@ -35,21 +45,6 @@ function Courses() {
 
     setAllCourses(data)
   }
-  async function getCoachesData() {
-    const request = new Request('http://localhost:5000/api/employee', {
-      method: 'GET',
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      }),
-    });
-
-    const response = await fetch(request)
-    const data = await response.json()
-
-    setCoaches(data);
-  }
-
 
   async function getCategoryData() {
     // 開啟載入指示
@@ -100,43 +95,17 @@ function Courses() {
     }
   }
 
- 
-
   useEffect(() => {
-    // console.log("fire")
     getCoursesData()
-    getCoachesData()
     getCategoryData()
     getBookingData()
 
     handleChange({ target: { value: "有氧教室" } })
-
-    if (!localStorage.getItem("courses")) 
-    localStorage.setItem("courses", JSON.stringify(allCourses))
-
   }, [])
 
   useEffect(() => {
     handleChange({ target: { value: "有氧教室" } })
   }, [choose])
-
-  // const changeWeek = (e) => {
-  //   const whichWeek = e.target.value
-  //   // console.log(whichWeek)
-  //   const Week = whichWeek.split("-")
-  //   const aWeek = parseInt(Week[0].split("/")[1])
-  //   const zWeek = parseInt(Week[1].split("/")[1])
-  //   console.log(aWeek, zWeek)
-  //   // console.log(allCourses)
-  //   //所有課程的日期
-
-  //   const c = allCourses && allCourses.coursesRow.map(item=>parseInt(item.courseTime.split(" ")[2]))
-  //   console.log(c)
-
-  //   const d = c && c.filter(item=> aWeek<=item)
-  //   const f = c && c.filter(item => item<=zWeek) 
-
-  // }
 
   return (
     <>
@@ -145,7 +114,7 @@ function Courses() {
         <div className="courseBannerCover">
           <h1>課程資訊 Class information</h1>
         </div>
-        <div className="container">
+        <div className="courseContainer">
           <CourseInformation
             choose={choose}
             newCourses={newCourses}
@@ -153,28 +122,15 @@ function Courses() {
           />
           <CourseSelector
             choose={choose}
-            setChoose={setChoose}
-            allCourses={allCourses}
-            setAllCourses={setAllCourses}
             handleChange={handleChange}
           />
-          {/* <WeekBar 
-          allCourses={allCourses}
-          // week={setWeek}
-          // changeWeek={changeWeek}
-        /> */}
           <div>
             <CourseCalender
-              choose={choose}
-              setChoose={setChoose}
-              allCourses={allCourses}
-              setAllCourses={setAllCourses}
               newCourses={newCourses}
-              coaches={coaches}
-              setCoaches={setCoaches}
               bookingData={bookingData}
-              setBookingData={setBookingData}
               getBookingData={getBookingData}
+              currentUserId={currentUserId}
+              getCoursesData={getCoursesData}
             />
           </div>
         </div>
@@ -182,4 +138,10 @@ function Courses() {
     </>
   );
 }
-export default Courses;
+//---------------
+const mapStateToProps = createStructuredSelector({
+  currentUserData: currentUserSelect,
+});
+
+export default withRouter(connect(mapStateToProps)(Courses));
+//---------------

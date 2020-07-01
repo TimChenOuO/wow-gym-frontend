@@ -13,3 +13,17 @@
         line-height: 2rem;
     }
 }
+
+@media (max-width: 375px) {
+    .information {
+
+
+    .courseCategoryTitle {
+        font-size: 1.3rem;
+    }
+
+    .introduce{
+        font-size: 1rem;
+    }
+    }
+}

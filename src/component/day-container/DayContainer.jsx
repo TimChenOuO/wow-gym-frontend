@@ -7,27 +7,26 @@ function DayContainer(props) {
     // console.log(props)
 
 
-
     const filterCourses = props.newCourses && props.newCourses
         .filter(course => course.courseTime.split(' ')[0] === props.title)
         .map(course => (
             <CourseBox
                 key={course.courseId}
                 course={course}
-                cModalShow={props.cModalShow}
-                setCModalShow={props.setCModalShow}
-                sModalShow={props.sModalShow}
-                setSModalShow={props.setSModalShow}
                 bookingData={props.bookingData}
-                setBookingData={props.setBookingData}
                 getBookingData={props.getBookingData}
+                getCoursesData={props.getCoursesData}
+                currentUserId={props.currentUserId}
+                thisUserBookingId={props.thisUserBookingId}
             />))
 
     return (
         <>
             <div className="dayContainer">
                 <div className="day">{props.title}</div>
-                {filterCourses}
+                <div className="courseBoxWrapper">
+                <div className="courseBoxContainer">{filterCourses}</div>
+                </div>
             </div>
         </>
     )

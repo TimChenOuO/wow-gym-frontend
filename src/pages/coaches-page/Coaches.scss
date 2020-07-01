@@ -1,15 +1,7 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-    font-family: 微軟正黑體;
-    
+
+.wrapper{
+    max-width: 1260px;
 }
-
-// .wrapper {
-//     background: #555555;
-// }
-
 .coachBanner {
     width: 100%;
     height: 350px;
@@ -19,19 +11,37 @@
     object-fit: contain;
 }
 .coachBannerCover{
+    width:100%;
+    height:100%;
     position: absolute;
-    top:16%;
-    // transform: translateY(-50%);
+    top:50%;
+    transform: translateY(-10%);
+
     h1 {
-        width: 1260px;
         margin: 0 auto;
-        line-height: 350px;
+        // line-height: 350px;
         font-size: 2.2rem
     }
 }
 
-.container {
-    width: 1260px;
+.coachContainer {
+    width: 100%;
     margin: 0 auto;
 }
 
+@media (max-width: 375px) {
+
+    .coachWrapper{
+        max-width: 90%;
+    .coachBanner {
+        height:250px;
+    }
+    .coachBannerCover {
+        transform: translateY(0);
+
+        h1{
+            font-size: 1.3rem;
+        }
+    }
+}
+}

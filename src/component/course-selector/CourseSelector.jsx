@@ -9,8 +9,8 @@ function CourseSelector(props) {
 
   return (
     <>
-      <div className="selector">
-        <select type="text" onChange={props.handleChange}>
+      <div className="courseSelector">
+        <select className="courseS" type="text" onChange={props.handleChange}>
           {/* <option value>請選擇教室課程</option> */}
 
           {choose.coursesCategory &&

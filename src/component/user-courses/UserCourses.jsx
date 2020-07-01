@@ -52,7 +52,7 @@ function UserCourses(props) {
     
         const response = await fetch(request);
         const data = await response.json();
-        const courseOfUser = data.filter(i=> i.memberId === currentUserId).map(f=>f)
+        const courseOfUser = data.coursesRow.filter(i=> i.memberId === currentUserId).map(f=>f)
 
         // console.log()
         setAllCoursesOfThisUser(courseOfUser)    
@@ -69,6 +69,7 @@ function UserCourses(props) {
             <div className="userCourseContainer">
                 <div className="userMyCoursesContainer">
                     <ul className="userCoursesTitle">
+                        <li>課程日期</li>
                         <li>課程時間</li>
                         <li>課程名稱</li>
                         <li>課程種類</li>

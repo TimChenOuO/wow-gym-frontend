@@ -1,29 +1,39 @@
-* {
-  margin: 0;
-  padding: 0;
-  font-family: 微軟正黑體;
-}
-
 .courseBanner {
   width: 100%;
   height: 350px;
   position: relative;
   opacity: .5;
-  background: url(https://i.ibb.co/sPcg1dc/banner.jpg);
+  background: url(https://i.ibb.co/sPcg1dc/banner.jpg) 100%;
 }
 
 .courseBannerCover {
   position: absolute;
-  top: 16%;
+  top: 50%;
   h1 {
-    width: 1260px;
     margin: 0 auto;
-    line-height: 350px;
     font-size: 2.2rem
   }
 }
 
-.container {
-  width: 1260px;
+.courseContainer {
+  max-width: 1260px;
   margin: 0 auto;
+}
+@media (max-width: 375px) {
+  .courseBanner {
+    height: 250px;
+  }
+
+.courseBannerCover {
+  width:90%;
+  top:28%;
+
+  h1 {
+    margin: 0 auto;
+    font-size: 1.3rem
+  }
+}
+  .courseContainer{
+width:90%
+  }
 }
