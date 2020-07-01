@@ -9,7 +9,7 @@ import { currentUserSelect } from "../../redux/user/user-selector";
 //---------------
 
 
-function UserMyCourses(props) {
+function UserCourses(props) {
 
     const [userBooking, setUserBooking] = useState([])
     const [allCoursesOfThisUser, setAllCoursesOfThisUser] = useState([])
@@ -94,5 +94,5 @@ const mapStateToProps = createStructuredSelector({
     currentUserData: currentUserSelect,
 });
 
-export default withRouter(connect(mapStateToProps)(UserMyCourses));
+export default withRouter(connect(mapStateToProps)(UserCourses));
 //---------------

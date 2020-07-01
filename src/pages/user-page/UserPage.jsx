@@ -1,11 +1,11 @@
 import React from "react"
-import UserMyCourses from "../../component/user-courses/UserCourses"
+import UserCourses from "../../component/user-courses/UserCourses"
 
 function UserPage (){
 
     return(
 <>
-<UserMyCourses />
+<UserCourses />
 </>
     )
 }

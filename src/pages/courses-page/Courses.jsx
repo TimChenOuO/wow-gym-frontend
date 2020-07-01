@@ -100,14 +100,21 @@ function Courses() {
     }
   }
 
+  const startFetch = async()=>{
+    await getCoursesData()
+    await getCoachesData()
+    await getCategoryData()
+    await getBookingData()
+  }
+
   useEffect(() => {
-    getCoursesData()
-    getCoachesData()
-    getCategoryData()
-    getBookingData()
+    console.log("fire")
+    startFetch()
 
     handleChange({ target: { value: '有氧教室' } })
+
     if (!localStorage.getItem("courses")) localStorage.setItem('courses', JSON.stringify(allCourses))
+
   }, [])
 
   useEffect(() => {

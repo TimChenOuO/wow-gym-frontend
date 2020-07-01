@@ -1,9 +1,17 @@
 .input {
-    width: 80%;
-    height: 5vh;
-  }
-  
-  .label {
-    display: block;
-    padding: 30px 10px;
-  }
+  width: 80%;
+  height: 5vh;
+  outline-style: none;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+// .input[type="file"] {
+//   position: absolute;
+//   display: block;
+//   width: 100%;
+//   height: 100%;
+//   right: 0;
+//   top: 0;
+//   opacity: 0;
+// }

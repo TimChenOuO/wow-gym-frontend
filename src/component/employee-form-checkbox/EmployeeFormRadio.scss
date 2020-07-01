@@ -1,23 +1,49 @@
-label {
-    padding: 0;
-    margin-right: 30px;
-    cursor: pointer;
-  
-    .radio {
-      display: none;
-    }
-  
-    .span {
-      display: inline-block;
-      background-color: rgb(255, 255, 255);
-      padding: 3px 6px;
-      border: 1px solid gray;
-      color: black;
-      user-select: none;
-    }
+.label-radio {
+  padding: 0;
+  margin-right: 30px;
+  cursor: pointer;
+  vertical-align: middle;
+
+  .radio {
+    display: none;
   }
-  
-  .radio:checked + .span {
-    color: rgb(255, 255, 255);
-    background-color: rgb(187, 118, 129);
+
+  .span {
+    display: inline-block;
+    background-color: #ececec;
+    padding: 3px 6px;
+    border: 1px solid rgb(124, 124, 124);
+    border-radius: 3px;
+    color: black;
+    user-select: none;
+    vertical-align: middle;
   }
+
+  &:nth-child(1) {
+    margin-left: 3px;
+  }
+}
+
+.radio:checked + .span {
+  color: rgb(0, 0, 0);
+  background-color: rgb(212, 212, 212);
+  border: 1px solid rgb(92, 92, 92);
+}
+
+@media screen and (max-width: 992px) {
+  .label-radio {
+    margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .span {
+    padding: 6px 12px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .label-radio {
+    margin-right: 3px;
+  }
+}

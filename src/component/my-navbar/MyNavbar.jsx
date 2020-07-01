@@ -64,9 +64,9 @@ function MyNavbar(props) {
           <Nav.Link as={NavLink} to="/" exact>
             Home
           </Nav.Link>
-          <Nav.Link as={NavLink} to={`/courses/?${props.mId}`}>
+          <Nav.Link as={NavLink} to={`/courses`}>
             課程資訊
-          <Nav.Link as={NavLink} to={`/courses/?${props.mId}`}>
+          <Nav.Link as={NavLink} to={`/courses`}>
               課程預約
           </Nav.Link>
             <Nav.Link as={NavLink} to="/coaches">

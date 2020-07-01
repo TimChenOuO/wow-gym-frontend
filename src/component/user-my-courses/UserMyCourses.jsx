@@ -132,4 +132,4 @@ function UserMyCourses(props) {
     )
 }
 
-export default UserMyCourses
+export default UserMyCourses;
