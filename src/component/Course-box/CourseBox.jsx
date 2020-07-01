@@ -24,7 +24,7 @@ function CourseBox(props) {
     const getTimeInData = props.course.courseTime2
 
 
-  
+
     //預約後存值
     const [newBookingData, setNewBookingData] = useState('')
     const [numOfCourse, setNumOfCourse] = useState('')
@@ -34,7 +34,7 @@ function CourseBox(props) {
     let newT = t.split(/[' ']/)[3]
     // console.log(props.course.courseId)
 
-   
+
 
     // 點擊預約後抓該id
     const getThisCourseId = props.course.courseId
@@ -65,7 +65,7 @@ function CourseBox(props) {
                 renewLocal.coursesRow.filter(c => c.courseId === getThisCourseId)
                     .map(i => i.numberOfCourse)
 
-            //post新增預約到資料庫
+            //post新增預約到bookingData資料庫
             const bookingPost = {
                 memberId: currentUserId,
                 courseId: getThisCourseId
@@ -82,6 +82,8 @@ function CourseBox(props) {
             const data = await response.json()
             setNewBookingData(data)
             setNumOfCourse(newNum)
+
+           
         }
     }
 
@@ -151,7 +153,7 @@ function CourseBox(props) {
         }
     }
 
-    
+
 
     function myConfirmUpdateBooking(updateBooking) {
         let c = window.confirm("確定要取消此課程嗎?")
@@ -162,13 +164,13 @@ function CourseBox(props) {
             console.log('nooo')
         }
     }
-         //已額滿按鈕
-         const displayFullBtn = (
-            <>
-                <button value={props.value} className="fullBooking">已額滿</button>
-            </>
-        )
-  
+    //已額滿按鈕
+    const displayFullBtn = (
+        <>
+            <button value={props.value} className="fullBooking">已額滿</button>
+        </>
+    )
+
     //   //整理教練證照格式
     // const coachL = props.course.Elicense.split(/["、"]/).map((item, i) => {
     //     return (
@@ -226,7 +228,7 @@ function CourseBox(props) {
     return (
         <>
             <div className="courseBox">
-            {getTimeInData <= nowTime ?<div className="courseBoxCover"></div>:''}
+                {getTimeInData <= nowTime ? <div className="courseBoxCover"></div> : ''}
                 <div className="courseName" onClick={() => showCJumpWindow()}>{props.course.courseName}</div>
                 <div className="courseTime">{newT}</div>
                 <div onClick={() => showEJumpWindow()} className="coachName">
@@ -235,7 +237,7 @@ function CourseBox(props) {
 
                 <div>{numOfCourse}/{props.course.courseQuoda}</div>
                 <div>
-                    {+numOfCourse === +props.course.courseQuoda ?displayFullBtn :
+                    {+numOfCourse === +props.course.courseQuoda ? displayFullBtn :
                         <CourseBookingButton
                             value={props.course.courseId}
                             bookingData={props.bookingData}
