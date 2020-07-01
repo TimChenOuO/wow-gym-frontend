@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./CourseBox.scss";
 
 import CourseBookingButton from "../course-booking-button/CourseBookingButton";
