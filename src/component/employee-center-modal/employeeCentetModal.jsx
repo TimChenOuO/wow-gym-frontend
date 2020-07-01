@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import "./EmployeeCentetModal.scss";
@@ -13,7 +13,6 @@ function EmployeeCentetModal({
   itemID,
   courseid,
 }) {
-
   const [courseName, setCourseName] = useState("");
   const [courseTime, setCourseTime] = useState("");
   const [courseHour, setCourseHour] = useState("");
@@ -25,7 +24,6 @@ function EmployeeCentetModal({
   });
 
   const courseValue = courseData.map((item) => {
-    console.log(itemID)
     return (
       <>
         課程名稱：

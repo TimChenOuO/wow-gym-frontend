@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState } from "react";
 import "./EmployeeFormPage.scss";
 import { connect } from "react-redux";
@@ -30,6 +31,8 @@ function EmployeeForm({ currentEmployee }) {
       categoryId = 3;
       break;
   }
+
+ console.log(file)
 
   async function handleSubmit() {
     const row = {
@@ -106,8 +109,9 @@ function EmployeeForm({ currentEmployee }) {
             setExplanation(event.target.value);
           }}
         />
-        <label className="label">
+        <label className="label-category">
           課程分類：
+          <span className="category-box">
           <EmployeeFormRadio
             title={"有氧教室"}
             value={category}
@@ -129,22 +133,26 @@ function EmployeeForm({ currentEmployee }) {
               setCategory("飛輪教室");
             }}
           />
+          </span>
         </label>
-        <div className="file">
-        <div className="file-container">
         <EmployeeFormInput
           title={"課程圖片："}
           type={"file"}
           accept=".jpg,.png"
-          onChange={(event) => {
-            setFile(URL.createObjectURL(event.target.files[0]));
+          onChange={(event)=>{
+            let input = event.target.files[0];
+            let reader = new FileReader();
+            reader.onload = function(){
+              let dataURL = reader.result;
+              setFile(dataURL)
+            };
+            reader.readAsDataURL(input);
           }}
         />
-        </div>
         <div className="file-box">
           <img className="file-img" alt="" src={file} />
         </div>
-        </div> 
+        
         <div>
           <button
             className="submit"
