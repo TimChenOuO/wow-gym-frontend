@@ -13,7 +13,7 @@ import {
 export function* userListAsyncSaga() {
   try {
     const { data } = yield axios.get(
-      `${process.env.REACT_APP_BACKEND_URL}/api/user`
+      `${process.env.REACT_APP_BACKEND_URL}/api/user/current-user`
     );
     yield put(userListSuccess(data));
   } catch (err) {

@@ -32,7 +32,7 @@ const App = ({ userListStart, employeeListStart }) => {
   useEffect(() => {
     userListStart();
     // employeeListStart();
-  }, [userListStart, employeeListStart]);
+  }, []);
 
   return (
     <div>

@@ -11,7 +11,7 @@ import employeeReducer from "./employee/employee-reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart", "user", "employee"],
+  whitelist: ["cart"],
   blacklist: ["shop"],
 };
 
