@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./EmployeeFormPage.scss";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
@@ -18,6 +18,8 @@ function EmployeeForm({ currentEmployee }) {
   const [explanation, setExplanation] = useState("");
   const [category, setCategory] = useState("");
   const [quota, setQuota] = useState("");
+  //database裡的所有課程資料
+  const [ allCoursesInData, setAllCoursesInData ] = useState([]);
 
   let categoryId = "";
   switch (category) {
@@ -32,37 +34,65 @@ function EmployeeForm({ currentEmployee }) {
       break;
   }
 
-//  console.log(file)
+  //  console.log(file)
 
-  async function handleSubmit() {
-    const row = {
-      "staffId": currentEmployee.Eid,
-      "courseCategoryId": categoryId,
-      "courseName": course,
-      "categoryName": category,
-      "courseImg": file,
-      "courseIntroduce": explanation,
-      "courseTime": time,
-      "courseHour": hour,
-      "numberOfCourse": 0,
-      "courseQuoda": quota,
-    };
-
-    const request = new Request("http://localhost:5000/api/courses", {
-      method: "POST",
-      body: JSON.stringify(row),
+  async function getCoursesInData() {
+    // 開啟載入指
+    // 注意header資料格式要設定，伺服器才知道是json格式
+    const request = new Request("http://localhost:5000/api/courses/data", {
+      method: "GET",
       headers: new Headers({
         Accept: "application/json",
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin":"http://localhost:3000"
       }),
     });
 
     const response = await fetch(request);
-    await response.json();
+    const data = await response.json();
+
+    setAllCoursesInData(data)
+  }
+
+  async function handleSubmit() {
+    const row = {
+      staffId: currentEmployee.Eid,
+      courseCategoryId: categoryId,
+      courseName: course,
+      categoryName: category,
+      courseImg: file,
+      courseIntroduce: explanation,
+      courseTime: time,
+      courseHour: hour,
+      numberOfCourse: 0,
+      courseQuoda: quota,
+    };
+
+    // const request = new Request("http://localhost:5000/api/courses", {
+    //   method: "POST",
+    //   body: JSON.stringify(row),
+    //   headers: new Headers({
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //     mode: 'no-cors'
+    //   }),
+    // });
+
+    // const response = await fetch(request);
+    // await response.json();
 
     alert("課程上傳成功");
+
+    if(!localStorage.getItem("courses")){
+      localStorage.setItem("courses", JSON.stringify(allCoursesInData))
+    }else{
+      localStorage.removeItem("courses")
+      localStorage.setItem("courses", JSON.stringify(allCoursesInData))
+    }
   }
+
+  useEffect(()=>{
+    getCoursesInData()
+  },[])
 
   return (
     <>
@@ -113,37 +143,37 @@ function EmployeeForm({ currentEmployee }) {
         <label className="label-category">
           課程分類：
           <span className="category-box">
-          <EmployeeFormRadio
-            title={"有氧教室"}
-            value={category}
-            onClick={() => {
-              setCategory("有氧教室");
-            }}
-          />
-          <EmployeeFormRadio
-            title={"瑜伽教室"}
-            value={category}
-            onClick={() => {
-              setCategory("瑜伽教室");
-            }}
-          />
-          <EmployeeFormRadio
-            title={"飛輪教室"}
-            value={category}
-            onClick={() => {
-              setCategory("飛輪教室");
-            }}
-          />
+            <EmployeeFormRadio
+              title={"有氧教室"}
+              value={category}
+              onClick={() => {
+                setCategory("有氧教室");
+              }}
+            />
+            <EmployeeFormRadio
+              title={"瑜伽教室"}
+              value={category}
+              onClick={() => {
+                setCategory("瑜伽教室");
+              }}
+            />
+            <EmployeeFormRadio
+              title={"飛輪教室"}
+              value={category}
+              onClick={() => {
+                setCategory("飛輪教室");
+              }}
+            />
           </span>
         </label>
         <EmployeeFormInput
           title={"課程圖片："}
           type={"file"}
           accept=".jpg,.png"
-          onChange={(event)=>{
+          onChange={(event) => {
             let input = event.target.files[0];
             let reader = new FileReader();
-            reader.onload = function(){
+            reader.onload = function () {
               let dataURL = reader.result;
               setFile(dataURL)
             };
@@ -153,7 +183,7 @@ function EmployeeForm({ currentEmployee }) {
         <div className="file-box">
           <img className="file-img" alt="" src={file} />
         </div>
-        
+
         <div>
           <button
             className="submit"

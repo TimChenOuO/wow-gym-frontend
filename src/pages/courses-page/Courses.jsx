@@ -100,25 +100,24 @@ function Courses() {
     }
   }
 
-  const startFetch = async()=>{
-    await getCoursesData()
-    await getCoachesData()
-    await getCategoryData()
-    await getBookingData()
-  }
+ 
 
   useEffect(() => {
-    console.log("fire")
-    startFetch()
+    // console.log("fire")
+    getCoursesData()
+    getCoachesData()
+    getCategoryData()
+    getBookingData()
 
-    handleChange({ target: { value: '有氧教室' } })
+    handleChange({ target: { value: "有氧教室" } })
 
-    if (!localStorage.getItem("courses")) localStorage.setItem('courses', JSON.stringify(allCourses))
+    if (!localStorage.getItem("courses")) 
+    localStorage.setItem("courses", JSON.stringify(allCourses))
 
   }, [])
 
   useEffect(() => {
-    handleChange({ target: { value: '有氧教室' } })
+    handleChange({ target: { value: "有氧教室" } })
   }, [choose])
 
   // const changeWeek = (e) => {
