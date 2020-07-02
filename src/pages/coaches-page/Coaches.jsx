@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Coaches.scss";
-import CoachList from "../../component/coach-list/CoachList";
+import CoachList from "../../component/Coach-list/CoachList";
 
 function Coaches(props) {
   

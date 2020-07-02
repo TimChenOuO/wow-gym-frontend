@@ -1,6 +1,6 @@
 import React from "react"
 import "./DayContainer.scss"
-import CourseBox from "../course-box/CourseBox"
+import CourseBox from "../Course-box/CourseBox"
 
 function DayContainer(props) {
     // console.log('d:',props.newCourses)
