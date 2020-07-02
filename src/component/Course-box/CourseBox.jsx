@@ -6,6 +6,9 @@ import Swal from "sweetalert2";
 
 function CourseBox(props) {
 
+        //    console.log( props.getCoursesData())
+           
+
     //將現在時間的星期轉換成毫秒
     const nowTime = Date.now()
     // console.log('nowTime', +nowTime)
@@ -62,7 +65,7 @@ function CourseBox(props) {
             props.getBookingData()
             props.getCoursesData()
             //頁面重整，等待拔掉
-            window.location.reload()
+            // window.location.reload()
         }
     }
 

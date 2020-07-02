@@ -19,7 +19,7 @@ function Courses(props) {
   const [choose, setChoose] = useState([])
   const [newCourses, setNewCourses] = useState([])
   const [newCategory, setNewCategory] = useState([])
-  //原本資料庫的bookingData
+  // //原本資料庫的bookingData
   const [bookingData, setBookingData] = useState('');
 
       //---------------
@@ -30,20 +30,27 @@ function Courses(props) {
   
 
   async function getCoursesData() {
+    fetch('http://localhost:5000/api/courses/data')
+    .then(r=>r.json())
+    .then(data=>{
+        console.log(data);
+        setAllCourses(data)
+    })
+
+
     // 開啟載入指
     // 注意header資料格式要設定，伺服器才知道是json格式
-    const request = new Request("http://localhost:5000/api/courses/data", {
-      method: "GET",
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      }),
-    });
+    // const request = new Request("http://localhost:5000/api/courses/data", {
+    //   method: "GET",
+    //   headers: new Headers({
+    //     Accept: "application/json",
+    //   }),
+    // });
 
-    const response = await fetch(request);
-    const data = await response.json();
+    // const response = await fetch("http://localhost:5000/api/courses/data");
+    // const data = await response.json();
 
-    setAllCourses(data)
+   
   }
 
   async function getCategoryData() {
@@ -64,7 +71,7 @@ function Courses(props) {
     // 設定資料
     setChoose(data);
   }
-  //Fetch 預約資料
+  // //Fetch 預約資料
 
   async function getBookingData() {
     const request = new Request("http://localhost:5000/api/courses/bookingData", {
@@ -100,30 +107,28 @@ function Courses(props) {
     getCategoryData()
     getBookingData()
 
-    handleChange({ target: { value: "有氧教室" } })
+    handleChange({ target: { value: "請選擇教室" } })
   }, [])
-
-  useEffect(() => {
-    handleChange({ target: { value: "有氧教室" } })
-  }, [choose])
 
   return (
     <>
       <div>
-        <div className="courseBanner"></div>
-        <div className="courseBannerCover">
-          <h1>課程資訊 Class information</h1>
+      <div className="courseBannerContainer">
+        <div className="courseBanner">
         </div>
+        <h1 className="categoryTitle">課程資訊 Class information</h1>
+</div>
         <div className="courseContainer">
           <CourseInformation
             choose={choose}
             newCourses={newCourses}
             newCategory={newCategory}
           />
+         
           <CourseSelector
             choose={choose}
             handleChange={handleChange}
-          />
+          /> 
           <div>
             <CourseCalender
               newCourses={newCourses}

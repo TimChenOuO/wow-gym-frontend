@@ -14,7 +14,7 @@ function UserMyCoursesList(props) {
         allCoursesOfThisUser={props.allCoursesOfThisUser}
         setAllCoursesOfThisUser={props.setAllCoursesOfThisUser}
         getCoursesDataInAllUser={props.getCoursesDataInAllUser}
-        getUserBooking={props.getUserBooking}
+        getUserBooking={props.getUserBooking}y
         />))
 
     // console.log(aa)
