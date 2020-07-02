@@ -10,7 +10,7 @@ function CourseCalender(props) {
 
    //找到該會員已預約的課程id
    const thisUserBookingId = props.bookingData && props.bookingData.filter(m => m.memberId === props.currentUserId).map(bookedCourse => (bookedCourse.courseId))
-   console.log(thisUserBookingId)
+  //  console.log(thisUserBookingId)
 
 
   return (
@@ -22,8 +22,10 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
+          currentUserData={props.currentUserData}
           currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
+          setNewCourses={props.setNewCourses}
         />
         <DayContainer
           title={'Tue'}
@@ -31,8 +33,10 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
+          currentUserData={props.currentUserData}
           currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
+          setNewCourses={props.setNewCourses}
         />
         <DayContainer
           title={'Wed'}
@@ -40,8 +44,10 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
+          currentUserData={props.currentUserData}
           currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
+          setNewCourses={props.setNewCourses}
         />
         <DayContainer
           title={'Thu'}
@@ -49,8 +55,10 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
+          currentUserData={props.currentUserData}
           currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
+          setNewCourses={props.setNewCourses}
         />
         <DayContainer
           title={'Fri'}
@@ -58,8 +66,10 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
+          currentUserData={props.currentUserData}
           currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
+          setNewCourses={props.setNewCourses}
         />
         <DayContainer
           title={'Sat'}
@@ -67,8 +77,10 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
+          currentUserData={props.currentUserData}
           currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
+          setNewCourses={props.setNewCourses}
         />
         <DayContainer
           title={'Sun'}
@@ -76,8 +88,10 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
+          currentUserData={props.currentUserData}
           currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
+          setNewCourses={props.setNewCourses}
         />
       </div>
     </>

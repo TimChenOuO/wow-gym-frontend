@@ -30,27 +30,11 @@ function Courses(props) {
   
 
   async function getCoursesData() {
-    fetch('http://localhost:5000/api/courses/data')
-    .then(r=>r.json())
-    .then(data=>{
-        console.log(data);
-        setAllCourses(data)
-    })
 
-
-    // 開啟載入指
-    // 注意header資料格式要設定，伺服器才知道是json格式
-    // const request = new Request("http://localhost:5000/api/courses/data", {
-    //   method: "GET",
-    //   headers: new Headers({
-    //     Accept: "application/json",
-    //   }),
-    // });
-
-    // const response = await fetch("http://localhost:5000/api/courses/data");
-    // const data = await response.json();
-
-   
+    const response = await fetch("http://localhost:5000/api/courses/data");
+    const data = await response.json();   
+    setAllCourses(data)
+    
   }
 
   async function getCategoryData() {
@@ -107,7 +91,6 @@ function Courses(props) {
     getCategoryData()
     getBookingData()
 
-    handleChange({ target: { value: "請選擇教室" } })
   }, [])
 
   return (
@@ -134,8 +117,10 @@ function Courses(props) {
               newCourses={newCourses}
               bookingData={bookingData}
               getBookingData={getBookingData}
+              currentUserData={currentUserData}
               currentUserId={currentUserId}
               getCoursesData={getCoursesData}
+              setNewCourses={setNewCourses}
             />
           </div>
         </div>

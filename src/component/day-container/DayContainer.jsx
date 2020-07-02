@@ -16,8 +16,10 @@ function DayContainer(props) {
                 bookingData={props.bookingData}
                 getBookingData={props.getBookingData}
                 getCoursesData={props.getCoursesData}
+                currentUserData={props.currentUserData}
                 currentUserId={props.currentUserId}
                 thisUserBookingId={props.thisUserBookingId}
+                setNewCourses={props.setNewCourses}
             />))
 
     return (
@@ -25,7 +27,7 @@ function DayContainer(props) {
             <div className="dayContainer">
                 <div className="day">{props.title}</div>
                 <div className="courseBoxWrapper">
-                <div className="courseBoxContainer">{filterCourses}</div>
+                    <div className="courseBoxContainer">{filterCourses}</div>
                 </div>
             </div>
         </>

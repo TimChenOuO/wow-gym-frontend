@@ -16,13 +16,7 @@ function CourseBookingButton(props) {
             <button value={props.value} onClick={() => props.myConfirmAddBooking(props.addBooking)} className="accessBooking courseBtn">預約</button>
         </>
     )
-    //已預約button
-    // const displayBookedBtn = (
-    //     <>
-    //         <button value={props.value} onClick={() => props.myConfirmUpdateBooking(props.updateBooking)} className="alreadyBooked courseBtn">取消預約</button>
 
-    //     </>
-    // )
     //若曾預約，視預約狀況顯示button
     function displayBookedBtn() {
         if (+checkBookingState === 0) {
@@ -33,7 +27,7 @@ function CourseBookingButton(props) {
         } else {
             return (
                 <>
-                    <button value={props.value} className="alreadyBooked courseBtn">已預約</button>
+                    <button value={props.value} className="alreadyBooked courseBtn" onClick={() => props.myConfirmCancelBooking(props.userCancelBooking)}> 已預約</button>
 
                 </>)
         }

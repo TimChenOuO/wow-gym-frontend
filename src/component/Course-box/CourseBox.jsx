@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./CourseBox.scss";
 
 import CourseBookingButton from "../course-booking-button/CourseBookingButton";
@@ -6,8 +6,11 @@ import Swal from "sweetalert2";
 
 function CourseBox(props) {
 
-        //    console.log( props.getCoursesData())
-           
+    const [num, setNum] = useState([props.course.numberOfCourse])
+    const [changeState, setChangeState] = useState(false)
+    const [changeState2, setChangeState2] = useState(false)
+    //    console.log( [props.course.numberOfCourse])
+
 
     //將現在時間的星期轉換成毫秒
     const nowTime = Date.now()
@@ -27,53 +30,110 @@ function CourseBox(props) {
     // 點擊預約後抓該id
     const getThisCourseId = props.course.courseId
 
-    async function addBooking() {
-        if (props.currentUserId === null) {
-            alert("請先登入會員")
-        } else {
-
-            //post新增預約到資料庫
-            const bookingPost = {
-                memberId: props.currentUserId,
-                courseId: getThisCourseId
-            }
-            const request = new Request("http://localhost:5000/api/courses/bookingData", {
-                method: 'POST',
-                body: JSON.stringify(bookingPost),
-                headers: new Headers({
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }),
-            })
-            const response = await fetch(request)
-            const data = await response.json()
-
-            //post新增預約到資料庫
-            const addNumPost = {
-                courseId: getThisCourseId,
-            }
-            const req = new Request("http://localhost:5000/api/courses/addNumOfCourse", {
-                method: 'POST',
-                body: JSON.stringify(addNumPost),
-                headers: new Headers({
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }),
-            })
-            const res = await fetch(req)
-            const newData = await res.json()
-            props.getBookingData()
-            props.getCoursesData()
-            //頁面重整，等待拔掉
-            // window.location.reload()
+    async function getAddNumFromData() {
+        //post新增預約到資料庫
+        const addNumPost = {
+            courseId: getThisCourseId,
         }
+        const req = new Request("http://localhost:5000/api/courses/addNumOfCourse", {
+            method: 'POST',
+            body: JSON.stringify(addNumPost),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }),
+        })
+        const res = await fetch(req)
+        const newData = await res.json()
+        return newData
     }
 
+    async function addBooking() {
+        // if (props.currentUserData === null) {
+        //     alert("請先登入會員")
+        // } else {
+
+        //post新增預約到資料庫
+        const bookingPost = {
+            memberId: props.currentUserId,
+            courseId: getThisCourseId
+        }
+        const request = new Request("http://localhost:5000/api/courses/bookingData", {
+            method: 'POST',
+            body: JSON.stringify(bookingPost),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }),
+        })
+        const response = await fetch(request)
+        const data = await response.json()
+        // getNumFromData()
+        props.getBookingData()
+        setChangeState(!changeState)
+    }
+
+
+    //抓要取消預約的id
+    const cancelBookingId = props.bookingData && props.bookingData.filter(m => m.courseId === props.course.courseId).map(p => p.courseBookingId)
+    console.log(cancelBookingId)
+
+    //取消預約
+    async function userCancelBooking() {
+        const updateBookingJson = {
+            bookingState: 0
+        }
+        const request = new Request(`http://localhost:5000/api/courses/bookingData/${cancelBookingId}`, {
+            method: 'POST',
+            body: JSON.stringify(updateBookingJson),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }),
+        })
+        const response = await fetch(request)
+        const data = await response.json()
+        props.getBookingData()
+        setChangeState2(!changeState2)
+    }
+
+    //取消預約後減少人數
+    async function getReduceNumFromData() {
+        const reduceNumJson = {
+            courseId: getThisCourseId,
+        }
+        const req = new Request(`http://localhost:5000/api/courses/data`, {
+            method: 'POST',
+            body: JSON.stringify(reduceNumJson),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }),
+        })
+        const res = await fetch(req)
+        const newData = await res.json()
+        return newData
+    }
+
+    //確認預約視窗
     function myConfirmAddBooking(addBooking) {
         let a = window.confirm("確定要預約此課程嗎?")
-        if (a === true) {
-            addBooking()
-            // window.location.reload()
+        if (props.currentUserData === null) {
+            alert("請先登入會員")
+        } else {
+            if (a === true) {
+                addBooking()
+                // window.location.reload()
+            } else {
+                console.log('nooo')
+            }
+        }
+    }
+    //確認取消預約視窗
+    function myConfirmCancelBooking(userCancelBooking) {
+        let b = window.confirm("取消後無法重新預約，確定要取消嗎?")
+        if (b === true) {
+            userCancelBooking()
         } else {
             console.log('nooo')
         }
@@ -86,7 +146,7 @@ function CourseBox(props) {
         </>
     )
 
- 
+
     //課程彈跳視窗
     function showCJumpWindow() {
         Swal.fire({
@@ -109,6 +169,19 @@ function CourseBox(props) {
         })
     }
 
+    useEffect(() => {
+        (async () => {
+            const getNumFunc = await getAddNumFromData()
+            setNum([getNumFunc.numberOfCourse])
+        })()
+    }, [changeState])
+
+//     useEffect(()=>{
+// (async () => {
+
+// })()
+//     },[changeState2])
+
     return (
         <>
             <div className="courseBox">
@@ -118,16 +191,17 @@ function CourseBox(props) {
                 <div onClick={() => showEJumpWindow()} className="coachName">
                     {props.course.Ename}
                 </div>
-
-                <div>{props.course.numberOfCourse}/{props.course.courseQuoda}</div>
+                <div>{num.map(i => (i))}/{props.course.courseQuoda}</div>
                 <div>
-                    {+props.course.numberOfCourse === +props.course.courseQuoda ? displayFullBtn :
+                    {+props.course.numberOfCourse >= +props.course.courseQuoda ? displayFullBtn :
                         <CourseBookingButton
                             value={props.course.courseId}
                             bookingData={props.bookingData}
                             currentUserId={props.currentUserId}
                             addBooking={addBooking}
+                            userCancelBooking={userCancelBooking}
                             myConfirmAddBooking={myConfirmAddBooking}
+                            myConfirmCancelBooking={myConfirmCancelBooking}
                             thisUserBookingId={props.thisUserBookingId}
                         />
                     }
