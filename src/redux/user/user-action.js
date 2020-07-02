@@ -14,13 +14,32 @@ export const userListFailure = (err) => ({
   payload: err,
 });
 
-export const userLogin = (user) => ({
-  type: userActionType.USER_LOG_IN,
+export const userLoginStart = (user) => ({
+  type: userActionType.USER_LOG_IN_START,
   payload: user,
 });
 
-export const userLogout = () => ({
-  type: userActionType.USER_LOG_OUT,
+export const userLoginSuccess = (currentUser) => ({
+  type: userActionType.USER_LOG_IN_SUCCESS,
+  payload: currentUser,
+});
+
+export const userLoginFailure = (err) => ({
+  type: userActionType.USER_LOG_IN_FAILURE,
+  payload: err,
+});
+
+export const userLogoutStart = () => ({
+  type: userActionType.USER_LOG_OUT_START,
+});
+
+export const userLogoutSuccess = () => ({
+  type: userActionType.USER_LOG_OUT_SUCCESS,
+});
+
+export const userLogoutFailure = (err) => ({
+  type: userActionType.USER_LOG_OUT_FAILURE,
+  payload: err,
 });
 
 export const userSignUpStart = (user) => ({
@@ -28,8 +47,9 @@ export const userSignUpStart = (user) => ({
   payload: user,
 });
 
-export const userSignUpSuccsee = () => ({
+export const userSignUpSuccsee = (signupUser) => ({
   type: userActionType.USER_SIGN_UP_SUCCESS,
+  payload: signupUser,
 });
 
 export const userSignUpFailer = (err) => ({
@@ -40,4 +60,12 @@ export const userSignUpFailer = (err) => ({
 
 export const userSignUpRestart = () => ({
   type: userActionType.USER_SIGN_UP_RESTART,
+});
+
+export const userLoginRestart = () => ({
+  type: userActionType.USER_LOG_IN_RESTART,
+});
+
+export const googleLoginStart = () => ({
+  type: userActionType.GOOGLE_LOG_IN_START,
 });

@@ -52,6 +52,9 @@
     border-radius: 5px;
     // border: none;
   }
+  &.google-signin {
+    color: rgb(190, 55, 6);
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -129,4 +132,8 @@
 
 .draw-border {
   @include btn-border-drawing(#d3ab2a, #1178b8, 4px, bottom, right);
+}
+
+.google-draw-border {
+  @include btn-border-drawing(rgb(190, 55, 6), rgb(150, 10, 168), 4px, bottom, right);
 }

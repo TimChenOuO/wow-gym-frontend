@@ -37,7 +37,6 @@ class SingUP extends React.Component {
       memberAccount: this.state.email,
       memberPwd: this.state.password,
       memberName: this.state.name,
-      memberPhoneNum: this.state.mobile,
     };
     userSignUpStart(user);
   };
@@ -45,10 +44,6 @@ class SingUP extends React.Component {
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
-  };
-
-  handleIsValid = () => {
-    this.setState({ unValid: false });
   };
 
   render() {
@@ -79,12 +74,6 @@ class SingUP extends React.Component {
             onChange={this.handleChange}
             label="name"
           />
-          <FormInput
-            name="mobile"
-            value={this.state.mobile}
-            onChange={this.handleChange}
-            label="mobile"
-          />
           <div className="buttons">
             <CustomButton type="submit">註冊</CustomButton>
           </div>
@@ -94,14 +83,16 @@ class SingUP extends React.Component {
         )}
         <ErrorModel
           unValid={userSignUpUnVaild !== null && userSignUpUnVaild}
-          handleIsValid={false}
+          returnHome={false}
+          signUp
         >
-          註冊資訊有誤，請重新輸入
+          此帳號已被註冊摟！
         </ErrorModel>
 
         <ErrorModel
           unValid={userSignUpUnVaild !== null && !userSignUpUnVaild}
-          handleIsValid={() => history.push("/")}
+          returnHome={() => history.push("/")}
+          signUp
         >
           註冊成功 !
         </ErrorModel>

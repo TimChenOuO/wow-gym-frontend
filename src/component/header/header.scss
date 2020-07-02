@@ -110,6 +110,10 @@
       justify-content: flex-end;
       padding-right: 15px;
     }
+    .current-user-title {
+      color: white;
+      margin-right: 10px;
+    }
   }
 }
 
@@ -128,6 +132,14 @@
     }
     .hamburger-btn {
       display: flex;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .sub {
+    .current-user-title {
+      display: none;
     }
   }
 }

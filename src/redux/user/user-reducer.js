@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   userList: [],
   currentUser: null,
   userSignUpUnVaild: null,
+  userSignInUnVaild: null,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -11,14 +12,22 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userActionType.USER_LIST_SUCCESS:
       return {
         ...state,
-        userList: action.payload,
+        currentUser: action.payload,
       };
-    case userActionType.USER_LOG_IN:
+    case userActionType.USER_LOG_IN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
+        userSignInUnVaild: false,
       };
-    case userActionType.USER_LOG_OUT:
+    case userActionType.USER_LOG_IN_FAILURE:
+      return {
+        ...state,
+        currentUser: null,
+        userSignInUnVaild: true,
+        errMessage: action.payload,
+      };
+    case userActionType.USER_LOG_OUT_SUCCESS:
       return {
         ...state,
         currentUser: null,
@@ -26,6 +35,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userActionType.USER_SIGN_UP_SUCCESS:
       return {
         ...state,
+        currentUser: action.payload,
         userSignUpUnVaild: false,
       };
     case userActionType.USER_SIGN_UP_FAILURE:
@@ -38,6 +48,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userSignUpUnVaild: null,
+      };
+    case userActionType.USER_LOG_IN_RESTART:
+      return {
+        ...state,
+        userSignInUnVaild: null,
       };
     default:
       return state;

@@ -4,13 +4,18 @@ import CustomButton from "../custom-button/Custom-button";
 
 import "./ErrorModel.scss";
 import { connect } from "react-redux";
-import { userSignUpRestart } from "../../redux/user/user-action";
+import {
+  userSignUpRestart,
+  userLoginRestart,
+} from "../../redux/user/user-action";
 
 const ErrorModel = ({
   unValid,
-  handleIsValid,
+  returnHome,
   children,
   userSignUpRestart,
+  signUp,
+  userLoginRestart,
 }) => {
   return (
     <CSSTransition
@@ -26,9 +31,9 @@ const ErrorModel = ({
         <CustomButton
           errorModel
           onClick={() => {
-            userSignUpRestart();
-            if (!handleIsValid) return;
-            handleIsValid();
+            signUp ? userSignUpRestart() : userLoginRestart();
+            if (!returnHome) return;
+            returnHome();
           }}
         >
           確定
@@ -40,6 +45,7 @@ const ErrorModel = ({
 
 const mapDispatchToProps = (dispatch) => ({
   userSignUpRestart: () => dispatch(userSignUpRestart()),
+  userLoginRestart: () => dispatch(userLoginRestart()),
 });
 
 export default connect(null, mapDispatchToProps)(ErrorModel);

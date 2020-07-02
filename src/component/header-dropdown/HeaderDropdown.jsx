@@ -65,16 +65,21 @@ const HeaderDropdown = ({
           </div>
 
           {currentUser ? (
-            <CustomButton
-              signin
-              mobileMode
-              onClick={() => {
-                setSubDiv(false);
-                history.push("/login");
-              }}
-            >
-              登出
-            </CustomButton>
+            <>
+              <span className="side-sub-user-title">
+                嗨! {currentUser.memberName}
+              </span>
+              <CustomButton
+                signin
+                mobileMode
+                onClick={() => {
+                  setSubDiv(false);
+                  history.push("/login");
+                }}
+              >
+                登出
+              </CustomButton>
+            </>
           ) : (
             <CustomButton
               signin

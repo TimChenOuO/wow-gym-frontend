@@ -19,7 +19,7 @@ import { currentUserSelect } from "../../redux/user/user-selector";
 import { currentEmployeeSelect } from "../../redux/employee/employee-selector";
 
 // redux action-------------------------------
-import { userLogout } from "../../redux/user/user-action";
+import { userLogoutStart } from "../../redux/user/user-action";
 import { employeeLogout } from "../../redux/employee/employee-action";
 import { shopShowFilterTag } from "../../redux/shop/shop-action";
 
@@ -27,9 +27,7 @@ const Header = ({
   navBarSelect,
   shopShowFilterTag,
   currentUser,
-  userLogout,
-  currentEmployee,
-  employeeLogout,
+  userLogoutStart,
 }) => {
   const [subDiv, setSubDiv] = useState(false);
   const history = useHistory();
@@ -79,9 +77,14 @@ const Header = ({
 
       <div className="sub sub-cart" onMouseOver={() => setSubDiv(false)}>
         {currentUser ? (
-          <CustomButton signin unMobileMode onClick={() => userLogout()}>
-            登出
-          </CustomButton>
+          <>
+            <span className="current-user-title">
+              嗨! {currentUser.memberName}
+            </span>
+            <CustomButton signin unMobileMode onClick={() => userLogoutStart()}>
+              登出
+            </CustomButton>
+          </>
         ) : (
           <CustomButton
             signin
@@ -109,7 +112,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
   navBarSelect: (select) => dispatch(navBarSelect(select)),
   shopShowFilterTag: (tag) => dispatch(shopShowFilterTag(tag)),
-  userLogout: () => dispatch(userLogout()),
+  userLogoutStart: () => dispatch(userLogoutStart()),
   employeeLogout: () => dispatch(employeeLogout()),
 });
 

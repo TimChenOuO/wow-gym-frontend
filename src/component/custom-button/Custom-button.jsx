@@ -9,6 +9,7 @@ const CustomButton = ({
   errorModel,
   mobileMode,
   unMobileMode,
+  google,
   ...otherProps
 }) => (
   <button
@@ -18,7 +19,9 @@ const CustomButton = ({
     ${errorModel ? "error-model-btn" : ""} 
     ${unMobileMode ? "unmobile-mode" : ""} 
     ${mobileMode ? "mobile-mode" : ""} 
-    custom-button draw-border`}
+    ${google ? "google-signin " : ""} 
+    ${google ? "google-draw-border" : "draw-border"} 
+    custom-button`}
     {...otherProps}
   >
     {children}
