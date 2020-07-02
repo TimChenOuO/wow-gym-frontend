@@ -3,15 +3,15 @@ import './CoachList.scss'
 import CoachBox from '../Coach-box/CoachBox'
 
 
-function CoachList (props){
-// console.log(props)
-    return(
+function CoachList(props) {
+    // console.log(props)
+    return (
         <>
-        <div className="coachList">
-        {props.employee && props.employee.map(employee=>(
-            <CoachBox key={employee.Eid} employee={employee}/>
-        ))}
-        </div>
+            <div className="coachList">
+                {props.employee && props.employee.map(employee => (
+                    <CoachBox key={employee.Eid} employee={employee} />
+                ))}
+            </div>
         </>
     )
 }

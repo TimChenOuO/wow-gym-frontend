@@ -22,19 +22,19 @@ function Courses(props) {
   // //原本資料庫的bookingData
   const [bookingData, setBookingData] = useState('');
 
-      //---------------
-      const { currentUserData } = props
-      //該使用者的id
-      const currentUserId = currentUserData ? currentUserData.memberId : ''
-      //---------------
-  
+  //---------------
+  const { currentUserData } = props
+  //該使用者的id
+  const currentUserId = currentUserData ? currentUserData.memberId : ''
+  //---------------
+
 
   async function getCoursesData() {
 
     const response = await fetch("http://localhost:5000/api/courses/data");
-    const data = await response.json();   
+    const data = await response.json();
     setAllCourses(data)
-    
+
   }
 
   async function getCategoryData() {
@@ -96,22 +96,22 @@ function Courses(props) {
   return (
     <>
       <div>
-      <div className="courseBannerContainer">
-        <div className="courseBanner">
+        <div className="courseBannerContainer">
+          <div className="courseBanner">
+          </div>
+          <h1 className="categoryTitle">課程資訊 Class information</h1>
         </div>
-        <h1 className="categoryTitle">課程資訊 Class information</h1>
-</div>
         <div className="courseContainer">
           <CourseInformation
             choose={choose}
             newCourses={newCourses}
             newCategory={newCategory}
           />
-         
+
           <CourseSelector
             choose={choose}
             handleChange={handleChange}
-          /> 
+          />
           <div>
             <CourseCalender
               newCourses={newCourses}

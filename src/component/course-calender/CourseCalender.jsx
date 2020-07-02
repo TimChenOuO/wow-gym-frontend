@@ -3,15 +3,10 @@ import "./CourseCalender.scss"
 import DayContainer from "../day-container/DayContainer"
 
 function CourseCalender(props) {
-  // let t =[]= props.allCourse.courseTime
-  // console.log(t)
-  // console.log(props)
-  // console.log('cc:',props.newCourses)
-
+ 
    //找到該會員已預約的課程id
    const thisUserBookingId = props.bookingData && props.bookingData.filter(m => m.memberId === props.currentUserId).map(bookedCourse => (bookedCourse.courseId))
   //  console.log(thisUserBookingId)
-
 
   return (
     <>

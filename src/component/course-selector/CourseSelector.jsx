@@ -4,8 +4,6 @@ import CourseSelectorOption from "../course-selector-option/CourseSelectorOption
 
 function CourseSelector(props) {
   const { choose } = props;
-  // console.log(choose)
-  // console.log('s:', choose)
 
   return (
     <>

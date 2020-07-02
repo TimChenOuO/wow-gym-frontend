@@ -3,9 +3,6 @@ import "./DayContainer.scss"
 import CourseBox from "../Course-box/CourseBox"
 
 function DayContainer(props) {
-    // console.log('d:',props.newCourses)
-    // console.log(props)
-
 
     const filterCourses = props.newCourses && props.newCourses
         .filter(course => course.courseTime.split(' ')[0] === props.title)
