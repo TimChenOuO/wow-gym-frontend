@@ -4,40 +4,39 @@ import { connect } from "react-redux";
 
 // Pages----------
 import Header from "./component/header/Header";
-import SignInOutPage from "./pages/sign-in-out-page/Sign-in-out-page";
-//課程----------
-import Courses from "./pages/courses-page/Courses";
-import Coaches from "./pages/coaches-page/Coaches";
-//教練中心-----------
-import EmployeeFormPage from "./pages/employee-form-page/EmployeeFormPage";
-import EmployeeCenterPage from "./pages/employee-center-page/EmployeeCenterPage";
-import EmployeeSignInOutPage from "./pages/employee-sign-in-out-page/employee-sign-in-out-page";
 
 // Component------
 import LoadingSpinner from "./component/loading-spinner/LoadingSpinner";
 import ErrorBoundary from "./component/error-boundary/ErrorBoundary";
+
+import EmployeeFormPage from "./pages/employee-form-page/EmployeeFormPage";
+import EmployeeCenterPage from "./pages/employee-center-page/EmployeeCenterPage";
+import EmployeeSignInOutPage from "./pages/employee-sign-in-out-page/employee-sign-in-out-page";
 
 // Redux
 import { userListStart } from "./redux/user/user-action";
 import { employeeListStart } from "./redux/employee/employee-action";
 
 import "./App.scss";
+
 // react lazy
+const SignInOutPage = lazy(() =>
+  import("./pages/sign-in-out-page/Sign-in-out-page")
+);
 const ShopPage = lazy(() => import("./pages/shop-page/ShopPage"));
 const ShopCollectionPage = lazy(() =>
   import("./pages/shop-collection-page/ShopCollectionPage")
 );
 const ShopItemPage = lazy(() => import("./pages/shop-item-page/ShopItemPage"));
+const CheckOutPage = lazy(() => import("./pages/checkout-page/Checkout-page"));
 // -----------
-
-const HomePage = () => <div>Hi</div>;
 
 // APP component
 const App = ({ userListStart, employeeListStart }) => {
   useEffect(() => {
     userListStart();
     employeeListStart();
-  }, [userListStart, employeeListStart]);
+  }, [userListStart,employeeListStart]);
 
   return (
     <div>
@@ -47,7 +46,7 @@ const App = ({ userListStart, employeeListStart }) => {
         <Switch>
           <ErrorBoundary>
             <Suspense fallback={<LoadingSpinner />}>
-              <Route exact path="/" component={HomePage} />
+              <Route exact path="/" component={ShopPage} />
               <Route exact path="/shopping" component={ShopPage} />
               <Route
                 exact
@@ -58,19 +57,14 @@ const App = ({ userListStart, employeeListStart }) => {
                 path="/shopitem/:collection/:itemId"
                 component={ShopItemPage}
               />
-              <Route path="/login" component={SignInOutPage} />
-
-              {/* lora */}
               <Route path="/employeeform" component={EmployeeFormPage} />
               <Route
                 path={`/employeecenter/:employeeId`}
                 component={EmployeeCenterPage}
               />
               <Route path="/employeelogin" component={EmployeeSignInOutPage} />
-
-              {/* 玉玲 */}
-              <Route path="/courses" component={Courses} />
-              <Route path="/coaches" component={Coaches} />
+              <Route exact path="/checkout" component={CheckOutPage} />
+              <Route path="/login" component={SignInOutPage} />
             </Suspense>
           </ErrorBoundary>
         </Switch>

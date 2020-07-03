@@ -3,6 +3,7 @@ import {
   addShopItemToCart,
   removeCartItem,
   unlikeCartItem,
+  decreaseCheckoutItem,
 } from "./cart-utils";
 
 const INITIAL_STATE = {
@@ -49,6 +50,18 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           action.payload,
           action.quantity
         ),
+      };
+    case cartActionTypes.CHECKOUT_CLEAN:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (cartItem) => cartItem.itemId !== action.payload.itemId
+        ),
+      };
+    case cartActionTypes.CHECKOUT_DECREASE:
+      return {
+        ...state,
+        cartItems: decreaseCheckoutItem(state.cartItems, action.payload),
       };
     default:
       return state;

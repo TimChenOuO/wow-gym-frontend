@@ -20,6 +20,20 @@ export const unlikeCartItem = (cartFavoriteItems, item) => {
   delete cartFavoriteItems[item.itemId];
   return { ...cartFavoriteItems };
 };
-// Object.values(cartFavoriteItems).filter(
-//   (cartItem) => cartItem.itemId !== item.itemId
-// );
+
+export const decreaseCheckoutItem = (cartItems, removeItem) => {
+  const existingItem = cartItems.find(
+    (cartItem) => cartItem.itemId === removeItem.itemId
+  );
+  if (existingItem.quantity === 1) {
+    return cartItems.filter(
+      (cartItem) => cartItem.itemId !== removeItem.itemId
+    );
+  } else {
+    return cartItems.map((cartItem) =>
+      cartItem.itemId === removeItem.itemId
+        ? { ...cartItem, quantity: cartItem.quantity - 1 }
+        : cartItem
+    );
+  }
+};

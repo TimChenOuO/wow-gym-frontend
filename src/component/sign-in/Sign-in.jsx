@@ -1,14 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { googlePlus } from "react-icons-kit/icomoon/googlePlus";
+import { Icon } from "react-icons-kit";
 
 import "./sign-in.scss";
 
 import FormInput from "../form-input/Form-input";
 import CustomButton from "../custom-button/Custom-button";
-import { userLogin } from "../../redux/user/user-action";
+import { userLoginStart, userLoginRestart } from "../../redux/user/user-action";
 import { createStructuredSelector } from "reselect";
-import { userListSelect } from "../../redux/user/user-selector";
+import {
+  userListSelect,
+  userSignInUnVaildSelect,
+} from "../../redux/user/user-selector";
+import ErrorModel from "../error-model/ErrorModel";
 
 class SignIn extends React.Component {
   state = {
@@ -16,20 +22,11 @@ class SignIn extends React.Component {
     password: "",
   };
 
-  handleSubmit = async (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
-    const { userList, userLogin, history } = this.props;
-
-    const currentUser = userList.find(
-      (user) => user.memberAccount === email && user.memberPwd === password
-    );
-    if (currentUser) {
-      userLogin(currentUser);
-      history.push("/");
-    } else {
-      alert("Wrong email or password!");
-    }
+    const { userLoginStart } = this.props;
+    userLoginStart({ memberAccount: email, memberPwd: password });
   };
 
   handleChange = (e) => {
@@ -37,17 +34,21 @@ class SignIn extends React.Component {
     this.setState({ [name]: value });
   };
 
+  handleIsValid = () => {};
+
   render() {
+    const { userSignInUnVaild, history, userLoginRestart } = this.props;
     return (
       <div className="sign-in">
-        <h2 className="title">I already have an account</h2>
-        <span>Sign in with your email & password</span>
-        <form onSubmit={this.handleSubmit}>
+        <h2 className="sign-in-title">會員登入</h2>
+        <span>輸入帳號 & 密碼登入</span>
+        <form>
           <FormInput
             name="email"
             value={this.state.email}
             onChange={this.handleChange}
             label="Email"
+            type="email"
             required
           />
 
@@ -56,12 +57,48 @@ class SignIn extends React.Component {
             value={this.state.password}
             onChange={this.handleChange}
             label="Password"
+            type="password"
             required
           />
           <div className="buttons">
-            <CustomButton type="submit">Sign In</CustomButton>
+            <CustomButton type="submit" onClick={this.handleSubmit}>
+              登入
+            </CustomButton>
+
+            <CustomButton
+              type="button"
+              google
+              // onClick={this.googleHandleSubmit}
+            >
+              <a
+                href={`${process.env.REACT_APP_BACKEND_URL}/api/user/google`}
+                className="google-sign-link"
+              >
+                <Icon icon={googlePlus} size={30} />
+                <span>Google</span> 登入
+              </a>
+            </CustomButton>
           </div>
         </form>
+        {userSignInUnVaild !== null && (
+          <div
+            className="unValid-backdrop"
+            onClick={() => userLoginRestart()}
+          />
+        )}
+        <ErrorModel
+          unValid={userSignInUnVaild !== null && userSignInUnVaild}
+          returnHome={false}
+        >
+          帳號或密碼錯誤喔！
+        </ErrorModel>
+
+        <ErrorModel
+          unValid={userSignInUnVaild !== null && !userSignInUnVaild}
+          returnHome={() => history.push("/")}
+        >
+          登入成功！
+        </ErrorModel>
       </div>
     );
   }
@@ -69,10 +106,12 @@ class SignIn extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   userList: userListSelect,
+  userSignInUnVaild: userSignInUnVaildSelect,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  userLogin: (user) => dispatch(userLogin(user)),
+  userLoginStart: (user) => dispatch(userLoginStart(user)),
+  userLoginRestart: () => dispatch(userLoginRestart()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignIn));

@@ -169,7 +169,7 @@ function EmployeeForm({ currentEmployee }) {
         <div>
           <button
             className="submit"
-            type="submit"
+            type="button"
             onClick={() => {
               handleSubmit();
             }}

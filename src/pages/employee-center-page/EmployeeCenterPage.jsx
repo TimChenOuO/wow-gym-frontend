@@ -116,7 +116,7 @@ function EmployeeCenter({ currentEmployee }) {
             <figcaption className="people-box-top">
               <img className="people-top" alt="" src={currentEmployee.Eimg} />
               <figure className="people-content-top">
-                {currentEmployee.Ename}
+              <h1 className="top-title">{currentEmployee.Ename}</h1>
               </figure>
             </figcaption>
             <button
@@ -137,7 +137,7 @@ function EmployeeCenter({ currentEmployee }) {
             <figcaption className="people-box-right">
               <img className="people-right" alt="" src={currentEmployee.Eimg} />
               <figure className="people-content-right">
-                {currentEmployee.Ename} 教練
+                <h1 className="right-title">{currentEmployee.Ename} 教練</h1>
               </figure>
             </figcaption>
             <div className="data-box">

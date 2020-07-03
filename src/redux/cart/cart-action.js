@@ -29,3 +29,13 @@ export const addQuantity = (item, quantity) => ({
   payload: item,
   quantity,
 });
+
+export const cleanCheckout = (cartItem) => ({
+  type: cartActionTypes.CHECKOUT_CLEAN,
+  payload: cartItem,
+});
+
+export const decreaseCheckout = (cartItem) => ({
+  type: cartActionTypes.CHECKOUT_DECREASE,
+  payload: cartItem,
+});

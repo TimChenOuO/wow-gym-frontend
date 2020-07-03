@@ -16,6 +16,10 @@
       .people-content-top {
         font-size: 22px;
         margin-left: 20px;
+
+        .top-title {
+          font-size: 22px;
+        }
       }
     }
   }
@@ -34,6 +38,7 @@
     background: transparent;
     padding: 5px 10px;
     border-radius: 5px;
+    font-size: 16px;
 
     &:hover {
       background: #1178b8;
@@ -67,8 +72,11 @@
       }
 
       .people-content-right {
-        font-size: 22px;
         margin: 70px 0 10px 0;
+
+        .right-title {
+          font-size: 22px;
+        }
       }
     }
 
@@ -81,6 +89,7 @@
 
       .license-title {
         margin-bottom: 3px;
+        font-size: 22px;
       }
 
       .license {
@@ -124,10 +133,12 @@
 
         .coursename {
           margin: 5px 0;
+          font-size: 16px;
         }
 
         .edit {
           width: 5vw;
+          padding: 3px 0;
           position: absolute;
           bottom: 5%;
           left: 5%;
@@ -144,6 +155,7 @@
 
         .delete {
           width: 5vw;
+          padding: 3px 0;
           position: absolute;
           bottom: 5%;
           right: 5%;
