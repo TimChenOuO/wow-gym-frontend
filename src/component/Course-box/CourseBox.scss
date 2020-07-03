@@ -16,19 +16,19 @@ height:100%;
     color: #1178B8;
     cursor: pointer;
     display: inline-block;
-    border-radius: 10px;
+    border-radius: 5px;
   }
 
   .courseName:hover , .coachName:hover{
     background: #1178B8;
     padding:0 5px;
-    border-radius: 10px;
+    border-radius: 5px;
     color:white;
     // font-size: 1.3rem;
   }
   .fullBooking{
     border: transparent;
-    border-radius: 10px;
+    border-radius: 5px;
     background: #D0104C;
     color: white !important;
     width:80%;

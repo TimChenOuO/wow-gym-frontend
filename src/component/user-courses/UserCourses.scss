@@ -1,20 +1,45 @@
-.userCourseContainer{
+.userCourseContainer {
     width: 1260px;
+.userCorsesBtnContainer{
+    margin:5px;
 }
-.userMyCoursesContainer{
-    width: 70%;
-    height: 700px;
-    border: 1px solid black;
-    .userCoursesTitle{
-        display:flex;
-        list-style: none;
-        margin:10px 0;
-        justify-content: space-around;
-        li{
-            font-size: 1.1rem;
-            width:17%;
-            text-align: center;
-            padding:0.5rem;
+    .bookedBtn,
+    .canceledBtn,
+    .finishedBtn {
+        border: 5px solid #1178b8;
+        border-radius: 5px;
+        background: white;
+        padding: 5px;
+        margin: 0 5px 0 0;
+        cursor: pointer;
+
+    }
+
+    .bookedBtn:hover,
+    .canceledBtn:hover,
+    .finishedBtn:hover {
+        background: #1178b8;
+        color: white;
+    }
+
+
+    .userMyCoursesContainer {
+        width: 70%;
+        height: 700px;
+        border: 1px solid black;
+
+        .userCoursesTitle {
+            display: flex;
+            list-style: none;
+            margin: 10px 0;
+            justify-content: space-around;
+
+            li {
+                font-size: 1.1rem;
+                width: 17%;
+                text-align: center;
+                padding: 0.5rem;
+            }
         }
     }
 }

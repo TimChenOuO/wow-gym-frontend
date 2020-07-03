@@ -19,25 +19,23 @@
     .day {
       width: 100%;
     }
-  }
+.courseBoxWrapper{
 
-  .courseBoxWrapper {
-   
-    .courseBoxContainer{
-      width:100%;
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 1fr ;
+
+    .courseBoxContainer {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+  justify-content:space-around;
 
     }
   }
 }
+}
+
 @media (max-width: 375px) {
-
-  .courseBoxContainer{
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-
+  .courseBoxContainer {
+    grid-template-columns:repeat(2, 1fr);
+    // grid-template-rows: 1fr 1fr;
   }
-
 }

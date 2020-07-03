@@ -90,6 +90,7 @@ function Courses(props) {
     getCoursesData()
     getCategoryData()
     getBookingData()
+    handleChange({ target: { value: '請選擇課程種類' } })
 
   }, [])
 

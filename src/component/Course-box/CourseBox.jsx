@@ -51,8 +51,8 @@ function CourseBox(props) {
                 'Content-Type': 'application/json',
             }),
         })
-        const response = await fetch(request)
-        const data = await response.json()
+        await fetch(request)
+       
         // getNumFromData()
         props.getBookingData()
         setChangeState(!changeState)
@@ -77,8 +77,7 @@ function CourseBox(props) {
                 'Content-Type': 'application/json',
             }),
         })
-        const response = await fetch(request)
-        const data = await response.json()
+        await fetch(request)
         props.getBookingData()
         setChangeState2(!changeState2)
     }

@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 
 function UserMyCourses(props) {
-
+// console.log(props.userCourse)
     const [userBooking, setUserBooking] = useState([])
 
     const T = props.userCourse.courseTime
@@ -37,8 +37,7 @@ function UserMyCourses(props) {
                 'Content-Type': 'application/json',
             }),
         })
-        const response = await fetch(request)
-        const data = await response.json()
+        await fetch(request)
         setUserBooking('')
 
         //取消預約後減少預約人數
@@ -53,9 +52,7 @@ function UserMyCourses(props) {
                 'Content-Type': 'application/json',
             }),
         })
-        const res = await fetch(req)
-        const newData = await res.json()
-  
+        await fetch(req)
     }
 
     // console.log(props.userCourseId)
@@ -74,6 +71,7 @@ function UserMyCourses(props) {
         }
     }
 
+    
     //課程彈跳視窗
     function showCJumpWindow() {
         Swal.fire({
@@ -104,8 +102,8 @@ function UserMyCourses(props) {
 
     return (
         <>
-        <ul className="userCoursesInfo">
-        {nowTime > newTime ?<div className="userCoursesInfoCover"></div> :""}
+            <ul className="userCoursesInfo">
+                {nowTime > newTime ? <div className="userCoursesInfoCover"></div> : ""}
                 <li className="courseDayUser">{newD}</li>
                 <li className="courseTimeUser">{newT}</li>
                 <li className="courseNameInUser" onClick={() => showCJumpWindow()}>{props.userCourse.courseName}</li>
