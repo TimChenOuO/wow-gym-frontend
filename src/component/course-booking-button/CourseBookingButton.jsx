@@ -1,14 +1,24 @@
 import React from "react"
 import './CourseBookingButton.scss'
-
+//---------------
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
+import { currentUserSelect } from "../../redux/user/user-selector";
+//---------------
 
 function CourseBookingButton(props) {
+    //---------------
+    const { currentUser } = props
+    //該使用者的id
+    const currentUserId = currentUser ? currentUser.id : ''
+    //---------------
 
     //確認此課程是否已被該會員預約
     const checkBooking = props.thisUserBookingId.indexOf(props.value)
 
     //確認該課程預約狀況
-    const checkBookingState = props.bookingData && props.bookingData.filter(m => m.courseId === props.value && m.memberId === props.currentUserId).map(bookedCourse => (bookedCourse.bookingState))
+    const checkBookingState = props.bookingData && props.bookingData.filter(m => m.courseId === props.value && m.memberId === currentUserId).map(bookedCourse => (bookedCourse.bookingState))
 
     //可預約button
     const displayBookingBtn = (
@@ -33,11 +43,16 @@ function CourseBookingButton(props) {
         }
     }
 
-        return (
-            <>
-                {+checkBooking === -1 ?displayBookingBtn :displayBookedBtn() }
-            </>
-        )
-    }
+    return (
+        <>
+            {+checkBooking === -1 ? displayBookingBtn : displayBookedBtn()}
+        </>
+    )
+}
 
-    export default CourseBookingButton
+//---------------
+const mapStateToProps = createStructuredSelector({
+    currentUser: currentUserSelect,
+});
+export default withRouter(connect(mapStateToProps)(CourseBookingButton));
+  //---------------

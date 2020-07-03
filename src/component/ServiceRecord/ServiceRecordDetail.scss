@@ -1,0 +1,100 @@
+.reply-content-body {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.1);
+  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+
+  .reply-content-body-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+  }
+  .button-box {
+    display: flex;
+    justify-content: flex-end;
+    padding: 3px;
+    .close-button {
+      width: 1.5rem;
+      line-height: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 0.25rem;
+      background-color: lightgray;
+      ＆:hover {
+        background-color: darkgray;
+      }
+    }
+  }
+  .history-body {
+    max-height: 400px;
+    height: 300px;
+    width: 800px;
+    overflow: scroll;
+    .history-right {
+      text-align: right;
+      width: 100%;
+      margin-top: 2px;
+      padding: 3px;
+      border-radius: 2px;
+      word-break: break-all;
+    }
+    .history-left {
+      text-align: left;
+      background: rgb(3, 167, 192);
+      width: 100%;
+      margin-top: 2px;
+      padding: 3px;
+      border-radius: 2px;
+      word-break: break-all;
+    }
+  }
+  .textarea-box {
+    width: 800px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 5px 0;
+    .textarea-body {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+  .testPost-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .submit-btn {
+      margin: 5px;
+      width: 100px;
+      height: 40px;
+      text-align: center;
+      color: #1178b8;
+      border-radius: 6px;
+      background: white;
+      border: 1px solid #1178b8;
+    }
+  }
+}
+.show-modal {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 576px) {
+}

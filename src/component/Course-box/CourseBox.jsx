@@ -2,13 +2,27 @@ import React, { useState, useEffect } from "react";
 import "./CourseBox.scss";
 import CourseBookingButton from "../course-booking-button/CourseBookingButton";
 import Swal from "sweetalert2";
+//---------------
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
+import { currentUserSelect } from "../../redux/user/user-selector";
+//---------------
+
 
 function CourseBox(props) {
 
+    //---------------
+    const { currentUser } = props
+    //該使用者的id
+    const currentUserId = currentUser ? currentUser.id : ''
+    //---------------
     const [num, setNum] = useState([props.course.numberOfCourse])
     const [changeState, setChangeState] = useState(false)
     const [changeState2, setChangeState2] = useState(false)
     //    console.log( [props.course.numberOfCourse])
+    // console.log(currentUser)`
+
 
     //將現在時間的星期轉換成毫秒
     const nowTime = Date.now()
@@ -40,7 +54,7 @@ function CourseBox(props) {
     //預約function
     async function addBooking() {
         const bookingPost = {
-            memberId: props.currentUserId,
+            memberId: currentUserId,
             courseId: getThisCourseId
         }
         const request = new Request("http://localhost:5000/api/courses/bookingData", {
@@ -52,14 +66,14 @@ function CourseBox(props) {
             }),
         })
         await fetch(request)
-       
+
         // getNumFromData()
         props.getBookingData()
         setChangeState(!changeState)
     }
 
     //抓該會員預約過的課程資料
-    const thisUserCourseId = props.bookingData && props.bookingData.filter(i => i.memberId === props.currentUserId).map(p => p)
+    const thisUserCourseId = props.bookingData && props.bookingData.filter(i => i.memberId === currentUserId).map(p => p)
     //抓要取消的預約編號
     const thisCanceld = thisUserCourseId && thisUserCourseId.filter(i => i.courseId === getThisCourseId).map(p => p.courseBookingId)
     // console.log(thisCanceld)
@@ -104,15 +118,15 @@ function CourseBox(props) {
     //確認預約視窗
     function myConfirmAddBooking(addBooking) {
         let a = window.confirm("確定要預約此課程嗎?")
-        if (props.currentUserData === null) {
-            alert("請先登入會員")
-        } else {
+        if (currentUser !== '') {
             if (a === true) {
                 addBooking()
                 // window.location.reload()
             } else {
                 console.log('nooo')
             }
+        } else {
+            alert("請先登入會員")
         }
     }
     //確認取消視窗
@@ -183,7 +197,6 @@ function CourseBox(props) {
                         <CourseBookingButton
                             value={props.course.courseId}
                             bookingData={props.bookingData}
-                            currentUserId={props.currentUserId}
                             addBooking={addBooking}
                             userCancelBooking={userCancelBooking}
                             myConfirmAddBooking={myConfirmAddBooking}
@@ -197,5 +210,12 @@ function CourseBox(props) {
     );
 }
 
-export default CourseBox;
+//---------------
+const mapStateToProps = createStructuredSelector({
+    currentUser: currentUserSelect,
+});
+
+export default withRouter(connect(mapStateToProps)(CourseBox));
+  //---------------
+
 

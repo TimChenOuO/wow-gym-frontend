@@ -23,9 +23,9 @@ function Courses(props) {
   const [bookingData, setBookingData] = useState('');
 
   //---------------
-  const { currentUserData } = props
+  const { currentUser } = props
   //該使用者的id
-  const currentUserId = currentUserData ? currentUserData.memberId : ''
+  const currentUserId = currentUser ? currentUser.id : ''
   //---------------
 
 
@@ -118,7 +118,6 @@ function Courses(props) {
               newCourses={newCourses}
               bookingData={bookingData}
               getBookingData={getBookingData}
-              currentUserData={currentUserData}
               currentUserId={currentUserId}
               getCoursesData={getCoursesData}
               setNewCourses={setNewCourses}
@@ -131,7 +130,7 @@ function Courses(props) {
 }
 //---------------
 const mapStateToProps = createStructuredSelector({
-  currentUserData: currentUserSelect,
+  currentUser: currentUserSelect,
 });
 
 export default withRouter(connect(mapStateToProps)(Courses));

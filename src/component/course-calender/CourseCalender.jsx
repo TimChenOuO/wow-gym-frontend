@@ -1,11 +1,23 @@
 import React from "react"
 import "./CourseCalender.scss"
 import DayContainer from "../day-container/DayContainer"
+//---------------
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
+import { currentUserSelect } from "../../redux/user/user-selector";
+//---------------
 
 function CourseCalender(props) {
  
+    //---------------
+    const { currentUser } = props
+    //該使用者的id
+    const currentUserId = currentUser ? currentUser.id : ''
+    //---------------
+
    //找到該會員已預約的課程id
-   const thisUserBookingId = props.bookingData && props.bookingData.filter(m => m.memberId === props.currentUserId).map(bookedCourse => (bookedCourse.courseId))
+   const thisUserBookingId = props.bookingData && props.bookingData.filter(m => m.memberId === currentUserId).map(bookedCourse => (bookedCourse.courseId))
   //  console.log(thisUserBookingId)
 
   return (
@@ -16,9 +28,7 @@ function CourseCalender(props) {
           newCourses={props.newCourses}
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
-          getCoursesData={props.getCoursesData}
-          currentUserData={props.currentUserData}
-          currentUserId={props.currentUserId}
+          getCoursesData={props.getCoursesData}          
           thisUserBookingId={thisUserBookingId}
           setNewCourses={props.setNewCourses}
         />
@@ -28,8 +38,6 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
-          currentUserData={props.currentUserData}
-          currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
           setNewCourses={props.setNewCourses}
         />
@@ -39,8 +47,6 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
-          currentUserData={props.currentUserData}
-          currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
           setNewCourses={props.setNewCourses}
         />
@@ -50,8 +56,6 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
-          currentUserData={props.currentUserData}
-          currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
           setNewCourses={props.setNewCourses}
         />
@@ -61,8 +65,6 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
-          currentUserData={props.currentUserData}
-          currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
           setNewCourses={props.setNewCourses}
         />
@@ -72,8 +74,6 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
-          currentUserData={props.currentUserData}
-          currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
           setNewCourses={props.setNewCourses}
         />
@@ -83,8 +83,6 @@ function CourseCalender(props) {
           bookingData={props.bookingData}
           getBookingData={props.getBookingData}
           getCoursesData={props.getCoursesData}
-          currentUserData={props.currentUserData}
-          currentUserId={props.currentUserId}
           thisUserBookingId={thisUserBookingId}
           setNewCourses={props.setNewCourses}
         />
@@ -92,4 +90,10 @@ function CourseCalender(props) {
     </>
   )
 }
-export default CourseCalender
+//---------------
+const mapStateToProps = createStructuredSelector({
+  currentUser: currentUserSelect,
+});
+
+export default withRouter(connect(mapStateToProps)(CourseCalender));
+//---------------

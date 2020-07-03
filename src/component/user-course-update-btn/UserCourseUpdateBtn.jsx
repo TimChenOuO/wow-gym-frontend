@@ -23,12 +23,10 @@ function UserCourseUpdateBtn (props){
              </button>
             </>
         )
-
     return(
         <>
          {+props.getThisBookingState === 0 ?displayUserCancelButton :displayUserBookingButton}
         </>
     )
 }
-
 export default UserCourseUpdateBtn;

@@ -1,0 +1,206 @@
+.edit {
+  height: calc(100vh - 304px);
+  .edit-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  .edit-account {
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .horizontally-line {
+    background: #ccc;
+    height: 2px;
+    border-radius: 2px;
+    width: 950px;
+    margin: 20px 0 20px 0;
+  }
+
+  .form-wrapper {
+    margin: 0 auto;
+    display: flex;
+    position: relative;
+    input {
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-family: 微軟正黑體;
+    }
+    .user-input {
+      font-size: 14px;
+      margin: 20px 15px 0 0;
+      width: 150px;
+      height: 30px;
+    }
+    .user-birth {
+      width: 150px;
+      margin: 20px 15px 0 0;
+      height: 30px;
+    }
+    .user-sex {
+      height: 30px;
+      width: 150px;
+      font-family: 微軟正黑體;
+      border-radius: 5px;
+    }
+    .user-input-long {
+      font-size: 14px;
+      margin: 20px 15px 0 0;
+      width: 315px;
+      height: 30px;
+    }
+    .left-form {
+      flex: 1;
+      margin-top: 40px;
+    }
+    .center-line {
+      position: absolute;
+      left: 400px;
+      background: #ccc;
+      height: 480px;
+      border-radius: 2px;
+      width: 2px;
+      margin: 0px 0 0 0;
+    }
+    .right-form {
+      flex: 1;
+      .right-title {
+        font-size: 17px;
+        font-weight: bold;
+      }
+      .img-card {
+        position: relative;
+        width: 320px;
+        padding-left: 80px;
+        .user-img-input {
+          margin-top: 15px;
+          width: 170px;
+          text-align: center;
+        }
+        .user-img {
+          display: block;
+          height: auto;
+          width: 160px;
+          height: 160px;
+          margin: 0px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+        p {
+          text-align: left;
+          font-size: 14px;
+          color: #ccc;
+        }
+      }
+      button {
+        font-size: 18px;
+        margin-top: 15px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  .edit {
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .edit {
+    height: auto;
+    .edit-title {
+      font-size: 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .edit-account {
+      text-align: center;
+    }
+    .horizontally-line {
+      width: 570px;
+    }
+    .form-wrapper {
+      display: grid;
+      grid-template-rows: auto auto;
+      .user-input-long {
+        width: 400px;
+        font-size: 20px;
+        height: 40px;
+      }
+      .user-birth {
+        width: 400px;
+        font-size: 20px;
+        height: 40px;
+      }
+
+      .user-sex {
+        margin-top: 20px;
+        font-size: 20px;
+        width: 400px;
+        height: 40px;
+      }
+      .left-form {
+        margin-top: 20px;
+        text-align: center;
+        display: grid;
+        grid-template-rows: auto auto auto auto auto auto auto auto auto;
+        margin: 0 auto;
+        .user-input {
+          width: 400px;
+          font-size: 20px;
+          height: 40px;
+        }
+      }
+
+      .center-line {
+        display: none;
+      }
+
+      .right-form {
+        text-align: center;
+        justify-content: center;
+
+        .right-title {
+          margin-top: 15px;
+          font-size: 20px;
+        }
+
+        .img-card {
+          width: 400px;
+          padding: 0;
+          margin: 0 auto;
+          margin-top: 40px;
+
+          .user-img-input {
+            width: 250px;
+            font-size: 20px;
+            margin: 10px;
+          }
+
+          .user-img {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+          }
+          p {
+            text-align: center;
+            font-size: 18px;
+          }
+        }
+        button {
+          font-size: 20px;
+          padding: 5px;
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .edit {
+    .horizontally-line {
+      width: 460px;
+    }
+  }
+}

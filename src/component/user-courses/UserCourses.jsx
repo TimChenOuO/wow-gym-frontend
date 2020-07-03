@@ -19,10 +19,11 @@ function UserCourses(props) {
     const [choose, setChoose] = useState("")
 
     //---------------
-    const { currentUserData } = props
+    const { currentUser } = props
     //該使用者的id
-    const currentUserId = currentUserData ? currentUserData.memberId : ''
+    const currentUserId = currentUser ? currentUser.id : ''
     //---------------
+    console.log(currentUserId)
 
     //Fetch 預約資料
     async function getUserBooking() {
@@ -38,6 +39,7 @@ function UserCourses(props) {
         const data = await response.json()
 
         const booking = data && data.filter(i => i.memberId === currentUserId).map(p => p)
+        console.log(booking)
         setUserBooking(booking)
         // setNumOfCourse(props.course.numberOfCourse)
         // console.log(booking)
@@ -56,7 +58,7 @@ function UserCourses(props) {
 
         const response = await fetch(request);
         const data = await response.json();
-        const courseOfUser = data.coursesRow.filter(i => i.memberId === currentUserId).map(f => f)
+        const courseOfUser = data.coursesRow.filter(i => i.id === currentUserId).map(f => f)
 
         // console.log()
         setAllCoursesOfThisUser(courseOfUser)
@@ -94,13 +96,14 @@ function UserCourses(props) {
         }
     }
 
-    useEffect(() => {
-        getUserBooking()
-        getCoursesDataInAllUser()
-    }, [])
+    // useEffect(() => {
+    //     // getCoursesDataInAllUser()
+    // }, [])
 
     useEffect(() => {
+        getUserBooking()
         filterCourse()
+        getCoursesDataInAllUser()
         // console.log(choose)
     }, [choose])
 
@@ -127,12 +130,12 @@ function UserCourses(props) {
                         userBooking={userBooking}
                         allCoursesOfThisUser={allCoursesOfThisUser}
                         setAllCoursesOfThisUser={setAllCoursesOfThisUser}
-                        currentUserId={currentUserId}
                         getCoursesDataInAllUser={getCoursesDataInAllUser}
                         filterCoursesOfData={filterCoursesOfData}
                         setFilterCoursesOfData={setFilterCoursesOfData}
                         getUserBooking={getUserBooking}
                         choose={choose}
+                        currentUserId={currentUserId}
                     />
 
                 </div>
@@ -140,11 +143,9 @@ function UserCourses(props) {
         </>
     )
 }
-
 //---------------
 const mapStateToProps = createStructuredSelector({
-    currentUserData: currentUserSelect,
+    currentUser: currentUserSelect,
 });
-
 export default withRouter(connect(mapStateToProps)(UserCourses));
 //---------------

@@ -53,6 +53,7 @@ function UserMyCourses(props) {
             }),
         })
         await fetch(req)
+        
     }
 
     // console.log(props.userCourseId)
@@ -65,7 +66,7 @@ function UserMyCourses(props) {
         let c = window.confirm("取消後無法再次預約該課程，確定要取消嗎?")
         if (c === true) {
             userCancelBooking()
-            // window.location.reload()
+            
         } else {
             console.log('nooo')
         }
@@ -123,5 +124,4 @@ function UserMyCourses(props) {
         </>
     )
 }
-
 export default UserMyCourses;

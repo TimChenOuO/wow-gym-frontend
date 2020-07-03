@@ -1,0 +1,112 @@
+.user-center-page-wrapper {
+  display: grid;
+  color: black;
+  margin: 10px 0 40px 0;
+
+  font-family: 微軟正黑體;
+  grid-template-columns: 250px auto;
+  max-width: 1260px;
+  .user-sidebar {
+    // background: lightslategray;
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+    position: relative;
+    padding: 15px;
+
+    .sidebar-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 20px;
+    }
+
+    .center-line {
+      position: absolute;
+      left: 220px;
+      top: 15px;
+      background: #ccc;
+      height: 650px;
+      border-radius: 2px;
+      width: 2px;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 30px;
+
+      .nav-button {
+        font-family: 微軟正黑體;
+        font-size: 18px;
+        outline: none;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: 0.1s;
+      }
+      .nav-button:hover {
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+  }
+  .user-right {
+    // background: lightslategray;
+    border-radius: 0 10px 10px 0;
+    padding: 15px;
+  }
+}
+@media screen and (max-width: 1260px) {
+  .user-center-page-wrapper {
+    .user-sidebar {
+    }
+    .user-right {
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .user-center-page-wrapper {
+    height: 100%;
+    grid-template-columns: auto;
+    grid-template-rows: 150px auto;
+
+    .user-sidebar {
+      border-radius: 10px;
+      width: auto;
+      .sidebar-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 20px;
+      }
+
+      .center-line {
+        display: none;
+      }
+
+      ul {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+        .nav-button {
+          font-size: 20px;
+          margin: 0;
+        }
+      }
+    }
+    .user-right {
+      margin-top: 20px;
+      display: block;
+      border-radius: 10px;
+      width: auto;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .user-center-page-wrapper {
+    .user-sidebar {
+      width: auto;
+    }
+    .user-right {
+      width: auto;
+    }
+  }
+}

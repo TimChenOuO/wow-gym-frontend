@@ -1,0 +1,167 @@
+.record-title {
+    color: #1178b8;
+}
+.list-box {
+    width: 43.75rem;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    .number {
+        text-align: center;
+        width: 2.5rem;
+        margin: 0 20px 0 10px;
+    }
+
+    .user-id {
+        text-align: center;
+        width: 3.75rem;
+        margin-right: 20px;
+    }
+
+    .user-name {
+        text-align: center;
+        width: 3.125rem;
+        margin-right: 30px;
+    }
+
+    .phone-number {
+        text-align: center;
+        width: 5rem;
+        margin-right: 10px;
+    }
+
+    .e-mail {
+        text-align: center;
+        width: 10rem;
+        margin-right: 10px;
+    }
+
+    .QA-body {
+        text-align: center;
+        width: 3.75rem;
+        margin-right: 10px;
+        .content-icon {
+            font-size: 20px;
+        }
+    }
+
+    .create-time {
+        text-align: center;
+        width: 6.875rem;
+        margin: 0 10px;
+    }
+}
+.border-button {
+    width: 700px;
+    margin: 10px 0;
+    border-bottom: 1px solid #000;
+}
+
+.reply-content-body {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+
+    .reply-content-body-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+    }
+    .button-box {
+        display: flex;
+        justify-content: flex-end;
+        padding: 3px;
+        .close-button {
+            width: 1.5rem;
+            line-height: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 0.25rem;
+            background-color: lightgray;
+            ＆:hover {
+                background-color: darkgray;
+            }
+        }
+    }
+    .history-body {
+        height: 18.75rem;
+        font-size: 16px;
+        font-weight: bold;
+        overflow: scroll;
+        // ::-webkit-scrollbar-thumb { //滑塊
+        //     border-radius: 100px;
+        //     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        //     background: #1178b8;
+        // }
+        // ::-webkit-scrollbar-track { //軌道
+        //     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        //     border-radius: 0;
+        //     background: rgba(0, 0, 0, 0.1);
+        // }
+        .history-right {
+            text-align: right;
+            background: rgb(111, 208, 223);
+            width: 50%;
+            margin-top: 10px;
+            padding: 6px;
+            border-radius: 6px;
+            word-break: break-all;
+        }
+        .history-left {
+            text-align: left;
+            background: rgb(111, 208, 223);
+            width: 50%;
+            margin-top: 10px;
+            padding: 6px;
+            border-radius: 6px;
+            word-break: break-all;
+        }
+        
+    }
+    .textarea-box {
+        width: 50rem;
+        height: 6.25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0 5px 0;
+        .textarea-body {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+    .testPost-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .submit-btn {
+            margin: 5px;
+            width: 6.25rem;
+            height: 2.5rem;
+            text-align: center;
+            color: #1178b8;
+            border-radius: 6px;
+            background: white;
+            border: 1px solid #1178b8;
+        }
+    }
+}
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}

@@ -8,6 +8,8 @@ import OrderListDetail from '../../component/OrderList/OrderListDetail.jsx'
 const OrderList = () => {
     return (
         <>
+
+<div className="orderlist">
             <div className="title">
                 <div className="title-cotainer">
                     <ol className="title-ol">
@@ -19,16 +21,44 @@ const OrderList = () => {
             </div>
             <div className="container">
                 <div className="article">
-                    <ul className="menu">
-                        <Link to="/OrderList"><li>全部訂單</li></Link>
-                        <Link to="/OrderList/shipping"><li>出貨中</li></Link>
-                        <Link to="/OrderList/compeleted"><li>完成</li></Link>
-                        <Link to="/OrderList/Cancel"><li>取消</li></Link>
+                    <ul className="order-menu">
+                        <li>
+                            <Link to="/OrderList">
+                                <div className='btn-holder'>
+                                    <button className="btn btn-3 hover-border-5">
+                                        <span> 全部訂單</span>
+                                    </button>
+                                </div>
+                            </Link>
+                        </li>
+                        <li>  <Link to="/OrderList/shipping">
+                            <div className='btn-holder'>
+                                <button className="btn btn-3 hover-border-5">
+                                    <span>       出貨中
+                                    </span>
+                                </button>
+                            </div></Link>
+                        </li>
+                        <li><Link to="/OrderList/compeleted">
+                            <div className='btn-holder'>
+                                <button className="btn btn-3 hover-border-5">
+                                    <span>完成
+                                    </span>
+                                </button>
+                            </div></Link>
+                        </li>
+                        <li> <Link to="/OrderList/Cancel">
+                            <div className='btn-holder'>
+                                <button className="btn btn-3 hover-border-5">
+                                    <span> 取消</span>
+                                </button>
+                            </div></Link>
+                        </li>
                     </ul>
                     <OrderListDetail />
                 </div>
             </div>
-            <footer className="footer"></footer>
+            </div>
         </>
     )
 }

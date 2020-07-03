@@ -12,9 +12,6 @@ function DayContainer(props) {
                 course={course}
                 bookingData={props.bookingData}
                 getBookingData={props.getBookingData}
-                getCoursesData={props.getCoursesData}
-                currentUserData={props.currentUserData}
-                currentUserId={props.currentUserId}
                 thisUserBookingId={props.thisUserBookingId}
                 setNewCourses={props.setNewCourses}
             />))
