@@ -28,6 +28,8 @@ const Header = ({
   shopShowFilterTag,
   currentUser,
   userLogoutStart,
+  currentEmployee,
+  employeeLogout
 }) => {
   const [subDiv, setSubDiv] = useState(false);
   const history = useHistory();
@@ -72,10 +74,35 @@ const Header = ({
           >
             精選商城
           </Link>
+          <Link
+            to={
+              currentEmployee
+                ? `/employeecenter/${currentEmployee.Eid}`
+                : "/employeelogin"
+            }
+            className="option"
+            onMouseEnter={() => setSubDiv(false)}
+          >
+            教練中心
+          </Link>
         </div>
       </div>
 
       <div className="sub sub-cart" onMouseOver={() => setSubDiv(false)}>
+        {currentEmployee ? (
+          <CustomButton
+            onClick={() => {
+              employeeLogout();
+              history.push("/");
+            }}
+          >
+            教練登出
+          </CustomButton>
+        ) : (
+          <CustomButton onClick={() => history.push("/employeelogin")}>
+            教練登入
+          </CustomButton>
+        )}
         {currentUser ? (
           <>
             <span className="current-user-title">

@@ -9,6 +9,10 @@ import Header from "./component/header/Header";
 import LoadingSpinner from "./component/loading-spinner/LoadingSpinner";
 import ErrorBoundary from "./component/error-boundary/ErrorBoundary";
 
+import EmployeeFormPage from "./pages/employee-form-page/EmployeeFormPage";
+import EmployeeCenterPage from "./pages/employee-center-page/EmployeeCenterPage";
+import EmployeeSignInOutPage from "./pages/employee-sign-in-out-page/employee-sign-in-out-page";
+
 // Redux
 import { userListStart } from "./redux/user/user-action";
 import { employeeListStart } from "./redux/employee/employee-action";
@@ -31,8 +35,8 @@ const CheckOutPage = lazy(() => import("./pages/checkout-page/Checkout-page"));
 const App = ({ userListStart, employeeListStart }) => {
   useEffect(() => {
     userListStart();
-    // employeeListStart();
-  }, [userListStart]);
+    employeeListStart();
+  }, [userListStart,employeeListStart]);
 
   return (
     <div>
@@ -53,6 +57,12 @@ const App = ({ userListStart, employeeListStart }) => {
                 path="/shopitem/:collection/:itemId"
                 component={ShopItemPage}
               />
+              <Route path="/employeeform" component={EmployeeFormPage} />
+              <Route
+                path={`/employeecenter/:employeeId`}
+                component={EmployeeCenterPage}
+              />
+              <Route path="/employeelogin" component={EmployeeSignInOutPage} />
               <Route exact path="/checkout" component={CheckOutPage} />
               <Route path="/login" component={SignInOutPage} />
             </Suspense>
