@@ -4,7 +4,8 @@
   text-align: center;
 
   .label-category {
-    margin: 30px 397px 30px 203px;
+    width: 60%;
+    margin: 30px 450px 30px 150px;
   }
 
   .file-box {
@@ -21,46 +22,24 @@
 
   .submit {
     display: block;
-    border: 1px solid rgb(124, 124, 124);
-    border-radius: 3px;
-    color: rgb(0, 0, 0);
-    background: #ececec;
+    color: #1178b8;
+    border: 2px solid #1178b8;
+    background: transparent;
+    border-radius: 5px;
     margin: 0 auto;
     padding: 10px 60px;
-    margin-top: 30px;
-    // transform: translate(-50%, -50%);
+    margin-bottom: 30px;
 
     &:hover {
-      background: rgb(212, 212, 212);
-      border: 1px solid rgb(92, 92, 92);
-      color: rgb(0, 0, 0);
+      background: #1178b8;
+      color: white;
     }
   }
 }
 
 @media screen and (max-width: 992px) {
   .form-box {
-    width: 960px;
-
-    .label-category {
-      margin: 20px 400px 20px 200px;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .form-box {
-    width: 720px;
-
-    .label-category {
-      margin: 20px 200px 20px 40px;
-    }
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .form-box {
-    width: 540px;
+    width: 90%;
 
     .label-category {
       margin: 20px auto;
@@ -72,8 +51,45 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .form-box {
+    width: 90%;
+
+    .label-category {
+      margin: 20px auto;
+      .category-box {
+        display: block;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .form-box {
+    width: 80%;
+
+    .label-category {
+      width: 80%;
+      margin: 20px auto;
+      .category-box {
+        display: block;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 400px) {
   .form-box {
-    width: 380px;
+    width: 100%;
+
+    .label-category {
+      margin: 20px auto;
+      .category-box {
+        display: block;
+        margin-top: 10px;
+      }
+    }
   }
 }

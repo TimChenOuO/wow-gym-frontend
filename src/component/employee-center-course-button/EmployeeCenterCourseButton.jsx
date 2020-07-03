@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { createStructuredSelector } from "reselect";
 import { currentEmployeeSelect } from "../../redux/employee/employee-selector";
+import { FaEdit } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 
 import EmployeeCentetModal from "../employee-center-modal/EmployeeCentetModal";
 
@@ -28,22 +30,26 @@ function CourseButton({ currentEmployee, itemID }) {
     setCourseid(data);
   }
 
-
   //刪除
   async function handleDelete() {
-    const request = new Request(`http://localhost:5000/api/courses/${itemID}`, {
-      method: "DELETE",
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      }),
-    });
+    const confirmDelete = window.confirm("確定要刪除嗎?");
+    if (confirmDelete === true) {
+      const request = new Request(
+        `http://localhost:5000/api/courses/${itemID}`,
+        {
+          method: "DELETE",
+          headers: new Headers({
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          }),
+        }
+      );
 
-    await fetch(request);
+      await fetch(request);
 
-    window.location.reload()
+      window.location.reload();
+    }
   }
-
 
   //載入
   useEffect(() => {
@@ -56,8 +62,6 @@ function CourseButton({ currentEmployee, itemID }) {
     setCourseid(courseid);
   }, [courseid]);
 
-  
-
   return (
     <>
       <button
@@ -67,7 +71,7 @@ function CourseButton({ currentEmployee, itemID }) {
           setModashow(true);
         }}
       >
-        編輯
+        <FaEdit />
       </button>
       <button
         type="button"
@@ -76,7 +80,7 @@ function CourseButton({ currentEmployee, itemID }) {
           handleDelete();
         }}
       >
-        刪除
+        <FaTrashAlt />
       </button>
       {modashow && (
         <EmployeeCentetModal
@@ -95,4 +99,4 @@ const mapStateToProps = createStructuredSelector({
   currentEmployee: currentEmployeeSelect,
 });
 
-export default withRouter(connect(mapStateToProps)(CourseButton)); 
+export default withRouter(connect(mapStateToProps)(CourseButton));

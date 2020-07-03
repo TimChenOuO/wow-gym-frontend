@@ -18,6 +18,7 @@ function EmployeeCentetModal({
   const [courseHour, setCourseHour] = useState("");
   const [courseQuoda, setCourseQuoda] = useState("");
   const [categoryName, setCategoryName] = useState("");
+  const [courseImg, setCourseImg] = useState("");
 
   const courseData = courseid.filter((item) => {
     return item.courseId === itemID;
@@ -26,77 +27,115 @@ function EmployeeCentetModal({
   const courseValue = courseData.map((item) => {
     return (
       <>
-        課程名稱：
-        <input
-          className=""
-          type="text"
-          defaultValue={item.courseName}
-          onChange={(event) => {
-            setCourseName(event.target.value);
-          }}
-        />
-        開課時間：
-        <input
-          type="datetime-local"
-          defaultValue={moment(item.courseTime).format("YYYY-MM-DD HH:mm")}
-          onChange={(event) => {
-            setCourseTime(event.target.value);
-          }}
-        />
-        課程時數：
-        <input
-          type="number"
-          defaultValue={item.courseHour}
-          onChange={(event) => {
-            setCourseHour(event.target.value);
-          }}
-        />
-        人數上限：
-        <input
-          type="number"
-          defaultValue={item.courseQuoda}
-          onChange={(event) => {
-            setCourseQuoda(event.target.value);
-          }}
-        />
-        課程分類：
-        <input
-          type="text"
-          defaultValue={item.categoryName}
-          onChange={(event) => {
-            setCategoryName(event.target.value);
-          }}
-        />
+        <label className="label-content">
+          課程名稱：
+          <input
+            className="input-content"
+            type="text"
+            defaultValue={item.courseName}
+            onChange={(event) => {
+              setCourseName(event.target.value);
+            }}
+          />
+        </label>
+        <label className="label-content">
+          開課時間：
+          <input
+            className="input-content"
+            type="text"
+            defaultValue={moment(item.courseTime).format("YYYY-MM-DD HH:mm")}
+            onChange={(event) => {
+              setCourseTime(event.target.value);
+            }}
+          />
+        </label>
+        <label className="label-content">
+          課程時數：
+          <input
+            className="input-content"
+            type="number"
+            defaultValue={item.courseHour}
+            onChange={(event) => {
+              setCourseHour(event.target.value);
+            }}
+          />
+        </label>
+        <label className="label-content">
+          人數上限：
+          <input
+            className="input-content"
+            type="number"
+            defaultValue={item.courseQuoda}
+            onChange={(event) => {
+              setCourseQuoda(event.target.value);
+            }}
+          />
+        </label>
+        <label className="label-content">
+          課程分類：
+          <input
+            className="input-content"
+            type="text"
+            defaultValue={item.categoryName}
+            onChange={(event) => {
+              setCategoryName(event.target.value);
+            }}
+          />
+        </label>
+        <label className="label-content">
+          課程圖片：
+          <input
+            className="input-content"
+            type="file"
+            onChange={(event) => {
+              let input = event.target.files[0];
+              let reader = new FileReader();
+              reader.onload = function () {
+                let dataURL = reader.result;
+                setCourseImg(dataURL);
+              };
+              reader.readAsDataURL(input);
+            }}
+          />
+        </label>
       </>
     );
   });
 
   //req.body
   async function updataCourse() {
-    const row = {
-      courseId: itemID,
-      staffId: currentEmployee.Eid,
-      categoryName: categoryName,
-      courseName: courseName,
-      courseTime: courseTime,
-      courseHour: courseHour,
-      courseQuoda: courseQuoda,
-    };
+    const confirmUpdata = window.confirm("確定要更改嗎？");
+    if (confirmUpdata === true) {
+      const row = {
+        courseId: itemID,
+        staffId: currentEmployee.Eid,
+        categoryName: categoryName,
+        courseName: courseName,
+        courseTime: courseTime,
+        courseHour: courseHour,
+        courseQuoda: courseQuoda,
+        courseImg: courseImg,
+      };
 
-    //編輯
-    const request = new Request(`http://localhost:5000/api/courses/${itemID}`, {
-      method: "POST",
-      body: JSON.stringify(row),
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      }),
-    });
+      //編輯
+      const request = new Request(
+        `http://localhost:5000/api/courses/${itemID}`,
+        {
+          method: "POST",
+          body: JSON.stringify(row),
+          headers: new Headers({
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          }),
+        }
+      );
 
-    const response = await fetch(request);
-    const data = await response.json();
+      const response = await fetch(request);
+      await response.json();
 
-    console.log("伺服器回傳的json資料", data);
+      // console.log("伺服器回傳的json資料", data);
+      window.location.reload();
+    }
   }
 
   //載入
@@ -107,6 +146,7 @@ function EmployeeCentetModal({
       setCourseHour(element.courseHour);
       setCourseQuoda(element.courseQuoda);
       setCategoryName(element.categoryName);
+      setCourseImg(element.courseImg);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -114,11 +154,12 @@ function EmployeeCentetModal({
   return (
     <div className="modal-box">
       <header className="modal-header">
-        <h1>課程編輯</h1>
+        <h1 className="modal-title">課程編輯</h1>
       </header>
       <article className="modal-body">{courseValue}</article>
       <footer className="modal-footer">
         <button
+          className="modal-edit"
           onClick={() => {
             updataCourse();
           }}
@@ -126,6 +167,7 @@ function EmployeeCentetModal({
           儲存並修改
         </button>
         <button
+          className="modal-del"
           onClick={() => {
             setModashow(false);
           }}

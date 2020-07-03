@@ -26,7 +26,7 @@ class EmployeeSignIn extends React.Component {
     );
     if (currentEmployee) {
       employeeLogin(currentEmployee);
-      history.push("/");
+      history.push(`/employeecenter/${currentEmployee.Eid}`);
     } else {
       alert("Wrong email or password!");
     }

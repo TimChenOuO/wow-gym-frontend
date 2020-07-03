@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-restricted-globals */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./EmployeeFormPage.scss";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
@@ -32,20 +33,20 @@ function EmployeeForm({ currentEmployee }) {
       break;
   }
 
- console.log(file)
+  // console.log(file);
 
   async function handleSubmit() {
     const row = {
-      "staffId": currentEmployee.Eid,
-      "courseCategoryId": categoryId,
-      "courseName": course,
-      "categoryName": category,
-      "courseImg": file,
-      "courseIntroduce": explanation,
-      "courseTime": time,
-      "courseHour": hour,
-      "numberOfCourse": 0,
-      "courseQuoda": quota,
+      staffId: currentEmployee.Eid,
+      courseCategoryId: categoryId,
+      courseName: course,
+      categoryName: category,
+      courseImg: file,
+      courseIntroduce: explanation,
+      courseTime: time,
+      courseHour: hour,
+      numberOfCourse: 0,
+      courseQuoda: quota,
     };
 
     const request = new Request("http://localhost:5000/api/courses", {
@@ -58,10 +59,13 @@ function EmployeeForm({ currentEmployee }) {
     });
 
     const response = await fetch(request);
-    await response.json();
+    const data = await response.json();
+    console.log(data);
 
     alert("課程上傳成功");
+    window.location.reload();
   }
+
 
   return (
     <>
@@ -71,6 +75,7 @@ function EmployeeForm({ currentEmployee }) {
           type={"text"}
           placeholder={"請輸入課程名稱"}
           value={course}
+          required={"required"}
           onChange={(event) => {
             setCourse(event.target.value);
           }}
@@ -79,6 +84,7 @@ function EmployeeForm({ currentEmployee }) {
           title={"開課時間："}
           type={"datetime-local"}
           value={time}
+          required={"required"}
           onChange={(event) => {
             setTime(event.target.value);
           }}
@@ -88,6 +94,7 @@ function EmployeeForm({ currentEmployee }) {
           type={"number"}
           placeholder={"請選擇課程總時數"}
           value={hour}
+          required={"required"}
           onChange={(event) => {
             setHour(event.target.value);
           }}
@@ -97,6 +104,7 @@ function EmployeeForm({ currentEmployee }) {
           type={"number"}
           placeholder={"請選擇課程上限名額"}
           value={quota}
+          required={"required"}
           onChange={(event) => {
             setQuota(event.target.value);
           }}
@@ -105,6 +113,7 @@ function EmployeeForm({ currentEmployee }) {
           title={"課程說明："}
           placeholder={"請詳述課程介紹"}
           value={explanation}
+          required={"required"}
           onChange={(event) => {
             setExplanation(event.target.value);
           }}
@@ -112,39 +121,43 @@ function EmployeeForm({ currentEmployee }) {
         <label className="label-category">
           課程分類：
           <span className="category-box">
-          <EmployeeFormRadio
-            title={"有氧教室"}
-            value={category}
-            onClick={() => {
-              setCategory("有氧教室");
-            }}
-          />
-          <EmployeeFormRadio
-            title={"瑜伽教室"}
-            value={category}
-            onClick={() => {
-              setCategory("瑜伽教室");
-            }}
-          />
-          <EmployeeFormRadio
-            title={"飛輪教室"}
-            value={category}
-            onClick={() => {
-              setCategory("飛輪教室");
-            }}
-          />
+            <EmployeeFormRadio
+              title={"有氧教室"}
+              value={category}
+              required={"required"}
+              onClick={() => {
+                setCategory("有氧教室");
+              }}
+            />
+            <EmployeeFormRadio
+              title={"瑜伽教室"}
+              value={category}
+              required={"required"}
+              onClick={() => {
+                setCategory("瑜伽教室");
+              }}
+            />
+            <EmployeeFormRadio
+              title={"飛輪教室"}
+              value={category}
+              required={"required"}
+              onClick={() => {
+                setCategory("飛輪教室");
+              }}
+            />
           </span>
         </label>
         <EmployeeFormInput
           title={"課程圖片："}
           type={"file"}
           accept=".jpg,.png"
-          onChange={(event)=>{
+          required={"required"}
+          onChange={(event) => {
             let input = event.target.files[0];
             let reader = new FileReader();
-            reader.onload = function(){
+            reader.onload = function () {
               let dataURL = reader.result;
-              setFile(dataURL)
+              setFile(dataURL);
             };
             reader.readAsDataURL(input);
           }}
@@ -152,11 +165,11 @@ function EmployeeForm({ currentEmployee }) {
         <div className="file-box">
           <img className="file-img" alt="" src={file} />
         </div>
-        
+
         <div>
           <button
             className="submit"
-            type="button"
+            type="submit"
             onClick={() => {
               handleSubmit();
             }}

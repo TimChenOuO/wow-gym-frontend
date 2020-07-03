@@ -10,11 +10,11 @@
 
   .span {
     display: inline-block;
-    background-color: #ececec;
     padding: 3px 6px;
-    border: 1px solid rgb(124, 124, 124);
-    border-radius: 3px;
-    color: black;
+    color: #1178b8;
+    border: 2px solid #1178b8;
+    background: transparent;
+    border-radius: 5px;
     user-select: none;
     vertical-align: middle;
   }
@@ -25,8 +25,8 @@
 }
 
 .radio:checked + .span {
-  color: rgb(0, 0, 0);
-  background-color: rgb(212, 212, 212);
+  color: white;
+  background-color: #1178b8;
   border: 1px solid rgb(92, 92, 92);
 }
 

@@ -69,21 +69,13 @@ function EmployeeCenter({ currentEmployee }) {
   const employeeCapital = employeedata.map((item) => {
     return (
       <>
-        <p className="data" key="1">
-          姓名：{item.Ename}
-        </p>
-        <p className="data" key="2">
-          性別：{item.Egender}
-        </p>
-        <p className="data" key="3">
+        <p className="data">姓名：{item.Ename}</p>
+        <p className="data">性別：{item.Egender}</p>
+        <p className="data">
           生日：<Moment format="YYYY/MM/DD">{item.Ebirthday}</Moment>
         </p>
-        <p className="data" key="4">
-          電話：{item.EphoneNumber}
-        </p>
-        <p className="data" key="5">
-          email：{item.Eemail}
-        </p>
+        <p className="data">電話：{item.EphoneNumber}</p>
+        <p className="data">email：{item.Eemail}</p>
       </>
     );
   });
@@ -91,12 +83,10 @@ function EmployeeCenter({ currentEmployee }) {
   const employeeRecord = employeedata.map((item) => {
     return (
       <>
-        <p className="license" key="6">
-          專長：{item.Elicense}
-        </p>
-        <p className="license" key="7">
-          證照：{item.Eexpertise}
-        </p>
+        <h1 className="license-title">專長：</h1>
+        <p className="license">{item.Elicense}</p>
+        <h1 className="license-title">證照：</h1>
+        <p className="license">{item.Eexpertise}</p>
       </>
     );
   });
@@ -105,9 +95,12 @@ function EmployeeCenter({ currentEmployee }) {
     return (
       <>
         <div className="course" key={index}>
-          {item.courseName}
           <div className="course-container-img">
             <img className="course-img" alt="" src={item.courseImg} />
+          </div>
+          <h3 className="coursename">{item.courseName}</h3>
+          <div>
+            <Moment format="YYYY-MM-DD HH:mm">{item.courseTime}</Moment>
           </div>
           <CourseButton itemID={item.courseId} />
         </div>
@@ -117,26 +110,40 @@ function EmployeeCenter({ currentEmployee }) {
 
   return (
     <>
-      <div className="top">
-        <figcaption className="people-box-top">
-          <img className="people-top" alt="" src={currentEmployee.Eimg} />
-          <figure className="people-content-top">
-            {currentEmployee.Ename}
-          </figure>
-        </figcaption>
-      </div>
-      <div className="box">
-        <div className="left">{course}</div>
-        <div className="right">
-          <figcaption className="people-box-right">
-            <img className="people-right" alt="" src={currentEmployee.Eimg} />
-            <figure className="people-content-right">
-              {currentEmployee.Ename} 教練
-            </figure>
-          </figcaption>
-          <div className="data-box">
-            <div className="data">{employeeCapital}</div>
-            <div className="expertise">{employeeRecord}</div>
+      <div className="center-box">
+        <div className="top">
+          <div className="top-box">
+            <figcaption className="people-box-top">
+              <img className="people-top" alt="" src={currentEmployee.Eimg} />
+              <figure className="people-content-top">
+                {currentEmployee.Ename}
+              </figure>
+            </figcaption>
+            <button
+              className="addcourse"
+              onClick={() => {
+                window.location.replace("http://localhost:3000/employeeform");
+              }}
+            >
+              課程上傳
+            </button>
+          </div>
+        </div>
+        <div className="box">
+          <div className="left">
+            <div className="left-box">{course}</div>
+          </div>
+          <div className="right">
+            <figcaption className="people-box-right">
+              <img className="people-right" alt="" src={currentEmployee.Eimg} />
+              <figure className="people-content-right">
+                {currentEmployee.Ename} 教練
+              </figure>
+            </figcaption>
+            <div className="data-box">
+              <div className="data">{employeeCapital}</div>
+              <div className="expertise">{employeeRecord}</div>
+            </div>
           </div>
         </div>
       </div>
