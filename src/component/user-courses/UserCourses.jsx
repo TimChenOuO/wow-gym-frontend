@@ -74,7 +74,7 @@ function UserCourses(props) {
             setChoose("歷史課程")
         }
 
-        console.log(e.target.value)
+        // console.log(e.target.value)
     }
 
     const filterCourse = function () {
@@ -101,7 +101,7 @@ function UserCourses(props) {
 
     useEffect(() => {
         filterCourse()
-        console.log(choose)
+        // console.log(choose)
     }, [choose])
 
 
