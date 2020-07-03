@@ -28,6 +28,8 @@ const Header = ({
   shopShowFilterTag,
   currentUser,
   userLogoutStart,
+  currentEmployee,
+  employeeLogout,
 }) => {
   const [subDiv, setSubDiv] = useState(false);
   const history = useHistory();
@@ -71,6 +73,17 @@ const Header = ({
             }}
           >
             精選商城
+          </Link>
+          <Link
+            to={
+              currentEmployee
+                ? `/employeecenter/${currentEmployee.Eid}`
+                : "/employeelogin"
+            }
+            className="option"
+            onMouseEnter={() => setSubDiv(false)}
+          >
+            教練中心
           </Link>
         </div>
       </div>

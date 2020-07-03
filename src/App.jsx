@@ -2,7 +2,6 @@ import React, { lazy, Suspense, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
-// Pages----------
 import Header from "./component/header/Header";
 
 //課程----------
@@ -22,7 +21,7 @@ import { employeeListStart } from "./redux/employee/employee-action";
 
 import "./App.scss";
 
-// react lazy
+// React lazy -------------------------
 const SignInOutPage = lazy(() =>
   import("./pages/sign-in-out-page/Sign-in-out-page")
 );
@@ -32,14 +31,26 @@ const ShopCollectionPage = lazy(() =>
 );
 const ShopItemPage = lazy(() => import("./pages/shop-item-page/ShopItemPage"));
 const CheckOutPage = lazy(() => import("./pages/checkout-page/Checkout-page"));
+
+// Zora employee Page
+const EmployeeFormPage = lazy(() =>
+  import("./pages/employee-form-page/EmployeeFormPage")
+);
+const EmployeeCenterPage = lazy(() =>
+  import("./pages/employee-center-page/EmployeeCenterPage")
+);
+const EmployeeSignInOutPage = lazy(() =>
+  import("./pages/employee-sign-in-out-page/employee-sign-in-out-page")
+);
 // -----------
+const HomePage = () => <div>HomePage</div>;
 
 // APP component
 const App = ({ userListStart, employeeListStart }) => {
   useEffect(() => {
     userListStart();
-    // employeeListStart();
-  }, [userListStart]);
+    employeeListStart();
+  }, [userListStart, employeeListStart]);
 
   return (
     <div>
@@ -49,7 +60,7 @@ const App = ({ userListStart, employeeListStart }) => {
         <Switch>
           <ErrorBoundary>
             <Suspense fallback={<LoadingSpinner />}>
-              <Route exact path="/" component={ShopPage} />
+              <Route exact path="/" component={HomePage} />
               <Route exact path="/shopping" component={ShopPage} />
               <Route
                 exact
@@ -60,6 +71,12 @@ const App = ({ userListStart, employeeListStart }) => {
                 path="/shopitem/:collection/:itemId"
                 component={ShopItemPage}
               />
+              <Route path="/employeeform" component={EmployeeFormPage} />
+              <Route
+                path={`/employeecenter/:employeeId`}
+                component={EmployeeCenterPage}
+              />
+              <Route path="/employeelogin" component={EmployeeSignInOutPage} />
               <Route exact path="/checkout" component={CheckOutPage} />
               <Route path="/login" component={SignInOutPage} />
 
