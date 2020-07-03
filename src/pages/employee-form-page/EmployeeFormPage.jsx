@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-restricted-globals */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./EmployeeFormPage.scss";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
@@ -65,7 +63,6 @@ function EmployeeForm({ currentEmployee }) {
     alert("課程上傳成功");
     window.location.reload();
   }
-
 
   return (
     <>

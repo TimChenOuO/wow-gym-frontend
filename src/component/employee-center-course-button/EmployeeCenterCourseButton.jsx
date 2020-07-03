@@ -6,7 +6,7 @@ import { currentEmployeeSelect } from "../../redux/employee/employee-selector";
 import { FaEdit } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 
-import EmployeeCentetModal from "../employee-center-modal/EmployeeCentetModal";
+import EmployeeCentetModal from "../employee-center-modal/employeeCentetModal";
 
 function CourseButton({ currentEmployee, itemID }) {
   const [modashow, setModashow] = useState(false);

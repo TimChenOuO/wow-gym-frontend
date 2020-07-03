@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import "./EmployeeCentetModal.scss";
+import "./employeeCentetModal.scss";
 import moment from "moment";
 
 import { createStructuredSelector } from "reselect";
