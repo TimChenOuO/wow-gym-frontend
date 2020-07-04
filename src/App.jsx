@@ -28,7 +28,7 @@ const CheckOutPage = lazy(() => import("./pages/checkout-page/Checkout-page"));
 // -----------
 
 // APP component
-const App = ({ userListStart, employeeListStart }) => {
+const App = ({ userListStart }) => {
   useEffect(() => {
     userListStart();
     // employeeListStart();
