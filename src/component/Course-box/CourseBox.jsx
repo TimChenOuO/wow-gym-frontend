@@ -117,26 +117,57 @@ function CourseBox(props) {
 
     //確認預約視窗
     function myConfirmAddBooking(addBooking) {
-        let a = window.confirm("確定要預約此課程嗎?")
+        // let a = window.confirm("確定要預約此課程嗎?")
         if (currentUser !== '') {
-            if (a === true) {
-                addBooking()
-                // window.location.reload()
-            } else {
-                console.log('nooo')
-            }
-        } else {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'popupBtn confirmBtn',
+                    cancelButton: 'popupBtn cancelBtn'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: `預定課程：${props.course.courseName}`,
+                text: `預定時間：${props.course.courseTime}`,
+                icon: 'question',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                confirmButtonText: '確定預約',
+                reverseButtons: true,
+                customClass:{
+                    confirmButton: 'popupBtn confirmBtn',
+                    cancelButton: 'popupBtn cancelBtn'
+                }
+            }).then((result) => {
+                if (result.value) {
+                    swalWithBootstrapButtons.fire(
+                        '預約成功!',
+                        '記得來上課喔～',
+                        'success'
+                    )
+                    addBooking()
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        '太可惜了...',
+                        '期待在其他課程與你相見',
+                    )
+                }
+            })
+        } 
+        else {
             alert("請先登入會員")
         }
     }
     //確認取消視窗
     function myConfirmCancelBooking(userCancelBooking) {
-        let b = window.confirm("取消後無法重新預約，確定要取消嗎?")
-        if (b === true) {
-            userCancelBooking()
-        } else {
-            console.log('nooo')
-        }
+        // let b = window.confirm("取消後無法重新預約，確定要取消嗎?")
+        // if (b === true) {
+        //     userCancelBooking()
+        // } else {
+        //     console.log('nooo')
+        // }
+
     }
 
     //已額滿按鈕

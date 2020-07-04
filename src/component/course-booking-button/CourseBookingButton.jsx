@@ -1,5 +1,6 @@
 import React from "react"
 import './CourseBookingButton.scss'
+import CustomButton from "../custom-button/Custom-button"
 //---------------
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -32,12 +33,13 @@ function CourseBookingButton(props) {
         if (+checkBookingState === 0) {
             return (
                 <>
+               
                     <button value={props.value} className="canceledBooked courseBtn">已取消</button>
                 </>)
         } else {
             return (
                 <>
-                    <button value={props.value} className="alreadyBooked courseBtn" onClick={() => props.myConfirmCancelBooking(props.userCancelBooking)}> 已預約</button>
+                    <button value={props.value} className="alreadyBooked courseBtn" onClick={() => props.myConfirmCancelBooking(props.userCancelBooking)}> 取消預約</button>
 
                 </>)
         }
