@@ -58,7 +58,11 @@ const ShopItemDetail = ({ history, shopItem }) => {
             style={{ cursor: "pointer" }}
             onClick={() => history.push(`/shop/${collection}`)}
           >
-            {collection.toUpperCase()}
+            {collection === "men"
+              ? "男士系列"
+              : collection === "women"
+              ? "女士系列"
+              : "食品系列"}
           </h3>
         </div>
 
@@ -88,17 +92,31 @@ const ShopItemDetail = ({ history, shopItem }) => {
           <ShopCountButton cartItem={shopItem} />
         </div>
 
-        <h4>
-          Impact 乳清蛋白粉是純度最高的蛋白粉
-          <br />
-          同時脂肪和碳水化合物含量很低
-          <br />
-          低於大多數其他乳清蛋白粉
-          <br />
-          Impact 蛋白粉有助於肌肉的增長和維持
-          <br />
-          幫您實現最佳健身和瘦身效果
-        </h4>
+        {collection === "food" ? (
+          <h4>
+            乳清蛋白粉是純度最高的蛋白粉
+            <br />
+            同時脂肪和碳水化合物含量很低
+            <br />
+            低於大多數其他乳清蛋白粉
+            <br />
+            Impact 蛋白粉有助於肌肉的增長和維持
+            <br />
+            幫您實現最佳健身和瘦身效果！
+          </h4>
+        ) : (
+          <h4>
+            還有什麼比更適合假日的休閒氛圍呢？
+            <br />
+            穿上這款精心設計商品，感受輕鬆
+            <br />
+            面料為高級棉質，穿著舒適
+            <br />
+            力求展現運動風範，搭配個性細節
+            <br />
+            以個性元素詮釋經典風範！
+          </h4>
+        )}
       </div>
     </>
   );
