@@ -46,11 +46,11 @@ const EmployeeSignInOutPage = lazy(() =>
 const HomePage = () => <div>HomePage</div>;
 
 // APP component
-const App = ({ userListStart, employeeListStart }) => {
+const App = ({ userListStart }) => {
   useEffect(() => {
     userListStart();
     employeeListStart();
-  }, [userListStart, employeeListStart]);
+  }, [userListStart]);
 
   return (
     <div>

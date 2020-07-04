@@ -7,6 +7,7 @@ import {
   removeItemFromCart,
   unlikeCartItem,
   taggleCartDropdown,
+  addItemToCart,
 } from "../../redux/cart/cart-action";
 import { useHistory } from "react-router-dom";
 import { cartHiddenSelect } from "../../redux/cart/cart-selector";
@@ -17,6 +18,7 @@ const CartItem = ({
   fav,
   unlikeCartItem,
   taggleCartDropdown,
+  addItemToCart,
 }) => {
   const {
     img1,
@@ -45,6 +47,18 @@ const CartItem = ({
         <span className="price">
           {`${quantity ? quantity + " x " : ""}`}${price}
         </span>
+        {fav ? (
+          <span
+            className="add-to-cart"
+            onClick={(event) => {
+              event.stopPropagation();
+              addItemToCart(cartItem);
+              unlikeCartItem(cartItem);
+            }}
+          >
+            加入購物車
+          </span>
+        ) : null}
         <span
           className="delete"
           onClick={(event) => {
@@ -71,6 +85,7 @@ const mapDispatchToProps = (dispatch) => ({
   removeItemFromCart: (itemId) => dispatch(removeItemFromCart(itemId)),
   unlikeCartItem: (itemId) => dispatch(unlikeCartItem(itemId)),
   taggleCartDropdown: () => dispatch(taggleCartDropdown()),
+  addItemToCart: (cartItem) => dispatch(addItemToCart(cartItem)),
 });
 
 export default connect(
