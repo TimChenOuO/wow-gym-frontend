@@ -24,7 +24,7 @@ function CourseBookingButton(props) {
     //可預約button
     const displayBookingBtn = (
         <>
-            <button value={props.value} onClick={() => props.myConfirmAddBooking(props.addBooking)} className="accessBooking courseBtn">預約</button>
+            <button value={props.value} onClick={() => props.myConfirmAddBooking(props.addBooking)} className="accessBooking courseBtn draw-border-accessBooking">預約</button>
         </>
     )
 
@@ -34,7 +34,7 @@ function CourseBookingButton(props) {
             return (
                 <>
                
-                    <button value={props.value} className="canceledBooked courseBtn">已取消</button>
+                    <button value={props.value} className="canceledBooked courseBtn ">已取消</button>
                 </>)
         } else {
             return (
