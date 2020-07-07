@@ -56,7 +56,7 @@ export function* userLoginStartSaga() {
 // User Sign up
 export function* userSignUpAsyncSaga({ payload }) {
   try {
-    console.log(payload);
+    // console.log(payload);
     const {
       data,
     } = yield axios.post(
