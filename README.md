@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and Client-side rendering solution, need to connect backend server & database.
 
-Backend server repository: `https://github.com/TimChenOuO/wow-gym-backend`
+Backend server repository: [Click me](https://github.com/TimChenOuO/wow-gym-backend)
 
 ## WOWFIT e-commerce web (side project)
 
