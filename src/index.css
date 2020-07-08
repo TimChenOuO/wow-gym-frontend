@@ -1,10 +1,12 @@
 body {
   margin: 0;
-  font-family: "Noto Serif TC", "Open Sans Condensed", sans-serif;
+  font-family: "Noto Sans TC", "Open Sans Condensed", Microsoft JhengHei,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
